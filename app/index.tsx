@@ -1,13 +1,16 @@
-import { ScreenContent } from 'components/ScreenContent';
-import { StatusBar } from 'expo-status-bar';
+import { Container } from 'components/Container';
+import { View, Text } from 'react-native';
 
 import './../global.css';
 
 export default function App() {
   return (
     <>
-      <ScreenContent title="Home" path="App.tsx"></ScreenContent>
-      <StatusBar style="auto" />
+      <Container>
+        <View className="bg-primary flex flex-1">
+          <Text>First page loads</Text>
+        </View>
+      </Container>
     </>
   );
 }
