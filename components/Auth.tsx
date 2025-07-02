@@ -17,6 +17,8 @@ export default function Auth() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [isEmailValid, setIsEmailValid] = useState(false);
+  const [isPasswordValid, setIsPasswordValid] = useState(false);
 
   async function signInWithEmail() {
     setLoading(true);
@@ -44,19 +46,41 @@ export default function Auth() {
     setLoading(false);
   }
 
+  function validateEmail(value: string) {
+    // data validation logic
+    return true;
+  }
+
+  function validatePassword(value: string) {
+    // password must be longer than 6 and less than 30 characters
+    if (value.length > 6 && value.length < 30) {
+      return true;
+    }
+    // password can include alphanumeric or the specified symbols
+    return false;
+  }
+
   return (
     <>
       <View>
         <TextField
           label="email"
           value={email}
-          onChangeText={(text) => setEmail(text)}
-          placeholder="name@gmail.com"></TextField>
+          onChangeText={(text) => {
+            setEmail(text);
+            setIsEmailValid(validateEmail(text));
+          }}
+          placeholder="email@domain.com"
+          isValid={isEmailValid}></TextField>
         <TextField
           label="password"
           value={'*'.repeat(password.length)}
-          onChangeText={(text) => setPassword(text)}
-          placeholder="password"></TextField>
+          onChangeText={(text) => {
+            setPassword(text);
+            setIsPasswordValid(validatePassword(text));
+          }}
+          placeholder="password"
+          isValid={isPasswordValid}></TextField>
         <View className={styles.buttonContainer}>
           <Button label="Sign in with email" callback={() => signInWithEmail()}></Button>
           <Button label="Sign up with email" callback={() => signUpWithEmail()}></Button>

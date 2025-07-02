@@ -83,10 +83,12 @@ export default function Account({ session }: { session: Session }) {
         <TextField
           label="Username"
           value={username || ''}
+          placeholder="username"
           onChangeText={(value: string) => setUsername(value)}></TextField>
         <TextField
           label="Email"
-          value={session?.user?.email}
+          value={session?.user?.email || ''}
+          placeholder="email@domain.com"
           onChangeText={(value: string) => {}}
           disabled={true}></TextField>
 

@@ -7,13 +7,17 @@ export default function TextField({
   placeholder,
   onChangeText,
   disabled,
+  isValid,
 }: {
   label: string;
   value: string;
   placeholder: string;
   onChangeText: (text: string) => void;
   disabled?: boolean;
+  isValid?: boolean;
 }) {
+  let focusStyle = `${isValid ? 'focus:border-green-600' : 'focus:border-red-600'} focus:outline-none`;
+
   return (
     <>
       <View className={styles.container}>
@@ -24,7 +28,7 @@ export default function TextField({
           onChangeText={(value: string) => {
             disabled ?? onChangeText(value);
           }}
-          className={`${styles.textInput} ${disabled ? styles.disabled : ''}`}
+          className={`${styles.textInput} ${disabled ? styles.disabled : ''} ${focusStyle}`}
           readOnly={disabled}></TextInput>
       </View>
     </>
@@ -32,8 +36,9 @@ export default function TextField({
 }
 
 const styles = {
-  container: 'flex flex-row items-center',
-  textInput: 'w-fit rounded-full bg-white p-2 m-1 placeholder:text-gray-400 border-0',
+  container: 'm-1 px-1 pt-1 flex flex-col bg-white',
+  textInput:
+    'border-b-2 border-b border-gray-400 p-2 placeholder:text-gray-400 focus:border-b-green',
   label: 'flex mr-1',
   disabled: 'text-gray-400',
 };
