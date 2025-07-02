@@ -53,11 +53,7 @@ export default function Auth() {
 
   function validatePassword(value: string) {
     // password must be longer than 6 and less than 30 characters
-    if (value.length > 6 && value.length < 30) {
-      return true;
-    }
-    // password can include alphanumeric or the specified symbols
-    return false;
+    return value.length > 6 && value.length < 30;
   }
 
   return (
@@ -82,6 +78,7 @@ export default function Auth() {
           }}
           placeholder="password"
           isValid={isPasswordValid}
+          icon="numbers"
           obfuscateText={true}></TextField>
         <View className={styles.buttonContainer}>
           <Button label="Sign in with email" callback={() => signInWithEmail()}></Button>

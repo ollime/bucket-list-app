@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { supabase } from './../../utils/supabase';
-import { View, Alert, Text } from 'react-native';
+import { View, Text } from 'react-native';
 import { Session } from '@supabase/supabase-js';
 
 import Button from 'components/Button';
@@ -62,9 +62,10 @@ export default function Account({ session }: { session: Session }) {
       }
     } catch (error) {
       if (error instanceof Error) {
-        Alert.alert(error.message);
+        alert(error.message);
       }
     } finally {
+      alert('Profile updated.');
       setLoading(false);
     }
   }
@@ -93,6 +94,12 @@ export default function Account({ session }: { session: Session }) {
           onChangeText={(value: string) => {}}
           disabled={true}
           icon="email"></TextField>
+
+        <Button
+          label="Update Profile"
+          callback={() => {
+            updateProfile({ username, avatar_url: avatarUrl });
+          }}></Button>
 
         <Button
           label="Sign out"
