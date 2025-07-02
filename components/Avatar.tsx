@@ -39,6 +39,7 @@ export default function Avatar({ url, onUpload }: Props) {
   }
 
   async function uploadAvatar() {
+    if (url) removeAvatar(url);
     try {
       setUploading(true);
       const result = await ImagePicker.launchImageLibraryAsync({
@@ -84,6 +85,14 @@ export default function Avatar({ url, onUpload }: Props) {
       }
     } finally {
       setUploading(false);
+    }
+  }
+
+  async function removeAvatar(path: string) {
+    const { data, error } = await supabase.storage.from('avatars').remove([path]);
+
+    if (error) {
+      throw error;
     }
   }
 
