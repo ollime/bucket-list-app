@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { supabase } from '../utils/supabase';
-import { Alert, View, AppState } from 'react-native';
+import { View, AppState } from 'react-native';
 import Button from 'components/Button';
 
 import TextField from 'components/TextField';

@@ -72,6 +72,7 @@ export default function Account({ session }: { session: Session }) {
   return (
     <>
       <View>
+        <Text className={styles.title}>Profile</Text>
         <Avatar
           size={200}
           url={avatarUrl}
@@ -101,3 +102,7 @@ export default function Account({ session }: { session: Session }) {
     </>
   );
 }
+
+const styles = {
+  title: 'text-3xl font-bold text-secondary',
+};

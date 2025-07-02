@@ -24,11 +24,16 @@ export default function App() {
   return (
     <>
       <Container>
-        <View className="flex flex-1 bg-primary">
-          <Text className="text-3xl font-bold text-secondary">App</Text>
+        <View className={styles.container}>
+          <Text className={styles.title}>App</Text>
           {session && session.user ? <Account key={session.user.id} session={session} /> : <Auth />}
         </View>
       </Container>
     </>
   );
 }
+
+const styles = {
+  container: 'flex flex-1 bg-primary',
+  title: 'text-3xl font-bold text-secondary',
+};
