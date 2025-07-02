@@ -54,7 +54,7 @@ export default function Auth() {
           placeholder="name@gmail.com"></TextField>
         <TextField
           label="password"
-          value={password}
+          value={'*'.repeat(password.length)}
           onChangeText={(text) => setPassword(text)}
           placeholder="password"></TextField>
         <View className={styles.buttonContainer}>
