@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { supabase } from '../utils/supabase';
-import { Alert, View, TextInput, AppState } from 'react-native';
+import { Alert, View, AppState } from 'react-native';
 import Button from 'components/Button';
+
+import TextField from 'components/TextField';
 
 AppState.addEventListener('change', (state) => {
   if (state === 'active') {
@@ -45,16 +47,16 @@ export default function Auth() {
   return (
     <>
       <View>
-        <TextInput
+        <TextField
+          label="email"
           value={email}
           onChangeText={(text) => setEmail(text)}
-          placeholder="name@gmail.com"
-          className={styles.textInput}></TextInput>
-        <TextInput
+          placeholder="name@gmail.com"></TextField>
+        <TextField
+          label="password"
           value={password}
           onChangeText={(text) => setPassword(text)}
-          placeholder="password"
-          className={styles.textInput}></TextInput>
+          placeholder="password"></TextField>
         <View className={styles.buttonContainer}>
           <Button label="Sign in with email" callback={() => signInWithEmail()}></Button>
           <Button label="Sign up with email" callback={() => signUpWithEmail()}></Button>
@@ -65,6 +67,5 @@ export default function Auth() {
 }
 
 const styles = {
-  textInput: 'w-fit rounded-full bg-white p-2 m-1 placeholder:text-gray-400',
   buttonContainer: 'flex flex-row space-x-2 mt-2',
 };

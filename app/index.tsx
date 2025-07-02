@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import { Container } from 'components/Container';
 import { View, Text } from 'react-native';
 import { supabase } from './../utils/supabase';
 import { Session } from '@supabase/supabase-js';
 import Account from './login/Account';
 
+import { Container } from 'components/Container';
 import Auth from 'components/Auth';
 
 import './../global.css';

@@ -83,13 +83,13 @@ export default function Avatar({ url, onUpload }: Props) {
           <Image
             source={{ uri: avatarUrl }}
             accessibilityLabel="Avatar"
-            className="w-[150px] overflow-hidden rounded-lg object-cover pt-0"></Image>
+            className="size-[50px] overflow-hidden rounded-full object-cover pt-0"></Image>
         ) : (
-          <View className="w-[150px] rounded-lg border-2 border-black bg-secondary"></View>
+          <View className="size-[50px] rounded-full border-2 border-black bg-white"></View>
         )}
 
         <Button
-          label={uploading ? 'Uploading...' : 'Upload'}
+          label={uploading ? 'Uploading...' : 'Upload avatar'}
           callback={uploadAvatar}
           disabled={uploading}></Button>
       </View>
