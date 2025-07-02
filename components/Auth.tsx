@@ -71,16 +71,18 @@ export default function Auth() {
             setIsEmailValid(validateEmail(text));
           }}
           placeholder="email@domain.com"
-          isValid={isEmailValid}></TextField>
+          isValid={isEmailValid}
+          icon="email"></TextField>
         <TextField
           label="password"
-          value={'*'.repeat(password.length)}
+          value={password}
           onChangeText={(text) => {
             setPassword(text);
             setIsPasswordValid(validatePassword(text));
           }}
           placeholder="password"
-          isValid={isPasswordValid}></TextField>
+          isValid={isPasswordValid}
+          obfuscateText={true}></TextField>
         <View className={styles.buttonContainer}>
           <Button label="Sign in with email" callback={() => signInWithEmail()}></Button>
           <Button label="Sign up with email" callback={() => signUpWithEmail()}></Button>

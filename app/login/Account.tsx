@@ -91,7 +91,8 @@ export default function Account({ session }: { session: Session }) {
           value={session?.user?.email || ''}
           placeholder="email@domain.com"
           onChangeText={(value: string) => {}}
-          disabled={true}></TextField>
+          disabled={true}
+          icon="email"></TextField>
 
         <Button
           label="Sign out"
