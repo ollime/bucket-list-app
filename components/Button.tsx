@@ -11,7 +11,7 @@ export default function Button({
 }) {
   return (
     <>
-      <View className="m-2 w-fit rounded-xl bg-secondary">
+      <View className="m-1 self-start rounded-xl bg-secondary">
         <Text
           className="p-4 font-semibold"
           onPress={!disabled || disabled == null ? callback : () => {}}>
