@@ -23,12 +23,12 @@ export default function App() {
 
   return (
     <>
-      <Container>
-        <View className={styles.container}>
+      <View className={styles.container}>
+        <Container>
           <Text className={styles.title}>App</Text>
           {session && session.user ? <Account key={session.user.id} session={session} /> : <Auth />}
-        </View>
-      </Container>
+        </Container>
+      </View>
     </>
   );
 }
