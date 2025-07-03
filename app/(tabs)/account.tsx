@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../../utils/supabase';
-import { View, Text } from 'react-native';
-import { Session } from '@supabase/supabase-js';
+import { Text } from 'react-native';
 
 import Button from 'components/Button';
 import Avatar from 'components/Avatar';

@@ -33,7 +33,7 @@ export default function Avatar({ url, onUpload }: Props) {
       };
     } catch (error) {
       if (error instanceof Error) {
-        alert('Error downloading image: ', error.message);
+        alert('Error downloading image: ' + error.message);
       }
     }
   }

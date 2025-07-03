@@ -1,6 +1,16 @@
-import React from 'react';
 import { View, TextInput, Text } from 'react-native';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+
+type TextFieldProps = {
+  label: string;
+  value: string;
+  onChangeText: (text: string) => void;
+  placeholder?: string;
+  disabled?: boolean;
+  isValid?: boolean;
+  icon?: keyof typeof MaterialIcons.glyphMap;
+  obfuscateText?: boolean;
+};
 
 export default function TextField({
   label,
@@ -11,16 +21,7 @@ export default function TextField({
   isValid = true,
   icon,
   obfuscateText = false,
-}: {
-  label: string;
-  value: string;
-  onChangeText: (text: string) => void;
-  placeholder?: string;
-  disabled?: boolean;
-  isValid?: boolean;
-  icon?: keyof typeof MaterialIcons.glyphMap;
-  obfuscateText?: boolean;
-}) {
+}: TextFieldProps) {
   let focusStyle = isValid ? 'focus-within:border-green-600' : 'focus-within:border-red-600';
 
   return (
