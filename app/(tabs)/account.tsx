@@ -8,6 +8,7 @@ import Avatar from 'components/Avatar';
 import TextField from 'components/TextField';
 import { useSession } from 'utils/context';
 import { useRouter } from 'expo-router';
+import { Container } from 'components/Container';
 
 export default function Account() {
   const [loading, setLoading] = useState(true);
@@ -77,7 +78,7 @@ export default function Account() {
 
   return (
     <>
-      <View>
+      <Container>
         <Text className={styles.title}>Profile</Text>
         <Avatar
           size={200}
@@ -112,7 +113,7 @@ export default function Account() {
             supabase.auth.signOut();
             router.push('/');
           }}></Button>
-      </View>
+      </Container>
     </>
   );
 }

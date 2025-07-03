@@ -1,12 +1,13 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { Text } from 'react-native';
+import { Container } from 'components/Container';
 
 export default function Home() {
   return (
     <>
-      <View>
+      <Container>
         <Text>Hello</Text>
-      </View>
+      </Container>
     </>
   );
 }
