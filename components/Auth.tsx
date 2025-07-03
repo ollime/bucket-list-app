@@ -31,6 +31,12 @@ export default function Auth() {
   }
 
   async function signUpWithEmail() {
+    // do not sign up if email or password is invalid
+    if (!isEmailValid && !isPasswordValid) {
+      alert('Invalid email or password');
+      return;
+    }
+
     setLoading(true);
     const {
       data: { session },
@@ -47,13 +53,13 @@ export default function Auth() {
   }
 
   function validateEmail(value: string) {
-    // data validation logic
-    return true;
+    const regexp = /^[a-zA-Z0–9._%+-]+@[a-zA-Z0–9.-]+\.[a-zA-Z]{2,}$/;
+    return value.match(regexp) != null;
   }
 
   function validatePassword(value: string) {
-    // password must be longer than 6 and less than 30 characters
-    return value.length > 6 && value.length < 30;
+    // password must be at least 8 and at most 100 characters
+    return value.length > 7 && value.length < 101;
   }
 
   return (
