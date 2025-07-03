@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { supabase } from '../utils/supabase';
 import { View, AppState } from 'react-native';
 import Button from 'components/Button';
+import { useRouter } from 'expo-router';
 
 import TextField from 'components/TextField';
 
@@ -20,7 +21,15 @@ export default function Auth() {
   const [isEmailValid, setIsEmailValid] = useState(false);
   const [isPasswordValid, setIsPasswordValid] = useState(false);
 
+  const router = useRouter();
+
   async function signInWithEmail() {
+    // do not sign in if email or password is invalid
+    if (!isEmailValid && !isPasswordValid) {
+      alert('Invalid email or password');
+      return;
+    }
+
     setLoading(true);
     const { error } = await supabase.auth.signInWithPassword({
       email: email,
@@ -28,6 +37,7 @@ export default function Auth() {
     });
     if (error) alert(error.message);
     setLoading(false);
+    router.push('/account');
   }
 
   async function signUpWithEmail() {
@@ -50,6 +60,7 @@ export default function Auth() {
     if (!session) alert('Please check your inbox for email verification.');
 
     setLoading(false);
+    router.push('/account');
   }
 
   function validateEmail(value: string) {

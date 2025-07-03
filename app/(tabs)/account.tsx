@@ -6,12 +6,17 @@ import { Session } from '@supabase/supabase-js';
 import Button from 'components/Button';
 import Avatar from 'components/Avatar';
 import TextField from 'components/TextField';
+import { useSession } from 'utils/context';
+import { useRouter } from 'expo-router';
 
-export default function Account({ session }: { session: Session }) {
+export default function Account() {
   const [loading, setLoading] = useState(true);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [avatarUrl, setAvatarUrl] = useState('');
+
+  const session = useSession();
+  const router = useRouter();
 
   useEffect(() => {
     async function getProfile() {
@@ -105,6 +110,7 @@ export default function Account({ session }: { session: Session }) {
           label="Sign out"
           callback={() => {
             supabase.auth.signOut();
+            router.push('/');
           }}></Button>
       </View>
     </>

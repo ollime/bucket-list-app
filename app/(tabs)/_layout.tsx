@@ -1,7 +1,15 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Tabs } from 'expo-router';
+import { useSession } from './../../utils/context';
+import Auth from './../../components/Auth';
 
 export default function TabLayout() {
+  const session = useSession();
+
+  if (!session) {
+    return <Auth></Auth>;
+  }
+
   return (
     <Tabs screenOptions={{ tabBarActiveTintColor: 'blue' }}>
       <Tabs.Screen
