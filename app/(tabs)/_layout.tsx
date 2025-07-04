@@ -1,3 +1,4 @@
+import { Text } from 'react-native';
 import { Tabs, Redirect } from 'expo-router';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
@@ -11,7 +12,12 @@ export default function TabLayout() {
   }
 
   return (
-    <Tabs screenOptions={{ tabBarActiveTintColor: 'blue' }}>
+    <Tabs
+      screenOptions={{
+        tabBarActiveTintColor: 'blue',
+        tabBarShowLabel: false,
+        tabBarStyle: { display: 'flex', padding: 5 },
+      }}>
       <Tabs.Screen
         name="home"
         options={{
@@ -23,7 +29,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="search"
         options={{
-          title: 'Search',
+          title: 'search',
           tabBarIcon: ({ color }) => <MaterialIcons name="search" size={24} color={color} />,
           headerShown: false,
         }}

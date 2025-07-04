@@ -5,7 +5,7 @@ export const Container = ({ children }: { children: React.ReactNode }) => {
   return (
     <View className={styles.root}>
       <SafeAreaProvider>
-        <SafeAreaView className={styles.container}>{children}</SafeAreaView>;
+        <SafeAreaView className={styles.container}>{children}</SafeAreaView>
       </SafeAreaProvider>
     </View>
   );
