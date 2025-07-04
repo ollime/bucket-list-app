@@ -1,7 +1,14 @@
-import { Stack } from 'expo-router';
-import { SessionProvider } from 'utils/context';
+import { Redirect, Stack } from 'expo-router';
+
+import { useSession, SessionProvider } from 'utils/context';
 
 export default function Layout() {
+  const session = useSession();
+
+  if (session) {
+    return <Redirect href="/account" />;
+  }
+
   return (
     <SessionProvider>
       <Stack>

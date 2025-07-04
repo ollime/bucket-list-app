@@ -21,6 +21,14 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="search"
+        options={{
+          title: 'Search',
+          tabBarIcon: ({ color }) => <MaterialIcons name="search" size={24} color={color} />,
+          headerShown: false,
+        }}
+      />
+      <Tabs.Screen
         name="account"
         options={{
           title: 'Account',

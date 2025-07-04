@@ -1,6 +1,7 @@
 import { use, useState, useEffect, createContext, type PropsWithChildren } from 'react';
-import { supabase } from './../utils/supabase';
 import { Session } from '@supabase/supabase-js';
+import { supabase } from './../utils/supabase';
+import { useStorageState } from './useStorageState';
 
 export const AuthContext = createContext<{
   session: Session | null;
@@ -18,18 +19,22 @@ export function useSession() {
 }
 
 export function SessionProvider({ children }: PropsWithChildren) {
-  const [session, setSession] = useState<Session | null>(null);
+  const [[isLoading, session], setSession] = useStorageState('session');
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
+      setSession(JSON.stringify(session));
       console.log(session);
     });
     supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
+      setSession(JSON.stringify(session));
       console.log(session);
     });
-  }, []);
+  }, [setSession]);
 
-  return <AuthContext value={{ session }}>{children}</AuthContext>;
+  return (
+    <AuthContext.Provider value={{ session: session ? (JSON.parse(session) as Session) : null }}>
+      {children}
+    </AuthContext.Provider>
+  );
 }
