@@ -29,11 +29,15 @@ export default function Search() {
     setSearchValue(value);
   }
 
+  function filterData(data: ListItemData[]) {
+    return data.filter((item) => item.title.match(searchValue));
+  }
+
   return (
     <>
       <Container>
         <SearchBar value={searchValue} callback={onChangeText}></SearchBar>
-        <ProfileList data={data}></ProfileList>
+        <ProfileList data={filterData(data)}></ProfileList>
       </Container>
     </>
   );
