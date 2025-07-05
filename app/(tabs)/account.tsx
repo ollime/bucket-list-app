@@ -85,7 +85,8 @@ export default function Account() {
           onUpload={(url: string) => {
             setAvatarUrl(url);
             updateProfile({ username, avatar_url: url });
-          }}></Avatar>
+          }}
+          userId={session?.user.id}></Avatar>
 
         <TextField
           label="Username"

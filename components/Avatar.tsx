@@ -10,9 +10,10 @@ interface Props {
   size: number;
   url: string | null;
   onUpload: (filePath: string) => void;
+  userId: string;
 }
 
-export default function Avatar({ url, onUpload }: Props) {
+export default function Avatar({ url, onUpload, userId }: Props) {
   const [uploading, setUploading] = useState(false);
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
 
@@ -67,7 +68,8 @@ export default function Avatar({ url, onUpload }: Props) {
 
       const arraybuffer = await fetch(manipResult.uri).then((res) => res.arrayBuffer());
       const fileExt = manipResult.uri?.split('.').pop()?.toLowerCase() ?? 'jpeg';
-      const path = `${Date.now()}.${fileExt}`;
+      const fileName = `${Date.now()}.${fileExt}`;
+      const path = `${userId}/${fileName}`;
       const { data, error: uploadError } = await supabase.storage
         .from('avatars')
         .upload(path, arraybuffer, {
