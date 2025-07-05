@@ -86,7 +86,7 @@ export default function Account() {
             setAvatarUrl(url);
             updateProfile({ username, avatar_url: url });
           }}
-          userId={session?.user.id}></Avatar>
+          userId={session?.user.id ?? ''}></Avatar>
 
         <TextField
           label="Username"

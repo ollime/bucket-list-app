@@ -114,6 +114,18 @@ export default function Avatar({ url, onUpload, userId }: Props) {
           label={uploading ? 'Uploading...' : 'Upload avatar'}
           callback={uploadAvatar}
           disabled={uploading}></Button>
+        <Button
+          label="Delete avatar"
+          callback={
+            avatarUrl
+              ? () => {
+                  removeAvatar(avatarUrl ?? '');
+                  setAvatarUrl('');
+                  onUpload('');
+                }
+              : () => {}
+          }
+          disabled={!avatarUrl}></Button>
       </View>
     </>
   );
