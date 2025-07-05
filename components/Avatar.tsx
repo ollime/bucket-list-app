@@ -105,9 +105,9 @@ export default function Avatar({ url, onUpload, userId }: Props) {
           <Image
             source={{ uri: avatarUrl }}
             accessibilityLabel="Avatar"
-            className="size-[50px] overflow-hidden rounded-full object-cover pt-0"></Image>
+            className={styles.itemImage}></Image>
         ) : (
-          <View className="size-[50px] rounded-full border-2 border-black bg-white"></View>
+          <View className={`${styles.itemImage} ${styles.blankImage}`}></View>
         )}
 
         <Button
@@ -130,3 +130,8 @@ export default function Avatar({ url, onUpload, userId }: Props) {
     </>
   );
 }
+
+const styles = {
+  itemImage: 'size-[40px] overflow-hidden rounded-full object-cover pt-0',
+  blankImage: 'border-2 border-black bg-white',
+};
