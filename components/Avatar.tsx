@@ -110,28 +110,31 @@ export default function Avatar({ url, onUpload, userId }: Props) {
           <View className={`${styles.itemImage} ${styles.blankImage}`}></View>
         )}
 
-        <Button
-          label={uploading ? 'Uploading...' : 'Upload avatar'}
-          callback={uploadAvatar}
-          disabled={uploading}></Button>
-        <Button
-          label="Delete avatar"
-          callback={
-            avatarUrl
-              ? () => {
-                  removeAvatar(avatarUrl ?? '');
-                  setAvatarUrl('');
-                  onUpload('');
-                }
-              : () => {}
-          }
-          disabled={!avatarUrl}></Button>
+        <View className={styles.buttonContainer}>
+          <Button
+            label={uploading ? 'Uploading...' : 'Upload avatar'}
+            callback={uploadAvatar}
+            disabled={uploading}></Button>
+          <Button
+            label="Delete avatar"
+            callback={
+              avatarUrl
+                ? () => {
+                    removeAvatar(avatarUrl ?? '');
+                    setAvatarUrl('');
+                    onUpload('');
+                  }
+                : () => {}
+            }
+            disabled={!avatarUrl}></Button>
+        </View>
       </View>
     </>
   );
 }
 
 const styles = {
-  itemImage: 'size-[40px] overflow-hidden rounded-full object-cover pt-0',
+  itemImage: 'size-[50px] overflow-hidden rounded-full object-cover pt-0',
   blankImage: 'border-2 border-black bg-white',
+  buttonContainer: 'flex flex-row',
 };
