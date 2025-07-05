@@ -62,7 +62,7 @@ function ProfileListItem({ item }: { item: ListItemData }) {
           className={styles.itemImage}
         />
       ) : (
-        <View className="size-[40px] rounded-full border-2 border-black bg-white"></View>
+        <View className={`${styles.itemImage} ${styles.blankImage}`}></View>
       )}
       <Text className={styles.itemLabel}>{item.title}</Text>
     </View>
@@ -73,4 +73,5 @@ const styles = {
   itemContainer: 'flex flex-row items-center',
   itemLabel: 'p-2 m-2',
   itemImage: 'm-2 size-[40px] overflow-hidden rounded-full object-cover pt-0',
+  blankImage: 'border-2 border-black bg-white',
 };
