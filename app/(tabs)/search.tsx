@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
-import { Text } from 'react-native';
 import { Container } from 'components/Container';
 import ProfileList, { ListItemData } from 'components/ProfileList';
 import { supabase } from 'utils/supabase';
+import SearchBar from 'components/SearchBar';
 
 export default function Search() {
   const [data, setData] = useState<ListItemData[]>([]);
+  const [searchValue, setSearchValue] = useState('');
 
   async function getAllUsers() {
     const { data: users, error } = await supabase.from('profiles').select('*');
@@ -24,10 +25,14 @@ export default function Search() {
     getAllUsers();
   }, []);
 
+  function onChangeText(value: string) {
+    setSearchValue(value);
+  }
+
   return (
     <>
       <Container>
-        <Text>Hello</Text>
+        <SearchBar value={searchValue} callback={onChangeText}></SearchBar>
         <ProfileList data={data}></ProfileList>
       </Container>
     </>
