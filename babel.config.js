@@ -1,4 +1,4 @@
-module.exports = function (api) {
+export default function (api) {
   api.cache(true);
   let plugins = [];
 
@@ -7,4 +7,4 @@ module.exports = function (api) {
 
     plugins,
   };
-};
+}

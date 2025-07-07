@@ -1,6 +1,7 @@
 {
   "name": "bucket-list-app",
   "version": "1.0.0",
+  "type": "module",
   "scripts": {
     "android": "expo start --android",
     "ios": "expo start --ios",
@@ -13,7 +14,7 @@
   },
   "dependencies": {
     "@expo/metro-runtime": "~5.0.4",
-    "@react-native-async-storage/async-storage": "2.1.2",
+    "@react-native-async-storage/async-storage": "^2.1.2",
     "@shopify/flash-list": "1.7.6",
     "@supabase/supabase-js": "^2.50.2",
     "@testing-library/react-native": "^13.2.0",
@@ -29,7 +30,7 @@
     "expo-status-bar": "~2.2.3",
     "nativewind": "latest",
     "react": "^19.1.0",
-    "react-dom": "19.0.0",
+    "react-dom": "19.1.0",
     "react-native": "0.79.4",
     "react-native-reanimated": "~3.17.4",
     "react-native-safe-area-context": "5.4.0",
@@ -40,6 +41,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
+    "@babel/preset-typescript": "^7.27.1",
     "@types/jest": "^30.0.0",
     "@types/react": "~19.0.10",
     "eslint": "^9.25.1",
@@ -55,6 +57,16 @@
   "main": "expo-router/entry",
   "private": true,
   "jest": {
-    "preset": "jest-expo"
+    "preset": "jest-expo",
+    "transformIgnorePatterns": [
+      "node_modules/(?!(expo-router|@react-navigation|@react-native|react-native|react-native-paper|react-native-vector-icons|@unimodules|expo.*|react-native-url-polyfill|@supabase|isows|react-native-css-interop|@expo/vector-icons)/)"
+    ],
+    "moduleNameMapper": {
+      "^components/(.*)$": "<rootDir>/components/$1",
+      "\\.(css|sass)$": "<rootDir>/__mocks__/styleMock.js"
+    },
+    "setupFiles": [
+      "./__mocks__/jestSetupFile.js"
+    ]
   }
 }
