@@ -1,9 +1,15 @@
-import { Link, useRouter } from 'expo-router';
+import { useRouter } from 'expo-router';
 import { ReactNode } from 'react';
-import { Pressable, StyleSheet, Text } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 import Animated, { FadeIn, SlideInDown } from 'react-native-reanimated';
+import { RoundButton } from './Button';
 
-export default function Modal({ children, prevRoute }: { children: ReactNode; prevRoute: string }) {
+type ModalProps = {
+  children: ReactNode;
+  onConfirm?: () => void;
+};
+
+export default function Modal({ children, onConfirm }: ModalProps) {
   const router = useRouter();
   return (
     <Animated.View
@@ -15,9 +21,12 @@ export default function Modal({ children, prevRoute }: { children: ReactNode; pr
         backgroundColor: '#00000040',
       }}>
       {/* Dismiss modal when pressing outside */}
-      <Link href={prevRoute} asChild>
-        <Pressable style={StyleSheet.absoluteFill} />
-      </Link>
+      <Pressable
+        onPress={() => {
+          router.navigate('../');
+        }}
+        style={StyleSheet.absoluteFill}
+      />
       <Animated.View
         entering={SlideInDown}
         style={{
@@ -29,12 +38,19 @@ export default function Modal({ children, prevRoute }: { children: ReactNode; pr
           borderRadius: '0.75rem',
         }}>
         {children}
-        <Pressable
-          onPress={() => {
-            router.back();
-          }}>
-          <Text>← Go back</Text>
-        </Pressable>
+        <View className="m-2 flex flex-row">
+          {onConfirm ? (
+            <RoundButton
+              label="Confirm"
+              callback={() => {
+                onConfirm();
+                router.navigate('../');
+              }}></RoundButton>
+          ) : (
+            ''
+          )}
+          <RoundButton label="Go back" callback={() => router.back()}></RoundButton>
+        </View>
       </Animated.View>
     </Animated.View>
   );

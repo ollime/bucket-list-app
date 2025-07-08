@@ -72,7 +72,7 @@ function ProfileListItem({ item }: { item: ListItemData }) {
         <RoundButton
           label="Friend"
           callback={() => {
-            router.navigate('/search/modal');
+            router.navigate({ pathname: '/search/modal', params: { screenName: item.title } });
           }}
           disabled={false}></RoundButton>
       </View>
