@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
-import { Text, View, Image } from 'react-native';
+import { Text, View, Image, TouchableWithoutFeedback } from 'react-native';
 import { FlashList } from '@shopify/flash-list';
 import { supabase } from 'utils/supabase';
+import { RoundButton } from './Button';
+import { useRouter } from 'expo-router';
 
 export interface ListItemData {
   title: string;
@@ -25,6 +27,7 @@ export default function ProfileList({ data }: ProfileListProps) {
 
 function ProfileListItem({ item }: { item: ListItemData }) {
   const [avatarUri, setAvatarUri] = useState<string | undefined>(undefined);
+  const router = useRouter();
 
   useEffect(() => {
     let isMounted = true;
@@ -65,13 +68,22 @@ function ProfileListItem({ item }: { item: ListItemData }) {
         <View className={`${styles.itemImage} ${styles.blankImage}`}></View>
       )}
       <Text className={styles.itemLabel}>{item.title}</Text>
+      <View className={styles.button}>
+        <RoundButton
+          label="Friend"
+          callback={() => {
+            router.navigate('/search/modal');
+          }}
+          disabled={false}></RoundButton>
+      </View>
     </View>
   );
 }
 
 const styles = {
-  itemContainer: 'flex flex-row items-center',
-  itemLabel: 'p-2 m-2',
+  itemContainer: 'flex flex-row flex-1 h-full items-center',
+  itemLabel: 'p-2 m-2 flex-1',
   itemImage: 'm-2 size-[40px] overflow-hidden rounded-full object-cover pt-0',
   blankImage: 'border-2 border-black bg-white',
+  button: 'self-center',
 };
