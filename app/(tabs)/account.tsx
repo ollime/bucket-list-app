@@ -14,6 +14,7 @@ export default function Account() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [avatarUrl, setAvatarUrl] = useState('');
+  const [fullName, setFullName] = useState('');
 
   const session = useSession();
   const router = useRouter();
@@ -26,7 +27,7 @@ export default function Account() {
 
         const { data, error, status } = await supabase
           .from('profiles')
-          .select(`username, email, avatar_url`)
+          .select(`username, email, avatar_url, full_name`)
           .eq('id', session?.user.id)
           .single();
 
@@ -38,6 +39,7 @@ export default function Account() {
           setUsername(data.username);
           setEmail(data.email);
           setAvatarUrl(data.avatar_url);
+          setFullName(data.full_name);
         }
       } catch (error) {
         if (error instanceof Error) {
@@ -51,7 +53,15 @@ export default function Account() {
     if (session) getProfile();
   }, [session]);
 
-  async function updateProfile({ username, avatar_url }: { username: string; avatar_url: string }) {
+  async function updateProfile({
+    username,
+    avatar_url,
+    full_name,
+  }: {
+    username: string;
+    avatar_url: string;
+    full_name: string;
+  }) {
     try {
       setLoading(true);
       if (!session?.user) throw new Error('No user on the session!');
@@ -59,6 +69,7 @@ export default function Account() {
         id: session?.user.id,
         username,
         avatar_url,
+        full_name,
         updated_at: new Date(),
       };
       const { error } = await supabase.from('profiles').upsert(updates);
@@ -84,15 +95,10 @@ export default function Account() {
           url={avatarUrl}
           onUpload={(url: string) => {
             setAvatarUrl(url);
-            updateProfile({ username, avatar_url: url });
+            updateProfile({ username, avatar_url: url, full_name: fullName });
           }}
           userId={session?.user.id ?? ''}></Avatar>
 
-        <TextField
-          label="Username"
-          value={username || ''}
-          placeholder="username"
-          onChangeText={(value: string) => setUsername(value)}></TextField>
         <TextField
           label="Email"
           value={session?.user?.email || ''}
@@ -100,11 +106,21 @@ export default function Account() {
           onChangeText={(value: string) => {}}
           disabled={true}
           icon="email"></TextField>
+        <TextField
+          label="Username"
+          value={username || ''}
+          placeholder="username"
+          onChangeText={(value: string) => setUsername(value)}></TextField>
+        <TextField
+          label="name (visible to friends only)"
+          value={fullName || ''}
+          placeholder="name"
+          onChangeText={(value: string) => setFullName(value)}></TextField>
 
         <Button
           label="Update Profile"
           callback={() => {
-            updateProfile({ username, avatar_url: avatarUrl });
+            updateProfile({ username, avatar_url: avatarUrl, full_name: fullName });
           }}></Button>
 
         <Button
