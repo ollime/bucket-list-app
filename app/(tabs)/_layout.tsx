@@ -34,6 +34,15 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="friends"
+        options={{
+          title: 'Friends',
+          tabBarIcon: ({ color }) => <MaterialIcons name="person-add" size={24} color={color} />,
+          headerShown: false,
+        }}
+      />
+
+      <Tabs.Screen
         name="account"
         options={{
           title: 'Account',

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Text, View, Image, TouchableWithoutFeedback } from 'react-native';
+import { Text, View, Image } from 'react-native';
 import { FlashList } from '@shopify/flash-list';
 import { supabase } from 'utils/supabase';
 import { RoundButton } from './Button';
