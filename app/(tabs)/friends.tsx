@@ -33,23 +33,23 @@ export default function Friends() {
         }
       }
     }
-
     async function getFriends() {
       const { data: users, error } = await supabase.from('profiles')
-        .select(`uuid, username, avatar_url,
-        friends ( user, friend )`);
+        .select(`id, username, avatar_url, 
+          sent_friends:friends!friends_user_fkey (
+            user,
+            friend
+          )`);
       if (error) {
         alert(error.message);
         return;
       }
-      console.log(users);
       const formattedData: ListItemData[] = [];
       users.forEach(({ id, username, avatar_url }) => {
         formattedData.push({ title: username, avatarUrl: avatar_url });
       });
       setData(formattedData);
     }
-
     getFriends();
   }, [session]);
 
