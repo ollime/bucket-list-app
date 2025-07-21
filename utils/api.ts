@@ -26,10 +26,15 @@ export async function getUsername(session?: Session) {
 }
 
 export async function getFriends(session?: Session) {
+  const username = await getUsername(session);
   const { data, error } = await supabase
     .from('friends')
-    .select('friend:friend(username, avatar_url), status')
-    .eq('user', await getUsername(session));
+    .select(
+      `sender:profiles!friends_user_fkey(username, avatar_url),
+      receiver:profiles!friends_friend_fkey(username, avatar_url),
+      status`
+    )
+    .or(`user.eq.${username},friend.eq.${username}`);
 
   if (error) {
     alert(error.message);

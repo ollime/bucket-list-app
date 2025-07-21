@@ -14,20 +14,22 @@ export default function Friends() {
       const data = await getFriends(session ?? undefined);
       const formattedData: ProfileData[] = [];
       if (data) {
-        for (let friend of data) {
-          if ('username' in friend.friend && 'avatar_url' in friend.friend) {
-            const status = friend.status;
-            const { username, avatar_url } = friend.friend as {
-              username: string;
-              avatar_url: string;
-            };
-            formattedData.push({
-              username: username,
-              avatarUrl: avatar_url,
-              friendStatus: status,
-            });
-          }
-        }
+        // for (let friend of data) {
+        //   if ('username' in friend.friend && 'avatar_url' in friend.friend) {
+        //     const status = friend.status;
+        //     const { username, avatar_url } = friend.friend as {
+        //       username: string;
+        //       avatar_url: string;
+        //     };
+        //     formattedData.push({
+        //       username: username,
+        //       avatarUrl: avatar_url,
+        //       friendStatus: status,
+        //     });
+        //   }
+        // }
+
+        console.log(data);
       }
       return formattedData;
     }
