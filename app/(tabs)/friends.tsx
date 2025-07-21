@@ -1,17 +1,18 @@
 import { useEffect, useState } from 'react';
 import { Container } from 'components/Container';
-import ProfileList, { ListItemData } from 'components/ProfileList';
+import ProfileList from 'components/ProfileList';
 import { useSession } from 'utils/context';
 import { getFriends } from 'utils/api';
+import { ProfileData } from 'utils/Profile.types';
 
 export default function Friends() {
-  const [data, setData] = useState<ListItemData[]>([]);
+  const [data, setData] = useState<ProfileData[]>([]);
   const session = useSession();
 
   useEffect(() => {
     async function getData() {
       const data = await getFriends(session ?? undefined);
-      const formattedData: ListItemData[] = [];
+      const formattedData: ProfileData[] = [];
       if (data) {
         for (let friend of data) {
           if ('username' in friend.friend && 'avatar_url' in friend.friend) {

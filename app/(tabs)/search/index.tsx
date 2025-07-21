@@ -1,19 +1,20 @@
 import { useEffect, useState } from 'react';
 import { Container } from 'components/Container';
-import ProfileList, { ListItemData } from 'components/ProfileList';
+import ProfileList from 'components/ProfileList';
 import SearchBar from 'components/SearchBar';
 import { useSession } from 'utils/context';
-import { getUsername, getAllUsers } from 'utils/api';
+import { getAllUsers } from 'utils/api';
+import { ProfileData } from 'utils/Profile.types';
 
 export default function Search() {
-  const [data, setData] = useState<ListItemData[]>([]);
+  const [data, setData] = useState<ProfileData[]>([]);
   const [searchValue, setSearchValue] = useState('');
   const session = useSession();
 
   useEffect(() => {
     async function getData() {
       const users = await getAllUsers(session ?? undefined);
-      const formattedData: ListItemData[] = [];
+      const formattedData: ProfileData[] = [];
       users?.forEach(({ username, avatar_url }) => {
         formattedData.push({ title: username, avatarUrl: avatar_url, friendStatus: 'none' });
       });
@@ -26,7 +27,7 @@ export default function Search() {
     setSearchValue(value);
   }
 
-  function filterData(data: ListItemData[]) {
+  function filterData(data: ProfileData[]) {
     return data.filter((item) => item.title.match(searchValue));
   }
 

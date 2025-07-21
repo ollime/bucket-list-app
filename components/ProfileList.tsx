@@ -4,15 +4,10 @@ import { FlashList } from '@shopify/flash-list';
 import { supabase } from 'utils/supabase';
 import { RoundButton } from './Button';
 import { useRouter } from 'expo-router';
-
-export interface ListItemData {
-  title: string;
-  avatarUrl?: string;
-  friendStatus: string | 'none' | 'requested' | 'pending' | 'accepted';
-}
+import { ProfileData } from 'utils/Profile.types';
 
 interface ProfileListProps {
-  data: ListItemData[];
+  data: ProfileData[];
 }
 
 export default function ProfileList({ data }: ProfileListProps) {
@@ -26,7 +21,7 @@ export default function ProfileList({ data }: ProfileListProps) {
   );
 }
 
-function ProfileListItem({ item }: { item: ListItemData }) {
+function ProfileListItem({ item }: { item: ProfileData }) {
   const [avatarUri, setAvatarUri] = useState<string | undefined>(undefined);
   const router = useRouter();
 
