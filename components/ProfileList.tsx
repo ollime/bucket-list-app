@@ -8,7 +8,7 @@ import { useRouter } from 'expo-router';
 export interface ListItemData {
   title: string;
   avatarUrl?: string;
-  friendStatus: string;
+  friendStatus: string | 'none' | 'requested' | 'pending' | 'accepted';
 }
 
 interface ProfileListProps {
@@ -57,6 +57,25 @@ function ProfileListItem({ item }: { item: ListItemData }) {
     };
   }, [item.avatarUrl]);
 
+  function renderButtonProps() {
+    switch (item.friendStatus) {
+      case 'requested':
+        return { label: 'Requested', disabled: true, callback: () => {} };
+      case 'pending':
+        return { label: 'Pending', disabled: true, callback: () => {} };
+      case 'accepted':
+        return { label: 'Friends', disabled: false, callback: () => {} };
+      default:
+        return {
+          label: 'Send request',
+          disabled: false,
+          callback: () => {
+            router.navigate({ pathname: '/search/modal', params: { screenName: item.title } });
+          },
+        };
+    }
+  }
+
   return (
     <View className={styles.itemContainer}>
       {item.avatarUrl && avatarUri ? (
@@ -70,21 +89,7 @@ function ProfileListItem({ item }: { item: ListItemData }) {
       )}
       <Text className={styles.itemLabel}>{item.title}</Text>
       <View className={styles.button}>
-        {item.friendStatus === 'none' ? (
-          <RoundButton
-            label="Friend"
-            callback={() => {
-              router.navigate({ pathname: '/search/modal', params: { screenName: item.title } });
-            }}
-            disabled={false}></RoundButton>
-        ) : (
-          <RoundButton
-            label="Requested"
-            callback={() => {
-              router.navigate({ pathname: '/search/modal', params: { screenName: item.title } });
-            }}
-            disabled={true}></RoundButton>
-        )}
+        <RoundButton {...renderButtonProps()} />
       </View>
     </View>
   );

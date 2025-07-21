@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Container } from 'components/Container';
 import ProfileList, { ListItemData } from 'components/ProfileList';
-import { supabase } from 'utils/supabase';
 import SearchBar from 'components/SearchBar';
 import { useSession } from 'utils/context';
 import { getUsername, getAllUsers } from 'utils/api';
