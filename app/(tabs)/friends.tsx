@@ -34,20 +34,31 @@ export default function Friends() {
       }
     }
     async function getFriends() {
-      const { data: users, error } = await supabase.from('profiles')
-        .select(`id, username, avatar_url, 
-          sent_friends:friends!friends_user_fkey (
-            user,
-            friend
-          )`);
+      const { data, error } = await supabase
+        .from('friends')
+        .select('friend:friend(username, avatar_url)')
+        .eq('user', await getUsername());
+
       if (error) {
         alert(error.message);
         return;
       }
       const formattedData: ListItemData[] = [];
-      users.forEach(({ id, username, avatar_url }) => {
-        formattedData.push({ title: username, avatarUrl: avatar_url });
-      });
+
+      if (data) {
+        for (let friend of data) {
+          if ('username' in friend.friend && 'avatar_url' in friend.friend) {
+            const { username, avatar_url } = friend.friend as {
+              username: string;
+              avatar_url: string;
+            };
+            formattedData.push({
+              title: username,
+              avatarUrl: avatar_url,
+            });
+          }
+        }
+      }
       setData(formattedData);
     }
     getFriends();
