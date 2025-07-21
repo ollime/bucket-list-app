@@ -1,5 +1,5 @@
 export interface ProfileData {
-  title: string;
+  username: string;
   avatarUrl?: string;
   friendStatus: 'none' | 'requested' | 'pending' | 'accepted';
 }

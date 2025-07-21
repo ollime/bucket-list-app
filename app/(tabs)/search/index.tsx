@@ -16,7 +16,7 @@ export default function Search() {
       const users = await getAllUsers(session ?? undefined);
       const formattedData: ProfileData[] = [];
       users?.forEach(({ username, avatar_url }) => {
-        formattedData.push({ title: username, avatarUrl: avatar_url, friendStatus: 'none' });
+        formattedData.push({ username: username, avatarUrl: avatar_url, friendStatus: 'none' });
       });
       return formattedData;
     }
@@ -28,7 +28,7 @@ export default function Search() {
   }
 
   function filterData(data: ProfileData[]) {
-    return data.filter((item) => item.title.match(searchValue));
+    return data.filter((item) => item.username.match(searchValue));
   }
 
   return (

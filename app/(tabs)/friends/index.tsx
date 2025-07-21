@@ -22,7 +22,7 @@ export default function Friends() {
               avatar_url: string;
             };
             formattedData.push({
-              title: username,
+              username: username,
               avatarUrl: avatar_url,
               friendStatus: status,
             });

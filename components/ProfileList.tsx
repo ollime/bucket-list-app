@@ -57,15 +57,30 @@ function ProfileListItem({ item }: { item: ProfileData }) {
       case 'requested':
         return { label: 'Requested', disabled: true, callback: () => {} };
       case 'pending':
-        return { label: 'Pending', disabled: true, callback: () => {} };
+        return {
+          label: 'Accept',
+          disabled: false,
+          callback: () => {
+            alert('Accepted friend request!');
+          },
+        };
       case 'accepted':
-        return { label: 'Friends', disabled: false, callback: () => {} };
+        return {
+          label: 'Friends',
+          disabled: false,
+          callback: () => {
+            router.navigate({
+              pathname: '/friends/unfriend',
+              params: { screenName: item.username },
+            });
+          },
+        };
       default:
         return {
           label: 'Send request',
           disabled: false,
           callback: () => {
-            router.navigate({ pathname: '/search/modal', params: { screenName: item.title } });
+            router.navigate({ pathname: '/search/modal', params: { screenName: item.username } });
           },
         };
     }
@@ -82,7 +97,7 @@ function ProfileListItem({ item }: { item: ProfileData }) {
       ) : (
         <View className={`${styles.itemImage} ${styles.blankImage}`}></View>
       )}
-      <Text className={styles.itemLabel}>{item.title}</Text>
+      <Text className={styles.itemLabel}>{item.username}</Text>
       <View className={styles.button}>
         <RoundButton {...renderButtonProps()} />
       </View>
