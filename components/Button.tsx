@@ -33,9 +33,9 @@ export function RoundButton({
 }) {
   return (
     <>
-      <View className={`m-1 self-start rounded-full ${disabled ? 'bg-gray-400' : 'bg-secondary'}`}>
+      <View className={`m-1 self-start rounded-full ${disabled ? 'bg-gray-300' : 'bg-secondary'}`}>
         <Text
-          className="px-4 py-2 font-semibold"
+          className={`px-4 py-2 font-semibold ${disabled ? 'text-gray-500' : ''}`}
           onPress={!disabled || disabled == null ? callback : () => {}}>
           {label}
         </Text>

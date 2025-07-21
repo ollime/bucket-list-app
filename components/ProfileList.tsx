@@ -8,6 +8,7 @@ import { useRouter } from 'expo-router';
 export interface ListItemData {
   title: string;
   avatarUrl?: string;
+  friendStatus: string;
 }
 
 interface ProfileListProps {
@@ -69,12 +70,21 @@ function ProfileListItem({ item }: { item: ListItemData }) {
       )}
       <Text className={styles.itemLabel}>{item.title}</Text>
       <View className={styles.button}>
-        <RoundButton
-          label="Friend"
-          callback={() => {
-            router.navigate({ pathname: '/search/modal', params: { screenName: item.title } });
-          }}
-          disabled={false}></RoundButton>
+        {item.friendStatus === 'none' ? (
+          <RoundButton
+            label="Friend"
+            callback={() => {
+              router.navigate({ pathname: '/search/modal', params: { screenName: item.title } });
+            }}
+            disabled={false}></RoundButton>
+        ) : (
+          <RoundButton
+            label="Requested"
+            callback={() => {
+              router.navigate({ pathname: '/search/modal', params: { screenName: item.title } });
+            }}
+            disabled={true}></RoundButton>
+        )}
       </View>
     </View>
   );
