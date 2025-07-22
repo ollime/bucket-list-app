@@ -1,16 +1,17 @@
 import { Text } from 'react-native';
 import Modal from 'components/Modal';
 import { useLocalSearchParams } from 'expo-router';
-import { supabase } from 'utils/supabase';
 import { useSession } from 'utils/context';
-import { getUsername } from 'utils/api';
+import { deleteFriend, getUsername } from 'utils/api';
 
 export default function SearchModal() {
   const session = useSession();
   const params = useLocalSearchParams();
 
   const confirmUnfriendUser = async () => {
-    // write code to unfriend
+    const screenName =
+      typeof params.screenName === 'string' ? params.screenName : params.screenName[0];
+    deleteFriend(await getUsername(session ?? undefined), screenName);
     return;
   };
 

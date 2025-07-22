@@ -12,4 +12,10 @@ export interface ProfileWithoutFriend {
   avatarUrl?: string;
 }
 
+export interface FriendsRow {
+  sender: string;
+  receiver: string;
+  status: FriendStatus;
+}
+
 export type FriendStatus = 'none' | 'requested' | 'pending' | 'accepted';

@@ -72,10 +72,12 @@ function ProfileListItem({ item }: { item: ProfileData }) {
         return {
           label: 'Friends',
           disabled: false,
-          callback: () => {
+          callback: async () => {
             router.navigate({
               pathname: '/friends/unfriend',
-              params: { screenName: item.username },
+              params: {
+                screenName: item.username,
+              },
             });
           },
         };

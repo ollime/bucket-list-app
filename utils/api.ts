@@ -82,3 +82,20 @@ export async function updateFriendStatus(status: string, sender: string, receive
   console.log(users);
   return users;
 }
+
+export async function deleteFriend(currentUser: string, otherUser: string) {
+  const { data: users, error } = await supabase
+    .from('friends')
+    .delete()
+    .or(
+      `and(user.eq.${currentUser},friend.eq.${otherUser}),and(user.eq.${otherUser},friend.eq.${currentUser})`
+    )
+    .select();
+
+  if (error) {
+    alert(error.message);
+    return;
+  }
+  console.log(users);
+  return users;
+}
