@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react';
 import { Text, View, Image } from 'react-native';
 import { FlashList } from '@shopify/flash-list';
-import { supabase } from 'utils/supabase';
-import { RoundButton } from './Button';
 import { useRouter } from 'expo-router';
+
 import { ProfileData } from 'utils/Profile.types';
-import { getUsername, updateFriendStatus } from 'utils/api';
 import { useSession } from 'utils/context';
+import { supabase } from 'utils/supabase';
+import { updateFriendStatus } from 'api/friends-api';
+import { getUsername } from 'api/profiles-api';
+
+import { RoundButton } from './Button';
 
 interface ProfileListProps {
   data: ProfileData[];

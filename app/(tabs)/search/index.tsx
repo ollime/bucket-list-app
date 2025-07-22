@@ -3,7 +3,8 @@ import { Container } from 'components/Container';
 import ProfileList from 'components/ProfileList';
 import SearchBar from 'components/SearchBar';
 import { useSession } from 'utils/context';
-import { getAllUsers, getFriendStatus, getUsername } from 'utils/api';
+import { getFriendStatus } from 'api/friends-api';
+import { getUsername, getAllUsers } from 'api/profiles-api';
 import { FriendStatus, ProfileData } from 'utils/Profile.types';
 
 export default function Search() {
@@ -13,7 +14,7 @@ export default function Search() {
 
   useEffect(() => {
     async function getData() {
-      const users = await getAllUsers(session ?? undefined);
+      const users = await getAllUsers();
       const friends = await getFriendStatus(session ?? undefined);
       const currentUser = await getUsername(session ?? undefined);
 

@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
+
+import { ProfileData, ProfileWithoutFriend } from 'utils/Profile.types';
+import { useSession } from 'utils/context';
+import { getFriends } from 'api/friends-api';
+import { getUsername } from 'api/profiles-api';
+
 import { Container } from 'components/Container';
 import ProfileList from 'components/ProfileList';
-import { useSession } from 'utils/context';
-import { getUsername, getFriends } from 'utils/api';
-import { ProfileData, ProfileWithoutFriend } from 'utils/Profile.types';
 
 export default function Friends() {
   const [data, setData] = useState<ProfileData[]>([]);

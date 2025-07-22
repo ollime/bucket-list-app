@@ -1,8 +1,10 @@
 import { Text } from 'react-native';
-import Modal from 'components/Modal';
 import { useLocalSearchParams } from 'expo-router';
+
 import { useSession } from 'utils/context';
-import { addFriend } from 'utils/api';
+import { addFriend } from 'api/friends-api';
+
+import Modal from 'components/Modal';
 
 export default function SearchModal() {
   const session = useSession();
