@@ -5,6 +5,8 @@ import { supabase } from 'utils/supabase';
 import { RoundButton } from './Button';
 import { useRouter } from 'expo-router';
 import { ProfileData } from 'utils/Profile.types';
+import { getUsername, updateFriendStatus } from 'utils/api';
+import { useSession } from 'utils/context';
 
 interface ProfileListProps {
   data: ProfileData[];
@@ -24,6 +26,7 @@ export default function ProfileList({ data }: ProfileListProps) {
 function ProfileListItem({ item }: { item: ProfileData }) {
   const [avatarUri, setAvatarUri] = useState<string | undefined>(undefined);
   const router = useRouter();
+  const session = useSession();
 
   useEffect(() => {
     let isMounted = true;
@@ -60,7 +63,8 @@ function ProfileListItem({ item }: { item: ProfileData }) {
         return {
           label: 'Accept',
           disabled: false,
-          callback: () => {
+          callback: async () => {
+            updateFriendStatus('accepted', item.username, await getUsername(session ?? undefined));
             alert('Accepted friend request!');
           },
         };

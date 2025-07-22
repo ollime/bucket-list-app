@@ -22,7 +22,7 @@ export default function Friends() {
           const isSender = sender?.username === username;
           if ('username' in displayedUser && 'avatar_url' in displayedUser) {
             const status =
-              friend.status === 'pending' ? (isSender ? 'requested' : 'pending') : 'none';
+              friend.status === 'pending' ? (isSender ? 'requested' : 'pending') : friend.status;
             const { username, avatar_url } = displayedUser as {
               username: string;
               avatar_url: string;

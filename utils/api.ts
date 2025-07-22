@@ -52,3 +52,19 @@ export async function getAllUsers(session?: Session) {
   }
   return users;
 }
+
+export async function updateFriendStatus(status: string, sender: string, receiver: string) {
+  const { data: users, error } = await supabase
+    .from('friends')
+    .update({ status: status })
+    .eq('user', sender)
+    .eq('friend', receiver)
+    .select();
+
+  if (error) {
+    alert(error.message);
+    return;
+  }
+  console.log(users);
+  return users;
+}

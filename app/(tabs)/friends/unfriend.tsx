@@ -18,7 +18,7 @@ export default function SearchModal() {
     <Modal onConfirm={confirmUnfriendUser}>
       <Text>
         Are you sure you want to unfriend
-        <Text className="font-bold"> {params.screenName}</Text>
+        <Text className="font-bold"> {params.screenName}</Text>?
       </Text>
     </Modal>
   );
