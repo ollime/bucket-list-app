@@ -1,6 +1,5 @@
 import { supabase } from 'utils/supabase';
 import { Session } from '@supabase/supabase-js';
-import { useScrollViewOffset } from 'react-native-reanimated';
 
 export async function getUsername(session?: Session) {
   try {
