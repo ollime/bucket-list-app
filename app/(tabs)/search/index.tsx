@@ -3,7 +3,7 @@ import { Container } from 'components/Container';
 import ProfileList from 'components/ProfileList';
 import SearchBar from 'components/SearchBar';
 import { useSession } from 'utils/context';
-import { getAllUsers, getFriendStatus } from 'utils/api';
+import { getAllUsers, getFriendStatus, getUsername } from 'utils/api';
 import { FriendStatus, ProfileData } from 'utils/Profile.types';
 
 export default function Search() {
@@ -15,9 +15,14 @@ export default function Search() {
     async function getData() {
       const users = await getAllUsers(session ?? undefined);
       const friends = await getFriendStatus(session ?? undefined);
+      const currentUser = await getUsername(session ?? undefined);
 
       const formattedData: ProfileData[] = [];
       users?.forEach(({ username, avatar_url }) => {
+        if (username === currentUser) {
+          // filter out current user (self)
+          return;
+        }
         const friend = friends?.find((i) => i.user === username || i.friend === username);
         let status: FriendStatus;
         if (friend?.status === 'pending') {

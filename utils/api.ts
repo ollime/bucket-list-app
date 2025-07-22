@@ -99,3 +99,22 @@ export async function deleteFriend(currentUser: string, otherUser: string) {
   console.log(users);
   return users;
 }
+
+export async function addFriend(screenName: string, session?: Session) {
+  const username = await getUsername(session ?? undefined);
+  // do not send if the user is self
+  if (username === screenName) {
+    return;
+  }
+  const data = {
+    user: username,
+    friend: screenName,
+    status: 'pending',
+  };
+  const { error } = await supabase.from('friends').insert(data);
+  if (error) {
+    alert(error);
+    return;
+  }
+  alert('Friend request sent');
+}
