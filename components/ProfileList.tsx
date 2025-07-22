@@ -3,7 +3,7 @@ import { Text, View, Image } from 'react-native';
 import { FlashList } from '@shopify/flash-list';
 import { useRouter } from 'expo-router';
 
-import { ProfileData } from 'utils/Profile.types';
+import { ProfileData } from 'utils/profile.types';
 import { useSession } from 'utils/context';
 import { supabase } from 'utils/supabase';
 import { updateFriendStatus } from 'api/friends-api';

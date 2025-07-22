@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 
-import { ProfileData, ProfileWithoutFriend } from 'utils/Profile.types';
+import { ProfileData, ProfileWithoutFriend } from 'utils/profile.types';
 import { useSession } from 'utils/context';
-import { getFriends } from 'api/friends-api';
+import { getFriendsProfile } from 'api/friends-api';
 import { getUsername } from 'api/profiles-api';
 
 import { Container } from 'components/Container';
@@ -14,7 +14,7 @@ export default function Friends() {
 
   useEffect(() => {
     async function getData() {
-      const data = await getFriends(session ?? undefined);
+      const data = await getFriendsProfile(session ?? undefined);
       const formattedData: ProfileData[] = [];
       const username = await getUsername(session ?? undefined);
       if (data) {

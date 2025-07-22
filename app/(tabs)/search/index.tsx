@@ -5,7 +5,7 @@ import SearchBar from 'components/SearchBar';
 import { useSession } from 'utils/context';
 import { getFriendStatus } from 'api/friends-api';
 import { getUsername, getAllUsers } from 'api/profiles-api';
-import { FriendStatus, ProfileData } from 'utils/Profile.types';
+import { FriendStatus, ProfileData } from 'utils/profile.types';
 
 export default function Search() {
   const [data, setData] = useState<ProfileData[]>([]);

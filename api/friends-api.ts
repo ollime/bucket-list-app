@@ -2,7 +2,9 @@ import { supabase } from 'utils/supabase';
 import { Session } from '@supabase/supabase-js';
 import { getUsername } from './profiles-api';
 
-export async function getFriends(session?: Session) {
+/** Returns the profiles of the current user's friends,
+ * including usernames and avatars. */
+export async function getFriendsProfile(session?: Session) {
   const username = await getUsername(session);
   const { data, error } = await supabase
     .from('friends')
@@ -20,6 +22,9 @@ export async function getFriends(session?: Session) {
   return data;
 }
 
+/** Returns data stored in the friends table of the current user's
+ * friends, including friend status.
+ */
 export async function getFriendStatus(session?: Session) {
   const username = await getUsername(session);
   const { data, error } = await supabase
