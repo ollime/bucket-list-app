@@ -43,6 +43,20 @@ export async function getFriends(session?: Session) {
   return data;
 }
 
+export async function getFriendStatus(session?: Session) {
+  const username = await getUsername(session);
+  const { data, error } = await supabase
+    .from('friends')
+    .select(`user, friend, status`)
+    .or(`user.eq.${username},friend.eq.${username}`);
+
+  if (error) {
+    alert(error.message);
+    return;
+  }
+  return data;
+}
+
 export async function getAllUsers(session?: Session) {
   const { data: users, error } = await supabase.from('profiles').select(`username, avatar_url`);
 

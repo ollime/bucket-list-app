@@ -3,8 +3,8 @@ import { Container } from 'components/Container';
 import ProfileList from 'components/ProfileList';
 import SearchBar from 'components/SearchBar';
 import { useSession } from 'utils/context';
-import { getAllUsers } from 'utils/api';
-import { ProfileData } from 'utils/Profile.types';
+import { getAllUsers, getFriendStatus } from 'utils/api';
+import { FriendStatus, ProfileData } from 'utils/Profile.types';
 
 export default function Search() {
   const [data, setData] = useState<ProfileData[]>([]);
@@ -14,9 +14,24 @@ export default function Search() {
   useEffect(() => {
     async function getData() {
       const users = await getAllUsers(session ?? undefined);
+      const friends = await getFriendStatus(session ?? undefined);
+
       const formattedData: ProfileData[] = [];
       users?.forEach(({ username, avatar_url }) => {
-        formattedData.push({ username: username, avatarUrl: avatar_url, friendStatus: 'none' });
+        const friend = friends?.find((i) => i.user === username || i.friend === username);
+        let status: FriendStatus;
+        if (friend?.status === 'pending') {
+          status = 'requested';
+        } else if (friend?.status === 'accepted') {
+          status = 'accepted';
+        } else {
+          status = 'none';
+        }
+        formattedData.push({
+          username: username,
+          avatarUrl: avatar_url,
+          friendStatus: status,
+        });
       });
       return formattedData;
     }

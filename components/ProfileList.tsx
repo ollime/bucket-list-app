@@ -61,7 +61,7 @@ function ProfileListItem({ item }: { item: ProfileData }) {
         return { label: 'Requested', disabled: true, callback: () => {} };
       case 'pending':
         return {
-          label: 'Accept',
+          label: 'Accept request',
           disabled: false,
           callback: async () => {
             updateFriendStatus('accepted', item.username, await getUsername(session ?? undefined));
