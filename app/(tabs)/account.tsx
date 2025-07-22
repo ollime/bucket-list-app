@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../../utils/supabase';
-import { Text } from 'react-native';
+import { Text, View } from 'react-native';
 
 import Button from 'components/Button';
 import Avatar from 'components/Avatar';
@@ -8,6 +8,7 @@ import TextField from 'components/TextField';
 import { useSession } from 'utils/context';
 import { useRouter } from 'expo-router';
 import { Container } from 'components/Container';
+import AppInfo from 'components/AppInfo';
 
 export default function Account() {
   const [loading, setLoading] = useState(true);
@@ -129,6 +130,7 @@ export default function Account() {
             supabase.auth.signOut();
             router.push('/');
           }}></Button>
+        <AppInfo></AppInfo>
       </Container>
     </>
   );
