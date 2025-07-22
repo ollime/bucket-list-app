@@ -1,5 +1,6 @@
 import { supabase } from 'utils/supabase';
 import { Session } from '@supabase/supabase-js';
+import { useScrollViewOffset } from 'react-native-reanimated';
 
 export async function getUsername(session?: Session) {
   try {
@@ -101,6 +102,15 @@ export async function deleteFriend(currentUser: string, otherUser: string) {
 }
 
 export async function addFriend(screenName: string, session?: Session) {
+  // does the row already exist?
+  const { data: row } = await supabase
+    .from('friends')
+    .select('*')
+    .or(`user.eq.${screenName},friend.eq.${screenName}`);
+  if (row && row.length > 0) {
+    return;
+  }
+
   const username = await getUsername(session ?? undefined);
   // do not send if the user is self
   if (username === screenName) {
