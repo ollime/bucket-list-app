@@ -9,10 +9,10 @@ export const Container = ({ children }: { children: React.ReactNode }) => {
           <View className="flex-1">{children}</View>
           <View className="absolute bottom-0 z-[-1] h-[150px] w-full">
             <ImageBackground
-              source={require('assets/front-page/waves.png')}
+              source={require('assets/front-page/waves-long.png')}
               // do not use > 180px for height. adjust the height value to change the size of the entire image
               style={{ flex: 1 }}
-              imageStyle={{ width: '100%', height: 150 }}
+              imageStyle={{ height: 150 }}
               resizeMode="repeat"></ImageBackground>
           </View>
         </SafeAreaView>
@@ -23,6 +23,6 @@ export const Container = ({ children }: { children: React.ReactNode }) => {
 
 const styles = {
   container: 'flex flex-1 relative',
-  root: 'flex flex-1 bg-primary',
+  root: 'flex flex-1 bg-background',
   background: 'flex-shrink justify-end',
 };

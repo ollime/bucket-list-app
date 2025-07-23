@@ -25,7 +25,7 @@ export default function Home() {
   const emptyMinimized: MinimizedActivity = {
     activity: 'New activity',
     description: '',
-    status: 'incomplete',
+    is_complete: false,
   };
 
   const emptyActivity: Activity = {
@@ -33,7 +33,7 @@ export default function Home() {
     activity: 'New activity',
     created_at: new Date(Date.now()),
     description: '',
-    status: 'incomplete',
+    is_complete: false,
     is_public: true,
     planned_date: new Date(Date.now()),
     completed_date: new Date(Date.now()),
@@ -74,5 +74,5 @@ export default function Home() {
 }
 
 const styles = {
-  title: 'text-3xl font-bold text-secondary',
+  title: 'text-3xl font-bold text-primary',
 };

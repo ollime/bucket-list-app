@@ -1,11 +1,11 @@
 import { supabase } from 'utils/supabase';
 import { Session } from '@supabase/supabase-js';
-import { Activity, ActivityStatus } from 'utils/activity.types';
+import { Activity } from 'utils/activity.types';
 
 export async function getAllActivities(session?: Session) {
   const { data, error } = await supabase
     .from('activities')
-    .select(`activity, created_at, description, status`)
+    .select(`activity, created_at, description, is_complete`)
     .eq('user_id', session?.user.id);
 
   if (error) {
@@ -19,7 +19,7 @@ export async function getActivityDetails(activity: string, session?: Session) {
   const { data, error } = await supabase
     .from('activities')
     .select(
-      `user_id, activity, created_at, description, status, is_public, planned_date, completed_date, location`
+      `user_id, activity, created_at, description, is_complete, is_public, planned_date, completed_date, location`
     )
     .eq('user_id', session?.user.id)
     .eq('activity', activity)
@@ -36,7 +36,7 @@ export async function getPublicActivities(user: string, session?: Session) {
   const { data, error } = await supabase
     .from('activities')
     .select(
-      `activity, created_at, description, status, is_public, planned_date, completed_date, location`
+      `activity, created_at, description, is_complete, is_public, planned_date, completed_date, location`
     )
     .eq('profiles.username', user)
     .eq('is_public', true);
@@ -95,11 +95,11 @@ export async function updateActivityDetails(
   return users;
 }
 
-export async function updateActivityStatus(status: ActivityStatus, session?: Session) {
+export async function updateActivityStatus(is_complete: boolean, session?: Session) {
   const { data: users, error } = await supabase
     .from('friends')
     .update({
-      status: status,
+      is_complete: is_complete,
     })
     .eq('user_id', session?.user.id)
     .select();

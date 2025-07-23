@@ -3,7 +3,7 @@ export interface Activity {
   activity: string;
   created_at: Date;
   description?: string;
-  status: ActivityStatus;
+  is_complete: boolean;
   is_public: boolean;
   planned_date?: Date;
   completed_date?: Date;
@@ -13,7 +13,5 @@ export interface Activity {
 export interface MinimizedActivity {
   activity: string;
   description: string;
-  status: ActivityStatus;
+  is_complete: boolean;
 }
-
-export type ActivityStatus = 'incomplete' | 'planned' | 'complete';

@@ -12,7 +12,7 @@ export default function Button({
 }) {
   return (
     <>
-      <View className="m-1 self-start rounded-xl bg-secondary">
+      <View className="m-1 self-start rounded-xl bg-primary">
         <Text
           className="p-4 font-semibold"
           onPress={!disabled || disabled == null ? callback : () => {}}>
@@ -34,7 +34,7 @@ export function RoundButton({
 }) {
   return (
     <>
-      <View className={`m-1 self-start rounded-full ${disabled ? 'bg-gray-300' : 'bg-secondary'}`}>
+      <View className={`m-1 self-start rounded-full ${disabled ? 'bg-gray-300' : 'bg-primary'}`}>
         <Text
           className={`px-4 py-2 font-semibold ${disabled ? 'text-gray-500' : ''}`}
           onPress={!disabled || disabled == null ? callback : () => {}}>

@@ -137,5 +137,5 @@ export default function Account() {
 }
 
 const styles = {
-  title: 'text-3xl font-bold text-secondary',
+  title: 'text-3xl font-bold text-primary',
 };

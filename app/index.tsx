@@ -17,5 +17,5 @@ export default function App() {
 }
 
 const styles = {
-  title: 'text-3xl font-bold text-secondary',
+  title: 'text-3xl font-bold text-primary',
 };

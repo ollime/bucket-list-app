@@ -5,6 +5,7 @@ import { FlashList } from '@shopify/flash-list';
 import { MinimizedActivity } from 'utils/activity.types';
 import { useRouter } from 'expo-router';
 import { useSession } from 'utils/AuthContext';
+import StatusBadge from './StatusBadge';
 
 interface BucketListProps {
   data?: MinimizedActivity[];
@@ -56,6 +57,9 @@ export function BucketListItem({ data, user_id }: BucketListItemProps) {
           <Text className={styles.itemTitle}>{data?.activity}</Text>
           <Text className={styles.itemDescription}>{data?.description}</Text>
         </View>
+        <StatusBadge
+          label={data?.is_complete ? 'complete' : 'incomplete'}
+          color={data?.is_complete ? 'bg-primary' : 'bg-secondary'}></StatusBadge>
       </View>
     </TouchableWithoutFeedback>
   );
