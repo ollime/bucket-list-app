@@ -10,12 +10,12 @@ export default function SearchModal() {
   }, []);
   const params = useLocalSearchParams();
 
-  const confirmFriendRequest = () => {
-    return;
+  const saveActivityData = () => {
+    // implement here
   };
 
   return (
-    <Modal onConfirm={confirmFriendRequest}>
+    <Modal onConfirm={saveActivityData}>
       <Text>{params.activity}</Text>
     </Modal>
   );

@@ -42,7 +42,7 @@ export default function Search() {
       return formattedData;
     }
     getData().then(setData);
-  }, []);
+  }, [session]);
 
   function onChangeText(value: string) {
     setSearchValue(value);

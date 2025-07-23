@@ -68,7 +68,6 @@ export async function deleteFriend(currentUser: string, otherUser: string) {
     alert(error.message);
     return;
   }
-  console.log(users);
   return users;
 }
 
@@ -94,7 +93,7 @@ export async function addFriend(screenName: string, session?: Session) {
   };
   const { error } = await supabase.from('friends').insert(data);
   if (error) {
-    alert(error);
+    alert(error.message);
     return;
   }
   alert('Friend request sent');

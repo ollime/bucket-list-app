@@ -1,29 +1,57 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
-import { MinimizedActivity } from 'utils/activity.types';
+import { MinimizedActivity, Activity } from 'utils/activity.types';
 import { Container } from 'components/Container';
 import BucketList from 'components/BucketList';
 import Button from 'components/Button';
+import { addNewActivity, getAllActivities } from 'api/activities-api';
+import { useSession } from 'utils/AuthContext';
 
 export default function Home() {
-  const testData: MinimizedActivity = {
-    activity: 'Test',
-    description: 'This is a test activity',
-    status: 'complete',
-  };
-  const [data, setData] = useState<MinimizedActivity[]>([testData]);
+  const session = useSession();
+  const [data, setData] = useState<MinimizedActivity[]>();
 
-  const emptyActivity: MinimizedActivity = {
+  useEffect(() => {
+    async function getData() {
+      if (session) {
+        setData(await getAllActivities(session));
+      }
+    }
+    getData();
+  }, [session]);
+
+  const emptyMinimized: MinimizedActivity = {
     activity: 'New activity',
     description: '',
     status: 'incomplete',
   };
 
+  const emptyActivity: Activity = {
+    user_id: session?.user.id ?? '',
+    activity: 'New activity',
+    created_at: new Date(Date.now()),
+    description: '',
+    status: 'incomplete',
+    is_public: true,
+    planned_date: new Date(Date.now()),
+    completed_date: new Date(Date.now()),
+    location: '',
+  };
+
   function handleAddItem() {
-    // db logic
-    setData([...data, emptyActivity]);
+    // does not add if already exists
+    while (data?.find((item) => item.activity === emptyMinimized.activity)) {
+      if (emptyMinimized.activity === 'New activity') {
+        emptyMinimized.activity += ' *';
+        emptyActivity.activity += ' *';
+      }
+      emptyMinimized.activity += '*';
+      emptyActivity.activity += '*';
+    }
+    addNewActivity(emptyActivity, session ?? undefined);
+    setData(data ? [...data, emptyMinimized] : [emptyMinimized]);
   }
 
   return (

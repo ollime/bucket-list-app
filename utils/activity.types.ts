@@ -6,7 +6,7 @@ export interface Activity {
   status: ActivityStatus;
   is_public: boolean;
   planned_date?: Date;
-  completion_date?: Date;
+  completed_date?: Date;
   location?: string;
 }
 

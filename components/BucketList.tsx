@@ -6,11 +6,11 @@ import { MinimizedActivity } from 'utils/activity.types';
 import { useRouter } from 'expo-router';
 
 interface BucketListProps {
-  data: MinimizedActivity[];
+  data?: MinimizedActivity[];
 }
 
 interface BucketListItemProps {
-  data: MinimizedActivity;
+  data?: MinimizedActivity;
 }
 
 export default function BucketList({ data }: BucketListProps) {
@@ -30,7 +30,7 @@ export function BucketListItem({ data }: BucketListItemProps) {
   function handleOpenEdit() {
     router.navigate({
       pathname: '/home/details',
-      params: { activity: data.activity },
+      params: { activity: data?.activity },
     });
   }
 
@@ -41,8 +41,8 @@ export function BucketListItem({ data }: BucketListItemProps) {
           source={require('assets/front-page/bucket.png')}
           style={{ width: 100, height: 100 }}></Image>
         <View>
-          <Text className={styles.itemTitle}>{data.activity}</Text>
-          <Text className={styles.itemDescription}>{data.description}</Text>
+          <Text className={styles.itemTitle}>{data?.activity}</Text>
+          <Text className={styles.itemDescription}>{data?.description}</Text>
         </View>
       </View>
     </TouchableWithoutFeedback>

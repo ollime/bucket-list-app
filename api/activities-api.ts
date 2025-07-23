@@ -5,10 +5,24 @@ import { Activity, ActivityStatus } from 'utils/activity.types';
 export async function getAllActivities(session?: Session) {
   const { data, error } = await supabase
     .from('activities')
+    .select(`activity, created_at, description, status`)
+    .eq('user_id', session?.user.id);
+
+  if (error) {
+    alert(error.message);
+    return;
+  }
+  return data;
+}
+
+export async function getActivityDetails(activity: string, session?: Session) {
+  const { data, error } = await supabase
+    .from('activities')
     .select(
-      `activity, created_at, description, status, isPublic, planned_date, completion_date, location`
+      `activity, created_at, description, status, is_public, planned_date, completed_date, location`
     )
-    .eq('id', session?.user.id);
+    .eq('user_id', session?.user.id)
+    .eq('activity', activity);
 
   if (error) {
     alert(error.message);
@@ -21,10 +35,10 @@ export async function getPublicActivities(user: string, session?: Session) {
   const { data, error } = await supabase
     .from('activities')
     .select(
-      `activity, created_at, description, status, isPublic, planned_date, completion_date, location`
+      `activity, created_at, description, status, is_public, planned_date, completed_date, location`
     )
     .eq('profiles.username', user)
-    .eq('isPublic', true);
+    .eq('is_public', true);
 
   if (error) {
     alert(error.message);
@@ -35,15 +49,15 @@ export async function getPublicActivities(user: string, session?: Session) {
 
 export async function addNewActivity(activityData: Activity, session?: Session) {
   // ensures activityData id is correct
-  if (!activityData.id && session?.user.id) {
-    activityData.id = session?.user.id;
+  if (session?.user.id) {
+    activityData.user_id = session?.user.id;
   } else {
     alert('No user found');
   }
 
   const { error } = await supabase.from('activities').insert(activityData);
   if (error) {
-    alert(error);
+    alert(error.message);
     return;
   }
 
@@ -53,9 +67,9 @@ export async function addNewActivity(activityData: Activity, session?: Session) 
 export async function updateActivityDetails(
   activity: string,
   description: string,
-  isPublic: string,
+  is_public: string,
   planned_date: string,
-  completion_date: string,
+  completed_date: string,
   location: string,
   session?: Session
 ) {
@@ -64,12 +78,12 @@ export async function updateActivityDetails(
     .update({
       activity: activity,
       description: description,
-      isPublic: isPublic,
+      is_public: is_public,
       planned_date: planned_date,
-      completion_date: completion_date,
+      completed_date: completed_date,
       location: location,
     })
-    .eq('id', session?.user.id)
+    .eq('user_id', session?.user.id)
     .select();
 
   if (error) {
@@ -86,7 +100,7 @@ export async function updateActivityStatus(status: ActivityStatus, session?: Ses
     .update({
       status: status,
     })
-    .eq('id', session?.user.id)
+    .eq('user_id', session?.user.id)
     .select();
 
   if (error) {
