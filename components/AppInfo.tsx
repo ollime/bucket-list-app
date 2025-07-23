@@ -6,10 +6,10 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 export default function AppInfo() {
   return (
     <View className="flex flex-1 flex-row items-end">
-      <View className="flex flex-1 flex-row justify-end bg-black p-4">
+      <View className="flex flex-1 flex-row justify-end p-2">
         <Link
           href="https://github.com/ollime/bucket-list-app"
-          className="flex flex-row items-center justify-center p-2 px-4">
+          className="flex flex-row items-center justify-center p-2 px-2">
           <Image
             source={require('assets/github-mark-white.png')}
             style={{ width: 20, height: 20 }}></Image>
@@ -17,7 +17,7 @@ export default function AppInfo() {
         </Link>
         <Link
           href="https://github.com/ollime/bucket-list-app/issues"
-          className="flex flex-row items-center justify-center p-2 px-4">
+          className="flex flex-row items-center justify-center p-2 px-2">
           <MaterialCommunityIcons name="exclamation-thick" size={20} color="white" />
           <Text className="align-middle text-white">Report issues</Text>
         </Link>
