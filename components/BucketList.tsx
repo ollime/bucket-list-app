@@ -57,16 +57,19 @@ export function BucketListItem({ data, user_id }: BucketListItemProps) {
           <Text className={styles.itemTitle}>{data?.activity}</Text>
           <Text className={styles.itemDescription}>{data?.description}</Text>
         </View>
-        <StatusBadge
-          label={data?.is_complete ? 'complete' : 'incomplete'}
-          color={data?.is_complete ? 'bg-primary' : 'bg-secondary'}></StatusBadge>
+        <View className="flex-1"></View>
+        <View className="m-10">
+          <StatusBadge
+            label={data?.is_complete ? 'complete' : 'incomplete'}
+            color={data?.is_complete ? 'bg-primary' : 'bg-secondary'}></StatusBadge>
+        </View>
       </View>
     </TouchableWithoutFeedback>
   );
 }
 
 const styles = {
-  listItem: 'flex flex-row p-2',
+  listItem: 'flex flex-row p-2 ',
   itemTitle: 'font-bold p-2',
   itemDescription: 'px-2',
 };

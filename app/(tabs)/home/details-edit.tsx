@@ -7,6 +7,7 @@ import TextField from 'components/TextField';
 import { getActivityDetails } from 'api/activities-api';
 import { useSession } from 'utils/AuthContext';
 import { Activity } from 'utils/activity.types';
+import StatusBadge from 'components/StatusBadge';
 
 export default function SearchModal() {
   const session = useSession();
@@ -43,7 +44,9 @@ export default function SearchModal() {
 
   return (
     <Modal onConfirm={saveActivityData}>
-      <Text>Status</Text>
+      <StatusBadge
+        label={isComplete ? 'complete' : 'incomplete'}
+        color={isComplete ? 'bg-primary' : 'bg-secondary'}></StatusBadge>
       <View className="flex flex-1 items-center">
         <TextField
           label="Name"
