@@ -1,7 +1,7 @@
 import { Text } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
 
-import { useSession } from 'utils/context';
+import { useSession } from 'utils/AuthContext';
 import { deleteFriend } from 'api/friends-api';
 import { getUsername } from 'api/profiles-api';
 

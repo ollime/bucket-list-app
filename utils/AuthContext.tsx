@@ -1,4 +1,4 @@
-import { use, useState, useEffect, createContext, type PropsWithChildren } from 'react';
+import { use, useEffect, createContext, type PropsWithChildren } from 'react';
 import { Session } from '@supabase/supabase-js';
 import { supabase } from './../utils/supabase';
 import { useStorageState } from './useStorageState';

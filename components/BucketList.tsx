@@ -1,66 +1,51 @@
-import { useState } from 'react';
-import { Text, View } from 'react-native';
+import { Text, TouchableWithoutFeedback, View } from 'react-native';
 import { Image } from 'expo-image';
 import { FlashList } from '@shopify/flash-list';
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
-import { Activity } from 'utils/activity.types';
-import Button from './Button';
+import { MinimizedActivity } from 'utils/activity.types';
+import { useRouter } from 'expo-router';
 
-export default function BucketList({ data, userId }: { data: Activity[]; userId: string }) {
-  const [activities, setActivities] = useState(data);
+interface BucketListProps {
+  data: MinimizedActivity[];
+}
 
-  const emptyActivity: Activity = {
-    id: userId,
-    activity: 'New activity',
-    created_at: new Date(Date.now()),
-    description: '',
-    status: 'incomplete',
-    isPublic: true,
-    planned_date: new Date(Date.now()),
-    completion_date: new Date(Date.now()),
-    location: '',
-  };
+interface BucketListItemProps {
+  data: MinimizedActivity;
+}
 
-  function handleAddItem() {
-    // db logic
-    setActivities((prev) => [...prev, emptyActivity]);
-  }
-
+export default function BucketList({ data }: BucketListProps) {
   return (
-    <View className="flex flex-1">
-      <FlashList
-        data={activities}
-        renderItem={({ item }) => (
-          <BucketListItem title={item.activity} description={item.description} />
-        )}
-        contentContainerStyle={{ padding: 2 }}
-        estimatedItemSize={16}
-        showsVerticalScrollIndicator={false}
-      />
-      <Button
-        label={
-          <View className="flex flex-row items-center">
-            <MaterialIcons name="add" size={24} color="black" />
-            <Text className="pl-2">Add new activity</Text>
-          </View>
-        }
-        callback={handleAddItem}></Button>
-    </View>
+    <FlashList
+      data={data}
+      renderItem={({ item }) => <BucketListItem data={item} />}
+      contentContainerStyle={{ padding: 2 }}
+      estimatedItemSize={16}
+      showsVerticalScrollIndicator={false}
+    />
   );
 }
 
-export function BucketListItem({ title, description }: { title: string; description?: string }) {
+export function BucketListItem({ data }: BucketListItemProps) {
+  const router = useRouter();
+  function handleOpenEdit() {
+    router.navigate({
+      pathname: '/home/details',
+      params: { activity: data.activity },
+    });
+  }
+
   return (
-    <View className={styles.listItem}>
-      <Image
-        source={require('assets/front-page/bucket.png')}
-        style={{ width: 100, height: 100 }}></Image>
-      <View>
-        <Text className={styles.itemTitle}>{title}</Text>
-        <Text className={styles.itemDescription}>{description}</Text>
+    <TouchableWithoutFeedback onPress={handleOpenEdit}>
+      <View className={styles.listItem}>
+        <Image
+          source={require('assets/front-page/bucket.png')}
+          style={{ width: 100, height: 100 }}></Image>
+        <View>
+          <Text className={styles.itemTitle}>{data.activity}</Text>
+          <Text className={styles.itemDescription}>{data.description}</Text>
+        </View>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 }
 

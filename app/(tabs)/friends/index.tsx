@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { ProfileData, ProfileWithoutFriend } from 'utils/profile.types';
-import { useSession } from 'utils/context';
+import { useSession } from 'utils/AuthContext';
 import { getFriendsProfile } from 'api/friends-api';
 import { getUsername } from 'api/profiles-api';
 

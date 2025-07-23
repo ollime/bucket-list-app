@@ -1,7 +1,7 @@
 import { Tabs, Redirect } from 'expo-router';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
-import { useSession } from './../../utils/context';
+import { useSession } from './../../utils/AuthContext';
 
 export default function TabLayout() {
   const session = useSession();

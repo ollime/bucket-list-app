@@ -5,7 +5,7 @@ import { Text, View } from 'react-native';
 import Button from 'components/Button';
 import Avatar from 'components/Avatar';
 import TextField from 'components/TextField';
-import { useSession } from 'utils/context';
+import { useSession } from 'utils/AuthContext';
 import { useRouter } from 'expo-router';
 import { Container } from 'components/Container';
 import AppInfo from 'components/AppInfo';
