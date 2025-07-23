@@ -28,17 +28,23 @@ export default function BucketList({ data, userId }: { data: Activity[]; userId:
   }
 
   return (
-    <View>
+    <View className="flex flex-1">
       <FlashList
         data={activities}
         renderItem={({ item }) => (
           <BucketListItem title={item.activity} description={item.description} />
         )}
-        contentContainerStyle={{ backgroundColor: 'white', padding: 2 }}
+        contentContainerStyle={{ padding: 2 }}
         estimatedItemSize={16}
+        showsVerticalScrollIndicator={false}
       />
       <Button
-        label={<MaterialIcons name="add" size={24} color="black" />}
+        label={
+          <View className="flex flex-row items-center">
+            <MaterialIcons name="add" size={24} color="black" />
+            <Text className="pl-2">Add new activity</Text>
+          </View>
+        }
         callback={handleAddItem}></Button>
     </View>
   );
@@ -59,7 +65,7 @@ export function BucketListItem({ title, description }: { title: string; descript
 }
 
 const styles = {
-  listItem: 'flex flex-row bg-white p-2',
+  listItem: 'flex flex-row p-2',
   itemTitle: 'font-bold p-2',
   itemDescription: 'px-2',
 };
