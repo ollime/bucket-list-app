@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Text, View } from 'react-native';
 import { Image } from 'expo-image';
 import { FlashList } from '@shopify/flash-list';
@@ -6,15 +7,30 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { Activity } from 'utils/activity.types';
 import Button from './Button';
 
-export default function BucketList({ data }: { data: Activity[] }) {
+export default function BucketList({ data, userId }: { data: Activity[]; userId: string }) {
+  const [activities, setActivities] = useState(data);
+
+  const emptyActivity: Activity = {
+    id: userId,
+    activity: 'New activity',
+    created_at: new Date(Date.now()),
+    description: '',
+    status: 'incomplete',
+    isPublic: true,
+    planned_date: new Date(Date.now()),
+    completion_date: new Date(Date.now()),
+    location: '',
+  };
+
   function handleAddItem() {
-    return;
+    // db logic
+    setActivities((prev) => [...prev, emptyActivity]);
   }
 
   return (
     <View>
       <FlashList
-        data={data}
+        data={activities}
         renderItem={({ item }) => (
           <BucketListItem title={item.activity} description={item.description} />
         )}

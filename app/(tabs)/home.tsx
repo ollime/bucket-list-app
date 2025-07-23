@@ -19,7 +19,7 @@ export default function Home() {
 
   return (
     <Container>
-      <BucketList data={[testData]}></BucketList>
+      <BucketList data={[testData]} userId={session?.user.id ?? ''}></BucketList>
     </Container>
   );
 }
