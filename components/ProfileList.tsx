@@ -100,19 +100,21 @@ function ProfileListItem({ item }: { item: ProfileData }) {
   }
 
   return (
-    <TouchableWithoutFeedback className={styles.itemContainer} onPress={handleOpenProfile}>
-      {item.avatarUrl && avatarUri ? (
-        <Image
-          source={{ uri: avatarUri }}
-          accessibilityLabel="Avatar"
-          className={styles.itemImage}
-        />
-      ) : (
-        <View className={`${styles.itemImage} ${styles.blankImage}`}></View>
-      )}
-      <Text className={styles.itemLabel}>{item.username}</Text>
-      <View className={styles.button}>
-        <RoundButton {...renderButtonProps()} />
+    <TouchableWithoutFeedback onPress={handleOpenProfile}>
+      <View className={styles.itemContainer}>
+        {item.avatarUrl && avatarUri ? (
+          <Image
+            source={{ uri: avatarUri }}
+            accessibilityLabel="Avatar"
+            className={styles.itemImage}
+          />
+        ) : (
+          <View className={`${styles.itemImage} ${styles.blankImage}`}></View>
+        )}
+        <Text className={styles.itemLabel}>{item.username}</Text>
+        <View className={styles.button}>
+          <RoundButton {...renderButtonProps()} />
+        </View>
       </View>
     </TouchableWithoutFeedback>
   );
