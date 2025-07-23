@@ -10,6 +10,7 @@ type TextFieldProps = {
   isValid?: boolean;
   icon?: keyof typeof MaterialIcons.glyphMap;
   obfuscateText?: boolean;
+  multiline?: boolean;
 };
 
 export default function TextField({
@@ -21,14 +22,17 @@ export default function TextField({
   isValid = true,
   icon,
   obfuscateText = false,
+  multiline = false,
 }: TextFieldProps) {
   let focusStyle = isValid ? 'focus-within:border-green-600' : 'focus-within:border-red-600';
+  let multilineStyle = multiline ? 'border-2 rounded-lg' : '';
+  let widthStyles = multiline ? 'w-80' : 'w-64';
 
   return (
     <>
-      <View className={styles.container}>
+      <View className={`${styles.container} ${widthStyles}`}>
         <Text className={styles.label}>{label}</Text>
-        <View className={`${styles.containerRow} ${focusStyle}`}>
+        <View className={`${styles.containerRow} ${focusStyle} ${multilineStyle}`}>
           <TextInput
             value={value}
             placeholder={placeholder}
@@ -37,11 +41,14 @@ export default function TextField({
             }}
             className={`${styles.textInput} ${disabled ? styles.disabled : ''}`}
             readOnly={disabled}
-            secureTextEntry={obfuscateText}></TextInput>
+            secureTextEntry={obfuscateText}
+            multiline={multiline}
+            numberOfLines={multiline ? 3 : 1}></TextInput>
           <MaterialIcons
             name={icon ? icon : disabled ? 'edit-off' : 'edit'}
             size={24}
             color="gray"
+            className={`my-2 flex items-end ${multiline ? 'mx-2' : ''}`}
           />
         </View>
       </View>
@@ -50,7 +57,7 @@ export default function TextField({
 }
 
 const styles = {
-  container: 'm-1 px-1 pt-1 w-64 flex flex-col bg-white',
+  container: 'm-1 px-1 pt-1 flex flex-col bg-white',
   containerRow: 'flex flex-row border-b-2 border-gray-400',
   textInput: 'flex-1 p-2 w-full placeholder:text-gray-400 focus:outline-none',
   label: 'flex mr-1',

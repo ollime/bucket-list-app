@@ -36,6 +36,7 @@ export default function Modal({ children, onConfirm }: ModalProps) {
           justifyContent: 'center',
           backgroundColor: 'white',
           borderRadius: '0.75rem',
+          padding: 20,
         }}>
         {children}
         <View className="m-2 flex flex-row">
