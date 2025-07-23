@@ -34,7 +34,7 @@ export default function Home() {
     created_at: new Date(Date.now()),
     description: '',
     is_complete: false,
-    is_public: true,
+    is_public: false,
     planned_date: new Date(Date.now()),
     completed_date: new Date(Date.now()),
     location: '',

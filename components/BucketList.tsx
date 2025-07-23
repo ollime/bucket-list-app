@@ -54,15 +54,15 @@ export function BucketListItem({ data, user_id }: BucketListItemProps) {
           source={require('assets/front-page/bucket.png')}
           style={{ width: 100, height: 100 }}></Image>
         <View>
-          <Text className={styles.itemTitle}>{data?.activity}</Text>
+          <View className="flex-row">
+            <Text className={styles.itemTitle}>{data?.activity}</Text>
+            <StatusBadge
+              label={data?.is_complete ? 'complete' : 'incomplete'}
+              color={data?.is_complete ? 'bg-primary' : 'bg-secondary'}></StatusBadge>
+          </View>
           <Text className={styles.itemDescription}>{data?.description}</Text>
         </View>
         <View className="flex-1"></View>
-        <View className="m-10">
-          <StatusBadge
-            label={data?.is_complete ? 'complete' : 'incomplete'}
-            color={data?.is_complete ? 'bg-primary' : 'bg-secondary'}></StatusBadge>
-        </View>
       </View>
     </TouchableWithoutFeedback>
   );

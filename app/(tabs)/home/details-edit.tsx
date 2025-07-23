@@ -8,6 +8,7 @@ import { getActivityDetails } from 'api/activities-api';
 import { useSession } from 'utils/AuthContext';
 import { Activity } from 'utils/activity.types';
 import StatusBadge from 'components/StatusBadge';
+import Toggle from 'components/Toggle';
 
 export default function SearchModal() {
   const session = useSession();
@@ -15,7 +16,7 @@ export default function SearchModal() {
   const [data, setData] = useState<Activity>();
   const [activity, setActivity] = useState<string>();
   const [description, setDescription] = useState<string>();
-  const [isComplete, setIsComplete] = useState<boolean>();
+  const [isComplete, setIsComplete] = useState<boolean>(false);
   const [isPublic, setIsPublic] = useState<boolean>(false);
   const [location, setLocation] = useState<string>();
 
@@ -40,7 +41,8 @@ export default function SearchModal() {
     // implement here
   };
 
-  const toggleSwitch = () => setIsPublic((previousState) => !previousState);
+  const handleTogglePublic = () => setIsPublic((previousState) => !previousState);
+  const handleToggleComplete = () => setIsComplete((previousState) => !previousState);
 
   return (
     <Modal onConfirm={saveActivityData}>
@@ -69,19 +71,16 @@ export default function SearchModal() {
           value={location ?? ''}
           onChangeText={(value: string) => setLocation(value)}
           placeholder="location"></TextField>
-        <View className="m-2 flex flex-row">
-          <Text>Public</Text>
-          <Switch
-            trackColor={{ false: '#767577', true: '#81b0ff' }}
-            thumbColor={isPublic ? '#2d70b9' : '#f4f3f4'}
-            // @ts-ignore
-            activeThumbColor="#2d70b9"
-            ios_backgroundColor="#3e3e3e"
-            onValueChange={toggleSwitch}
-            value={isPublic}
-            style={{ transform: [{ scaleX: 1.2 }, { scaleY: 1.2 }], marginLeft: 20 }}
-          />
-        </View>
+        <Toggle
+          value={isPublic}
+          label="Public"
+          icon={isPublic ? 'public' : 'public-off'}
+          callback={handleTogglePublic}></Toggle>
+        <Toggle
+          value={isComplete}
+          label="Complete activity"
+          icon={isComplete ? 'check-box' : 'check-box-outline-blank'}
+          callback={handleToggleComplete}></Toggle>
       </View>
     </Modal>
   );
