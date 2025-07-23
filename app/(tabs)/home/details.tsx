@@ -1,14 +1,27 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Text } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
 
 import Modal from 'components/Modal';
+import { getActivityDetails } from 'api/activities-api';
+import { useSession } from 'utils/AuthContext';
+import { Activity } from 'utils/activity.types';
 
 export default function SearchModal() {
-  useEffect(() => {
-    // load more details
-  }, []);
+  const session = useSession();
   const params = useLocalSearchParams();
+  const [data, setData] = useState<Activity>();
+
+  useEffect(() => {
+    async function retrieveData() {
+      const activityDetails = (await getActivityDetails(
+        params.activity as string,
+        session ?? undefined
+      )) as Activity;
+      setData(activityDetails);
+    }
+    retrieveData();
+  }, [session, params]);
 
   const saveActivityData = () => {
     // implement here
@@ -17,6 +30,13 @@ export default function SearchModal() {
   return (
     <Modal onConfirm={saveActivityData}>
       <Text>{params.activity}</Text>
+      <Text>{data?.description}</Text>
+      <Text>{data?.status}</Text>
+      <Text>{data?.is_public}</Text>
+      <Text>{data?.created_at}</Text>
+      <Text>{data?.planned_date}</Text>
+      <Text>{data?.completed_date}</Text>
+      <Text>{data?.location}</Text>
     </Modal>
   );
 }

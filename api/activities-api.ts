@@ -19,16 +19,17 @@ export async function getActivityDetails(activity: string, session?: Session) {
   const { data, error } = await supabase
     .from('activities')
     .select(
-      `activity, created_at, description, status, is_public, planned_date, completed_date, location`
+      `user_id, activity, created_at, description, status, is_public, planned_date, completed_date, location`
     )
     .eq('user_id', session?.user.id)
-    .eq('activity', activity);
+    .eq('activity', activity)
+    .limit(1);
 
   if (error) {
     alert(error.message);
     return;
   }
-  return data;
+  return data[0];
 }
 
 export async function getPublicActivities(user: string, session?: Session) {
