@@ -10,7 +10,15 @@ export default function Layout() {
         }}
       />
       <Stack.Screen
-        name="details"
+        name="details-edit"
+        options={{
+          presentation: 'transparentModal',
+          animation: 'fade',
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="details-view"
         options={{
           presentation: 'transparentModal',
           animation: 'fade',

@@ -68,7 +68,7 @@ export default function Home() {
           }
           callback={handleAddItem}></Button>
       </View>
-      <BucketList data={data}></BucketList>
+      <BucketList data={data} user_id={session?.user.id ?? ''}></BucketList>
     </Container>
   );
 }

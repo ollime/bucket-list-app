@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Text, View, Image } from 'react-native';
+import { Text, View, Image, TouchableWithoutFeedback } from 'react-native';
 import { FlashList } from '@shopify/flash-list';
 import { useRouter } from 'expo-router';
 
@@ -58,6 +58,10 @@ function ProfileListItem({ item }: { item: ProfileData }) {
     };
   }, [item.avatarUrl]);
 
+  function handleOpenProfile() {
+    // opens individual profile
+  }
+
   function renderButtonProps() {
     switch (item.friendStatus) {
       case 'requested':
@@ -96,7 +100,7 @@ function ProfileListItem({ item }: { item: ProfileData }) {
   }
 
   return (
-    <View className={styles.itemContainer}>
+    <TouchableWithoutFeedback className={styles.itemContainer} onPress={handleOpenProfile}>
       {item.avatarUrl && avatarUri ? (
         <Image
           source={{ uri: avatarUri }}
@@ -110,7 +114,7 @@ function ProfileListItem({ item }: { item: ProfileData }) {
       <View className={styles.button}>
         <RoundButton {...renderButtonProps()} />
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 }
 

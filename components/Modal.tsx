@@ -50,7 +50,7 @@ export default function Modal({ children, onConfirm }: ModalProps) {
           ) : (
             ''
           )}
-          <RoundButton label="Go back" callback={() => router.back()}></RoundButton>
+          <RoundButton label="Cancel" callback={() => router.back()}></RoundButton>
         </View>
       </Animated.View>
     </Animated.View>

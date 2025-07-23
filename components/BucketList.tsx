@@ -4,20 +4,23 @@ import { FlashList } from '@shopify/flash-list';
 
 import { MinimizedActivity } from 'utils/activity.types';
 import { useRouter } from 'expo-router';
+import { useSession } from 'utils/AuthContext';
 
 interface BucketListProps {
   data?: MinimizedActivity[];
+  user_id: string;
 }
 
 interface BucketListItemProps {
   data?: MinimizedActivity;
+  user_id: string;
 }
 
-export default function BucketList({ data }: BucketListProps) {
+export default function BucketList({ data, user_id }: BucketListProps) {
   return (
     <FlashList
       data={data}
-      renderItem={({ item }) => <BucketListItem data={item} />}
+      renderItem={({ item }) => <BucketListItem data={item} user_id={user_id} />}
       contentContainerStyle={{ padding: 2 }}
       estimatedItemSize={16}
       showsVerticalScrollIndicator={false}
@@ -25,13 +28,22 @@ export default function BucketList({ data }: BucketListProps) {
   );
 }
 
-export function BucketListItem({ data }: BucketListItemProps) {
+export function BucketListItem({ data, user_id }: BucketListItemProps) {
   const router = useRouter();
+  const session = useSession();
+
   function handleOpenEdit() {
-    router.navigate({
-      pathname: '/home/details',
-      params: { activity: data?.activity },
-    });
+    if (user_id === session?.user.id) {
+      router.navigate({
+        pathname: '/home/details-edit',
+        params: { activity: data?.activity },
+      });
+    } else {
+      router.navigate({
+        pathname: '/home/details-view',
+        params: { activity: data?.activity },
+      });
+    }
   }
 
   return (

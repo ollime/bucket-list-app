@@ -77,7 +77,6 @@ export async function updateActivityDetails(
   const { data: users, error } = await supabase
     .from('friends')
     .update({
-      activity: activity,
       description: description,
       is_public: is_public,
       planned_date: planned_date,
@@ -85,6 +84,7 @@ export async function updateActivityDetails(
       location: location,
     })
     .eq('user_id', session?.user.id)
+    .eq('activity', activity)
     .select();
 
   if (error) {
@@ -101,6 +101,21 @@ export async function updateActivityStatus(status: ActivityStatus, session?: Ses
     .update({
       status: status,
     })
+    .eq('user_id', session?.user.id)
+    .select();
+
+  if (error) {
+    alert(error.message);
+    return;
+  }
+  return users;
+}
+
+export async function deleteFriend(activity: string, session?: Session) {
+  const { data: users, error } = await supabase
+    .from('friends')
+    .delete()
+    .eq('activity', activity)
     .eq('user_id', session?.user.id)
     .select();
 
