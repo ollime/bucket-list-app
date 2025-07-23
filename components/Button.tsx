@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import { View, Text } from 'react-native';
 
 export default function Button({
@@ -5,7 +6,7 @@ export default function Button({
   callback,
   disabled,
 }: {
-  label: string;
+  label: string | ReactNode;
   callback: () => void;
   disabled?: boolean;
 }) {

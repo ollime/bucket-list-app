@@ -1,22 +1,25 @@
-import { View, Image as StyledImage } from 'react-native';
+import { Activity } from 'utils/activity.types';
 import { Container } from 'components/Container';
-import BucketListItem from 'components/BucketList';
+import BucketList from 'components/BucketList';
+import { useSession } from 'utils/context';
 
 export default function Home() {
+  const session = useSession();
+  const testData: Activity = {
+    id: session?.user.id ?? '',
+    activity: 'Test',
+    created_at: new Date(Date.now()),
+    description: 'This is a test activity',
+    status: 'complete',
+    isPublic: true,
+    planned_date: new Date(Date.now()),
+    completion_date: new Date(Date.now()),
+    location: '',
+  };
+
   return (
     <Container>
-      <BucketListItem title="activity" description="test"></BucketListItem>
-      <View className={styles.background}>
-        <View className="flex flex-1"></View>
-        <StyledImage
-          source={require('assets/front-page/waves.png')}
-          // do not use > 180px for height. adjust the height value to change the size of the entire image
-          style={{ height: 150, width: '100%', resizeMode: 'repeat' }}></StyledImage>
-      </View>
+      <BucketList data={[testData]}></BucketList>
     </Container>
   );
 }
-
-const styles = {
-  background: 'flex-1 flex-grow justify-end',
-};
