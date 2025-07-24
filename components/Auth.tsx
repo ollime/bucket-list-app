@@ -5,7 +5,7 @@ import Button from 'components/Button';
 import { useRouter } from 'expo-router';
 
 import TextField from 'components/TextField';
-import { alert } from 'utils/alert';
+import { showAlert } from 'utils/alert';
 
 AppState.addEventListener('change', (state) => {
   if (state === 'active') {
@@ -27,7 +27,7 @@ export default function Auth() {
   async function signInWithEmail() {
     // do not sign in if email or password is invalid
     if (!isEmailValid && !isPasswordValid) {
-      alert('Invalid email or password');
+      showAlert('Invalid email or password', 'error', false);
       return;
     }
 
@@ -36,7 +36,7 @@ export default function Auth() {
       email: email,
       password: password,
     });
-    if (error) alert(error.message);
+    if (error) showAlert(error.message, 'error', false);
     setLoading(false);
     router.push('/account');
   }
@@ -44,7 +44,7 @@ export default function Auth() {
   async function signUpWithEmail() {
     // do not sign up if email or password is invalid
     if (!isEmailValid && !isPasswordValid) {
-      alert('Invalid email or password');
+      showAlert('Invalid email or password', 'error', false);
       return;
     }
 
@@ -57,9 +57,14 @@ export default function Auth() {
       password: password,
     });
 
-    if (error) alert(error.message);
-    if (!session) alert('Please check your inbox for email verification.');
-
+    if (error) showAlert(error.message, 'error', false);
+    if (!session)
+      showAlert(
+        'Please check your email inbox for verification',
+        'info',
+        false,
+        'It may take a few minutes to arrive'
+      );
     setLoading(false);
     router.push('/account');
   }

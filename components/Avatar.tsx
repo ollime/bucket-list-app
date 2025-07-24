@@ -4,8 +4,7 @@ import { View, Image } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as ImageManipulator from 'expo-image-manipulator';
 
-import { alert } from 'utils/alert';
-
+import { showAlert } from 'utils/alert';
 import Button from './Button';
 
 interface Props {
@@ -36,7 +35,7 @@ export default function Avatar({ url, onUpload, userId }: Props) {
       };
     } catch (error) {
       if (error instanceof Error) {
-        alert('Error downloading image: ' + error.message);
+        showAlert(`Error downloading image: ${error.message}`, 'error', false);
       }
     }
   }
@@ -83,7 +82,7 @@ export default function Avatar({ url, onUpload, userId }: Props) {
       onUpload(data.path);
     } catch (error) {
       if (error instanceof Error) {
-        alert(error.message);
+        showAlert(error.message, 'error', false);
       } else {
         throw error;
       }

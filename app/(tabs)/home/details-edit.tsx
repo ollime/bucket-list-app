@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react';
-import { Text, View, Switch } from 'react-native';
+import { View } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
-import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 import Modal from 'components/Modal';
 import TextField from 'components/TextField';
-import { getActivityDetails, updateActivityDetails } from 'api/activities-api';
+import {
+  getActivityDetails,
+  updateActivityDetails,
+  updateActivityStatus,
+} from 'api/activities-api';
 import { useSession } from 'utils/AuthContext';
 import { Activity } from 'utils/activity.types';
 import StatusBadge from 'components/StatusBadge';
@@ -67,6 +70,9 @@ export default function SearchModal() {
   const handleToggleComplete = () => {
     setIsComplete((previousState) => !previousState);
     setIsSaved(false);
+    if (activity) {
+      updateActivityStatus(!isComplete, activity, session ?? undefined);
+    }
   };
   const handleChangeLocation = (value: string) => {
     setLocation(value);

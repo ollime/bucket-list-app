@@ -9,7 +9,7 @@ import { useSession } from 'utils/AuthContext';
 import { useRouter } from 'expo-router';
 import { Container } from 'components/Container';
 import AppInfo from 'components/AppInfo';
-import { alert } from 'utils/alert';
+import { showAlert } from 'utils/alert';
 
 export default function Account() {
   const [loading, setLoading] = useState(true);
@@ -45,7 +45,7 @@ export default function Account() {
         }
       } catch (error) {
         if (error instanceof Error) {
-          alert(error.message);
+          showAlert(error.message, 'error', false);
         }
       } finally {
         setLoading(false);
@@ -80,11 +80,10 @@ export default function Account() {
       }
     } catch (error) {
       if (error instanceof Error) {
-        alert(error.message);
+        showAlert(error.message, 'error', false);
       }
     } finally {
-      alert('Profile updated.');
-      setLoading(false);
+      showAlert('Profile updated', 'info', true);
     }
   }
 

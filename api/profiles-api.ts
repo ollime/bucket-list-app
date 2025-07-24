@@ -1,6 +1,6 @@
 import { supabase } from 'utils/supabase';
 import { Session } from '@supabase/supabase-js';
-import { alert } from 'utils/alert';
+import { showAlert } from 'utils/alert';
 
 export async function getUsername(session?: Session) {
   try {
@@ -21,7 +21,7 @@ export async function getUsername(session?: Session) {
     }
   } catch (error) {
     if (error instanceof Error) {
-      alert(error.message);
+      showAlert(error.message, 'error', false);
     }
   }
 }
@@ -30,7 +30,7 @@ export async function getAllUsers() {
   const { data: users, error } = await supabase.from('profiles').select(`username, avatar_url`);
 
   if (error) {
-    alert(error.message);
+    showAlert(error.message, 'error', false);
     return;
   }
   return users;

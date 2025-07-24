@@ -6,7 +6,7 @@ import { useRouter } from 'expo-router';
 import { ProfileData } from 'utils/profile.types';
 import { useSession } from 'utils/AuthContext';
 import { supabase } from 'utils/supabase';
-import { alert } from 'utils/alert';
+import { showAlert } from 'utils/alert';
 import { updateFriendStatus } from 'api/friends-api';
 import { getUsername } from 'api/profiles-api';
 
@@ -47,7 +47,7 @@ function ProfileListItem({ item }: { item: ProfileData }) {
         };
       } catch (error) {
         if (error instanceof Error) {
-          alert('Error downloading image: ' + error.message);
+          showAlert(`Error downloading image: ${error.message}`, 'error', false);
         }
       }
     }
@@ -73,7 +73,7 @@ function ProfileListItem({ item }: { item: ProfileData }) {
           disabled: false,
           callback: async () => {
             updateFriendStatus('accepted', item.username, await getUsername(session ?? undefined));
-            alert('Accepted friend request!');
+            showAlert('Accepted friend request!', 'info', false);
           },
         };
       case 'accepted':

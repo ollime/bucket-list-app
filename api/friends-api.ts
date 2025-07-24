@@ -1,7 +1,7 @@
 import { supabase } from 'utils/supabase';
 import { Session } from '@supabase/supabase-js';
 import { getUsername } from './profiles-api';
-import { alert } from 'utils/alert';
+import { showAlert } from 'utils/alert';
 
 /** Returns the profiles of the current user's friends,
  * including usernames and avatars. */
@@ -17,7 +17,7 @@ export async function getFriendsProfile(session?: Session) {
     .or(`user.eq.${username},friend.eq.${username}`);
 
   if (error) {
-    alert(error.message);
+    showAlert(error.message, 'error', false);
     return;
   }
   return data;
@@ -34,7 +34,7 @@ export async function getFriendStatus(session?: Session) {
     .or(`user.eq.${username},friend.eq.${username}`);
 
   if (error) {
-    alert(error.message);
+    showAlert(error.message, 'error', false);
     return;
   }
   return data;
@@ -49,7 +49,7 @@ export async function updateFriendStatus(status: string, sender: string, receive
     .select();
 
   if (error) {
-    alert(error.message);
+    showAlert(error.message, 'error', false);
     return;
   }
   console.log(users);
@@ -66,7 +66,7 @@ export async function deleteFriend(currentUser: string, otherUser: string) {
     .select();
 
   if (error) {
-    alert(error.message);
+    showAlert(error.message, 'error', false);
     return;
   }
   return users;
@@ -94,8 +94,8 @@ export async function addFriend(screenName: string, session?: Session) {
   };
   const { error } = await supabase.from('friends').insert(data);
   if (error) {
-    alert(error.message);
+    showAlert(error.message, 'error', false);
     return;
   }
-  alert('Friend request sent');
+  showAlert('Friend request sent', 'info', true);
 }

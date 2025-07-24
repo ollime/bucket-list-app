@@ -1,7 +1,7 @@
 import { supabase } from 'utils/supabase';
 import { Session } from '@supabase/supabase-js';
 import { Activity } from 'utils/activity.types';
-import { alert } from 'utils/alert';
+import { showAlert } from 'utils/alert';
 
 export async function getAllActivities(session?: Session) {
   const { data, error } = await supabase
@@ -10,7 +10,7 @@ export async function getAllActivities(session?: Session) {
     .eq('user_id', session?.user.id);
 
   if (error) {
-    alert(error.message);
+    showAlert(error.message, 'error', false);
     return;
   }
   return data;
@@ -27,7 +27,7 @@ export async function getActivityDetails(activity: string, session?: Session) {
     .limit(1);
 
   if (error) {
-    alert(error.message);
+    showAlert(error.message, 'error', false);
     return;
   }
   return data[0];
@@ -43,7 +43,7 @@ export async function getPublicActivities(user: string, session?: Session) {
     .eq('is_public', true);
 
   if (error) {
-    alert(error.message);
+    showAlert(error.message, 'error', false);
     return;
   }
   return data;
@@ -54,12 +54,12 @@ export async function addNewActivity(activityData: Activity, session?: Session) 
   if (session?.user.id) {
     activityData.user_id = session?.user.id;
   } else {
-    alert('No user found');
+    showAlert('No user found', 'error', false);
   }
 
   const { error } = await supabase.from('activities').insert(activityData);
   if (error) {
-    alert(error.message);
+    showAlert(error.message, 'error', false);
     return;
   }
 
@@ -97,24 +97,29 @@ export async function updateActivityDetails({
     .select();
 
   if (error) {
-    alert(error.message);
+    showAlert(error.message, 'error', false);
     return;
   }
   console.log(users);
   return users;
 }
 
-export async function updateActivityStatus(is_complete: boolean, session?: Session) {
+export async function updateActivityStatus(
+  is_complete: boolean,
+  activity: string,
+  session?: Session
+) {
   const { data: users, error } = await supabase
     .from('friends')
     .update({
       is_complete: is_complete,
     })
     .eq('user_id', session?.user.id)
+    .eq('activity', activity)
     .select();
 
   if (error) {
-    alert(error.message);
+    showAlert(error.message, 'error', false);
     return;
   }
   return users;
@@ -129,7 +134,7 @@ export async function deleteFriend(activity: string, session?: Session) {
     .select();
 
   if (error) {
-    alert(error.message);
+    showAlert(error.message, 'error', false);
     return;
   }
   return users;
