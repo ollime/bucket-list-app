@@ -1,5 +1,6 @@
 import { supabase } from 'utils/supabase';
 import { Session } from '@supabase/supabase-js';
+import { alert } from 'utils/alert';
 
 export async function getUsername(session?: Session) {
   try {

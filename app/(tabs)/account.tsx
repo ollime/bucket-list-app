@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../../utils/supabase';
-import { Text, View } from 'react-native';
+import { Text } from 'react-native';
 
 import Button from 'components/Button';
 import Avatar from 'components/Avatar';
@@ -9,6 +9,7 @@ import { useSession } from 'utils/AuthContext';
 import { useRouter } from 'expo-router';
 import { Container } from 'components/Container';
 import AppInfo from 'components/AppInfo';
+import { alert } from 'utils/alert';
 
 export default function Account() {
   const [loading, setLoading] = useState(true);

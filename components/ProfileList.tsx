@@ -6,6 +6,7 @@ import { useRouter } from 'expo-router';
 import { ProfileData } from 'utils/profile.types';
 import { useSession } from 'utils/AuthContext';
 import { supabase } from 'utils/supabase';
+import { alert } from 'utils/alert';
 import { updateFriendStatus } from 'api/friends-api';
 import { getUsername } from 'api/profiles-api';
 
