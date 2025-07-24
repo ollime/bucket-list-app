@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Text, View, Switch } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 import Modal from 'components/Modal';
 import TextField from 'components/TextField';
-import { getActivityDetails } from 'api/activities-api';
+import { getActivityDetails, updateActivityDetails } from 'api/activities-api';
 import { useSession } from 'utils/AuthContext';
 import { Activity } from 'utils/activity.types';
 import StatusBadge from 'components/StatusBadge';
@@ -13,7 +14,6 @@ import Toggle from 'components/Toggle';
 export default function SearchModal() {
   const session = useSession();
   const params = useLocalSearchParams();
-  const [data, setData] = useState<Activity>();
   const [activity, setActivity] = useState<string>();
   const [description, setDescription] = useState<string>();
   const [isComplete, setIsComplete] = useState<boolean>(false);
@@ -28,22 +28,56 @@ export default function SearchModal() {
         params.activity as string,
         session ?? undefined
       )) as Activity;
-      setData(activityDetails);
       setActivity(activityDetails?.activity);
       setDescription(activityDetails?.description);
       setIsComplete(activityDetails?.is_complete);
       setIsPublic(activityDetails?.is_public);
       setLocation(activityDetails?.location);
+      setIsSaved(true);
     }
     retrieveData();
   }, [session, params.activity]);
 
   const saveActivityData = () => {
-    // implement here
+    if (
+      typeof activity === 'string' &&
+      typeof description === 'string' &&
+      typeof location === 'string' &&
+      session
+    ) {
+      updateActivityDetails({
+        activity: activity,
+        description: description,
+        is_public: isPublic ? 'true' : 'false',
+        planned_date: plannedDate ? plannedDate : new Date(),
+        completed_date: completedDate ? completedDate : new Date(),
+        location: location,
+        user_id: session?.user.id,
+      });
+    }
+    setIsSaved(true);
   };
 
-  const handleTogglePublic = () => setIsPublic((previousState) => !previousState);
-  const handleToggleComplete = () => setIsComplete((previousState) => !previousState);
+  const handleTogglePublic = () => {
+    setIsPublic((previousState) => !previousState);
+    setIsSaved(false);
+  };
+  const handleToggleComplete = () => {
+    setIsComplete((previousState) => !previousState);
+    setIsSaved(false);
+  };
+  const handleChangeLocation = (value: string) => {
+    setLocation(value);
+    setIsSaved(false);
+  };
+  const handleChangeActivity = (value: string) => {
+    setActivity(value);
+    setIsSaved(false);
+  };
+  const handleChangeDescription = (value: string) => {
+    setDescription(value);
+    setIsSaved(false);
+  };
 
   return (
     <Modal onConfirm={saveActivityData}>
@@ -55,14 +89,12 @@ export default function SearchModal() {
         <TextField
           label="Name"
           value={activity ?? ''}
-          onChangeText={(value: string) => setActivity(value)}
+          onChangeText={handleChangeActivity}
           placeholder="activity name"></TextField>
         <TextField
           label="Description"
           value={description ?? ''}
-          onChangeText={(value: string) => {
-            setDescription(value);
-          }}
+          onChangeText={handleChangeDescription}
           placeholder="description"
           multiline={true}></TextField>
         {/* <Text>{data?.created_at}</Text>
@@ -71,7 +103,7 @@ export default function SearchModal() {
         <TextField
           label="Location"
           value={location ?? ''}
-          onChangeText={(value: string) => setLocation(value)}
+          onChangeText={handleChangeLocation}
           placeholder="location"></TextField>
         <Toggle
           value={isPublic}
