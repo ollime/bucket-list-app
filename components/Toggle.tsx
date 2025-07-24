@@ -21,7 +21,7 @@ export default function Toggle({ value, label, icon, callback }: ToggleProps) {
         ios_backgroundColor="#3e3e3e"
         onValueChange={callback}
         value={value}
-        style={{ transform: [{ scaleX: 1.2 }, { scaleY: 1.2 }], marginLeft: 20 }}
+        style={{ transform: [{ scaleX: 1.4 }, { scaleY: 1.4 }], marginLeft: 20 }}
       />
     </View>
   );

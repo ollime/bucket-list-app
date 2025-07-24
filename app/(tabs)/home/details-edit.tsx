@@ -46,10 +46,11 @@ export default function SearchModal() {
 
   return (
     <Modal onConfirm={saveActivityData}>
+      <View></View>
       <StatusBadge
         label={isComplete ? 'complete' : 'incomplete'}
         color={isComplete ? 'bg-primary' : 'bg-secondary'}></StatusBadge>
-      <View className="flex flex-1 items-center">
+      <View className="flex flex-1 items-center justify-evenly">
         <TextField
           label="Name"
           value={activity ?? ''}
