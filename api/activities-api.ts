@@ -65,17 +65,25 @@ export async function addNewActivity(activityData: Activity, session?: Session) 
   return activityData;
 }
 
-export async function updateActivityDetails(
-  activity: string,
-  description: string,
-  is_public: string,
-  planned_date: string,
-  completed_date: string,
-  location: string,
-  session?: Session
-) {
+export async function updateActivityDetails({
+  activity,
+  description,
+  is_public,
+  planned_date,
+  completed_date,
+  location,
+  user_id,
+}: {
+  activity: string;
+  description: string;
+  is_public: string;
+  planned_date: Date;
+  completed_date: Date;
+  location: string;
+  user_id?: string;
+}) {
   const { data: users, error } = await supabase
-    .from('friends')
+    .from('activities')
     .update({
       description: description,
       is_public: is_public,
@@ -83,7 +91,7 @@ export async function updateActivityDetails(
       completed_date: completed_date,
       location: location,
     })
-    .eq('user_id', session?.user.id)
+    .eq('user_id', user_id)
     .eq('activity', activity)
     .select();
 
