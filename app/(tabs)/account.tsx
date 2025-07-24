@@ -83,7 +83,7 @@ export default function Account() {
         showAlert(error.message, 'error', false);
       }
     } finally {
-      showAlert('Profile updated', 'info', true);
+      showAlert('Profile updated', 'success', true);
     }
   }
 

@@ -52,7 +52,7 @@ export async function updateFriendStatus(status: string, sender: string, receive
     showAlert(error.message, 'error', false);
     return;
   }
-  console.log(users);
+  showAlert('Friend deleted', 'success', true);
   return users;
 }
 

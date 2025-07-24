@@ -16,6 +16,7 @@ export function showAlert(
       text2: additionalInfo,
       position: 'top',
       autoHide: autoHide,
+      swipeable: true,
     });
   } else if (Platform.OS === 'web') {
     alert(content);
