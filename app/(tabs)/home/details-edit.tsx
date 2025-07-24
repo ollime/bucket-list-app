@@ -13,6 +13,7 @@ import { useSession } from 'utils/AuthContext';
 import { Activity } from 'utils/activity.types';
 import StatusBadge from 'components/StatusBadge';
 import Toggle from 'components/Toggle';
+import { showAlert } from 'utils/alert';
 
 export default function SearchModal() {
   const session = useSession();
@@ -22,7 +23,16 @@ export default function SearchModal() {
   const [isComplete, setIsComplete] = useState<boolean>(false);
   const [isPublic, setIsPublic] = useState<boolean>(false);
   const [location, setLocation] = useState<string>();
+  const [plannedDate, setPlannedDate] = useState<Date>();
+  const [completedDate, setCompletedDate] = useState<Date>();
+  // for displaying the changes not saved modal
   const [isSaved, setIsSaved] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (!isSaved) {
+      showAlert('Changes not saved', 'info', false);
+    }
+  }, [isSaved]);
 
   useEffect(() => {
     async function retrieveData() {
