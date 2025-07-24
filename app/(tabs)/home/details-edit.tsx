@@ -14,6 +14,7 @@ import { Activity } from 'utils/activity.types';
 import StatusBadge from 'components/StatusBadge';
 import Toggle from 'components/Toggle';
 import { showAlert } from 'utils/alert';
+import Toast from 'react-native-toast-message';
 
 export default function SearchModal() {
   const session = useSession();
@@ -31,6 +32,8 @@ export default function SearchModal() {
   useEffect(() => {
     if (!isSaved) {
       showAlert('Changes not saved', 'info', false);
+    } else {
+      Toast.hide();
     }
   }, [isSaved]);
 
