@@ -19,6 +19,7 @@ export default function SearchModal() {
   const [isComplete, setIsComplete] = useState<boolean>(false);
   const [isPublic, setIsPublic] = useState<boolean>(false);
   const [location, setLocation] = useState<string>();
+  const [isSaved, setIsSaved] = useState<boolean>(false);
 
   useEffect(() => {
     async function retrieveData() {
