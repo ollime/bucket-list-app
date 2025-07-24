@@ -1,6 +1,7 @@
 import { supabase } from 'utils/supabase';
 import { Session } from '@supabase/supabase-js';
 import { Activity } from 'utils/activity.types';
+import { alert } from 'utils/alert';
 
 export async function getAllActivities(session?: Session) {
   const { data, error } = await supabase

@@ -5,6 +5,7 @@ import Button from 'components/Button';
 import { useRouter } from 'expo-router';
 
 import TextField from 'components/TextField';
+import { alert } from 'utils/alert';
 
 AppState.addEventListener('change', (state) => {
   if (state === 'active') {
