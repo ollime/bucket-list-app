@@ -19,6 +19,7 @@ import TextField from 'components/TextField';
 import StatusBadge from 'components/StatusBadge';
 import Toggle from 'components/Toggle';
 import { RoundButton } from 'components/Button';
+import DateDisplay from 'components/DateDisplay';
 
 export default function SearchModal() {
   const session = useSession();
@@ -129,6 +130,11 @@ export default function SearchModal() {
           value={location ?? ''}
           onChangeText={handleChangeLocation}
           placeholder="location"></TextField>
+
+        <View>
+          <DateDisplay></DateDisplay>
+        </View>
+
         <View className="flex items-center p-4">
           <Toggle
             value={isPublic}
