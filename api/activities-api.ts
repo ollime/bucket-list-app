@@ -78,8 +78,8 @@ export async function updateActivityDetails({
   activity: string;
   description: string;
   is_public: string;
-  planned_date: Date;
-  completed_date: Date;
+  planned_date: Date | null;
+  completed_date: Date | null;
   location: string;
   user_id?: string;
 }) {
@@ -100,7 +100,7 @@ export async function updateActivityDetails({
     showAlert(error.message, 'error', false);
     return;
   }
-  console.log(users);
+  showAlert('Activity updated', 'info', true);
   return users;
 }
 

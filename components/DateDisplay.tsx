@@ -1,15 +1,15 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { View, Text, TouchableWithoutFeedback } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
 interface DateDisplayProps {
   label: string;
-  data: Date;
+  data: Date | null;
   callback: (date: Date) => void;
 }
 
 export default function DateDisplay({ label, data, callback }: DateDisplayProps) {
-  const [date, setDate] = useState<Date>(data);
+  const [date, setDate] = useState<Date | null>(data);
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const options: Intl.DateTimeFormatOptions = {
     year: 'numeric',
@@ -20,6 +20,12 @@ export default function DateDisplay({ label, data, callback }: DateDisplayProps)
   };
   const dateFormatter = new Intl.DateTimeFormat('en-US', options);
 
+  useEffect(() => {
+    if (data) {
+      setDate(new Date(data));
+    }
+  }, [data]);
+
   const showDatePicker = () => {
     setDatePickerVisibility(true);
   };
@@ -28,9 +34,9 @@ export default function DateDisplay({ label, data, callback }: DateDisplayProps)
     setDatePickerVisibility(false);
   };
 
-  const handleConfirm = (date: Date) => {
-    callback(date);
-    setDate(date);
+  const handleConfirm = (value: Date) => {
+    callback(value);
+    setDate(value);
     hideDatePicker();
   };
 
@@ -39,7 +45,7 @@ export default function DateDisplay({ label, data, callback }: DateDisplayProps)
       <Text className="mr-2">{label}</Text>
       <TouchableWithoutFeedback onPress={showDatePicker}>
         <Text className="rounded-full bg-gray-300 p-2">
-          {dateFormatter.format(date) ?? 'No date found'}
+          {date != null ? dateFormatter.format(date) : 'Select a date'}
         </Text>
       </TouchableWithoutFeedback>
       <DateTimePickerModal
