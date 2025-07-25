@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, View, Text } from 'react-native';
+import { View, Text, TouchableWithoutFeedback } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
 interface DateDisplayProps {
@@ -35,12 +35,16 @@ export default function DateDisplay({ label, data, callback }: DateDisplayProps)
   };
 
   return (
-    <View>
-      <Text>{dateFormatter.format(date) ?? 'No date found'}</Text>
-      <Button title="Show Date Picker" onPress={showDatePicker} />
+    <View className="m-2 flex flex-row items-center">
+      <Text className="mr-2">{label}</Text>
+      <TouchableWithoutFeedback onPress={showDatePicker}>
+        <Text className="rounded-full bg-gray-300 p-2">
+          {dateFormatter.format(date) ?? 'No date found'}
+        </Text>
+      </TouchableWithoutFeedback>
       <DateTimePickerModal
         isVisible={isDatePickerVisible}
-        mode="date"
+        mode="datetime"
         onConfirm={handleConfirm}
         onCancel={hideDatePicker}
       />
