@@ -129,16 +129,18 @@ export default function SearchModal() {
           value={location ?? ''}
           onChangeText={handleChangeLocation}
           placeholder="location"></TextField>
-        <Toggle
-          value={isPublic}
-          label="Public"
-          icon={isPublic ? 'public' : 'public-off'}
-          callback={handleTogglePublic}></Toggle>
-        <Toggle
-          value={isComplete}
-          label="Complete activity"
-          icon={isComplete ? 'check-box' : 'check-box-outline-blank'}
-          callback={handleToggleComplete}></Toggle>
+        <View className="flex items-center p-4">
+          <Toggle
+            value={isPublic}
+            label="Public"
+            icon={isPublic ? 'public' : 'public-off'}
+            callback={handleTogglePublic}></Toggle>
+          <Toggle
+            value={isComplete}
+            label="Complete activity"
+            icon={isComplete ? 'check-box' : 'check-box-outline-blank'}
+            callback={handleToggleComplete}></Toggle>
+        </View>
         <RoundButton
           label="Delete activity?"
           callback={() => {

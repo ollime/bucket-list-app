@@ -57,7 +57,7 @@ export default function Home() {
   return (
     <Container>
       <View className="flex w-full flex-row items-center">
-        <Text className={styles.title}>Activities</Text>
+        <Text className={styles.title}>Bucket List</Text>
         <View className="flex-1"></View>
         <Button
           label={
