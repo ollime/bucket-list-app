@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { TouchableWithoutFeedback, View } from 'react-native';
+import { Touchable, TouchableWithoutFeedback, View } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import Toast from 'react-native-toast-message';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
@@ -87,12 +87,16 @@ export default function SearchModal() {
     setIsSaved(false);
   };
   const handleToggleComplete = () => {
-    setIsComplete((previousState) => !previousState);
-    setIsSaved(false);
     if (activity) {
       updateActivityStatus(!isComplete, activity, session ?? undefined);
     }
+    if (!isComplete) {
+      setCompletedDate(new Date());
+    }
+    setIsComplete((previousState) => !previousState);
+    setIsSaved(false);
   };
+
   const handleChangeLocation = (value: string) => {
     setLocation(value);
     setIsSaved(false);
@@ -118,9 +122,11 @@ export default function SearchModal() {
   return (
     <Modal onConfirm={saveActivityData}>
       <View className="flex w-full flex-row items-center">
-        <StatusBadge
-          label={isComplete ? 'complete' : 'incomplete'}
-          color={isComplete ? 'bg-primary' : 'bg-secondary'}></StatusBadge>
+        <TouchableWithoutFeedback onPress={handleToggleComplete}>
+          <StatusBadge
+            label={isComplete ? 'complete' : 'incomplete'}
+            color={isComplete ? 'bg-primary' : 'bg-secondary'}></StatusBadge>
+        </TouchableWithoutFeedback>
         <View className="flex-1"></View>
         <TouchableWithoutFeedback onPress={handleDeleteActivity}>
           <MaterialIcons name="delete" size={28} color="#767577" />
