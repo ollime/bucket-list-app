@@ -9,12 +9,18 @@ export const Container = ({ children }: { children: React.ReactNode }) => {
         <SafeAreaProvider>
           <SafeAreaView className={styles.container}>
             <View className="flex-1">{children}</View>
-            <View className="absolute bottom-0 z-[-1] ml-[80vw] h-[150px] w-full">
+            <View className="absolute bottom-0 z-[-1] ml-[20vw] h-[150px] w-full">
+              <ImageBackground
+                source={require('assets/front-page/duck.png')}
+                style={{ flex: 1 }}
+                imageStyle={{ height: 100, width: 100 }}
+                resizeMode="contain"></ImageBackground>
+            </View>
+            <View className="absolute bottom-[-10px] z-[-1] ml-[75vw] h-[150px] w-full">
               <ImageBackground
                 source={require('assets/front-page/ring.png')}
-                // do not use > 180px for height. adjust the height value to change the size of the entire image
                 style={{ flex: 1 }}
-                imageStyle={{ height: 100 }}
+                imageStyle={{ height: 100, width: 100 }}
                 resizeMode="contain"></ImageBackground>
             </View>
             <View className="absolute bottom-0 z-[-2] h-[150px] w-full">
@@ -23,7 +29,7 @@ export const Container = ({ children }: { children: React.ReactNode }) => {
                 // do not use > 180px for height. adjust the height value to change the size of the entire image
                 style={{ flex: 1 }}
                 imageStyle={{ height: 150 }}
-                resizeMode="repeat"></ImageBackground>
+                resizeMode="stretch"></ImageBackground>
             </View>
           </SafeAreaView>
         </SafeAreaProvider>

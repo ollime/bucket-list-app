@@ -32,7 +32,7 @@ export function RoundButton({
   label: string;
   callback: () => void;
   disabled?: boolean;
-  color: 'primary' | 'red';
+  color?: 'primary' | 'red';
 }) {
   const colorVariants = {
     primary: 'bg-primary',
