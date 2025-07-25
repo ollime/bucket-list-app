@@ -60,7 +60,7 @@ function ProfileListItem({ item }: { item: ProfileData }) {
   }, [item.avatarUrl]);
 
   function handleOpenProfile() {
-    // opens individual profile
+    router.push(`profile/${item.username}`);
   }
 
   function renderButtonProps() {

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Touchable, TouchableWithoutFeedback, View } from 'react-native';
+import { TouchableWithoutFeedback, View } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import Toast from 'react-native-toast-message';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';

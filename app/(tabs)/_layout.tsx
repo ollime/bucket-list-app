@@ -1,4 +1,4 @@
-import { Tabs, Redirect } from 'expo-router';
+import { Tabs, Redirect, Stack } from 'expo-router';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 import { useSession } from './../../utils/AuthContext';
@@ -41,7 +41,6 @@ export default function TabLayout() {
           headerShown: false,
         }}
       />
-
       <Tabs.Screen
         name="account"
         options={{
