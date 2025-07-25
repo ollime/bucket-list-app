@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import { View } from 'react-native';
+import { TouchableWithoutFeedback, View } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import Toast from 'react-native-toast-message';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 import {
   getActivityDetails,
@@ -18,7 +19,6 @@ import Modal from 'components/Modal';
 import TextField from 'components/TextField';
 import StatusBadge from 'components/StatusBadge';
 import Toggle from 'components/Toggle';
-import { RoundButton } from 'components/Button';
 import DateDisplay from 'components/DateDisplay';
 
 export default function SearchModal() {
@@ -67,14 +67,16 @@ export default function SearchModal() {
       typeof activity === 'string' &&
       typeof description === 'string' &&
       typeof location === 'string' &&
+      plannedDate &&
+      completedDate &&
       session
     ) {
       updateActivityDetails({
         activity: activity,
         description: description,
         is_public: isPublic ? 'true' : 'false',
-        planned_date: plannedDate ? plannedDate : new Date(),
-        completed_date: completedDate ? completedDate : new Date(),
+        planned_date: plannedDate,
+        completed_date: completedDate,
         location: location,
         user_id: session?.user.id,
       });
@@ -106,12 +108,26 @@ export default function SearchModal() {
     setIsSaved(false);
   };
 
+  function handleDeleteActivity() {
+    if (activity) {
+      deleteActivity(activity, session ?? undefined);
+    } else {
+      showAlert('Something went wrong.', 'error', true);
+    }
+    router.back();
+  }
+
   return (
     <Modal onConfirm={saveActivityData}>
-      <View></View>
-      <StatusBadge
-        label={isComplete ? 'complete' : 'incomplete'}
-        color={isComplete ? 'bg-primary' : 'bg-secondary'}></StatusBadge>
+      <View className="flex w-full flex-row items-center">
+        <StatusBadge
+          label={isComplete ? 'complete' : 'incomplete'}
+          color={isComplete ? 'bg-primary' : 'bg-secondary'}></StatusBadge>
+        <View className="flex-1"></View>
+        <TouchableWithoutFeedback onPress={handleDeleteActivity}>
+          <MaterialIcons name="delete" size={28} color="#767577" />
+        </TouchableWithoutFeedback>
+      </View>
       <View className="flex flex-1 items-center">
         <TextField
           label="Name"
@@ -133,10 +149,11 @@ export default function SearchModal() {
           onChangeText={handleChangeLocation}
           placeholder="location"></TextField>
 
-        <View>
-          <DateDisplay label={'Planned'} data={plannedDate}></DateDisplay>
-          <DateDisplay label={'Completed'} data={completedDate}></DateDisplay>
-        </View>
+        <DateDisplay label="Planned" data={plannedDate} callback={setPlannedDate}></DateDisplay>
+        <DateDisplay
+          label="Completed"
+          data={completedDate}
+          callback={setCompletedDate}></DateDisplay>
 
         <View className="flex items-center p-4">
           <Toggle
@@ -150,18 +167,6 @@ export default function SearchModal() {
             icon={isComplete ? 'check-box' : 'check-box-outline-blank'}
             callback={handleToggleComplete}></Toggle>
         </View>
-        <RoundButton
-          label="Delete activity?"
-          callback={() => {
-            if (activity) {
-              deleteActivity(activity, session ?? undefined);
-            } else {
-              showAlert('Something went wrong.', 'error', true);
-            }
-            router.back();
-          }}
-          disabled={false}
-          color="red"></RoundButton>
       </View>
     </Modal>
   );
