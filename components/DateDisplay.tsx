@@ -1,14 +1,33 @@
 import { useState } from 'react';
-import { Button } from 'react-native';
+import { View, Text, TouchableWithoutFeedback } from 'react-native';
 import DatePicker from 'react-native-date-picker';
 
-export default () => {
-  const [date, setDate] = useState(new Date());
-  const [open, setOpen] = useState(false);
+interface DateDisplayProps {
+  label: string;
+  data: Date;
+}
+
+export default function DateDisplay({ label, data }: DateDisplayProps) {
+  const [date, setDate] = useState<Date>(data);
+  const [open, setOpen] = useState<boolean>(false);
+
+  const options: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+  };
+  const dateFormatter = new Intl.DateTimeFormat('en-US', options);
 
   return (
     <>
-      <Button title="Open" onPress={() => setOpen(true)} />
+      <View className="m-4 flex flex-row items-center">
+        <Text>{label}</Text>
+        <TouchableWithoutFeedback onPress={() => setOpen(true)}>
+          <Text className="ml-2 rounded-full bg-gray-300 p-2">{dateFormatter.format(date)}</Text>
+        </TouchableWithoutFeedback>
+      </View>
       <DatePicker
         modal
         open={open}
@@ -23,4 +42,4 @@ export default () => {
       />
     </>
   );
-};
+}

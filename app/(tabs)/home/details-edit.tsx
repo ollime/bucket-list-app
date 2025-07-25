@@ -30,8 +30,8 @@ export default function SearchModal() {
   const [isComplete, setIsComplete] = useState<boolean>(false);
   const [isPublic, setIsPublic] = useState<boolean>(false);
   const [location, setLocation] = useState<string>();
-  const [plannedDate, setPlannedDate] = useState<Date>();
-  const [completedDate, setCompletedDate] = useState<Date>();
+  const [plannedDate, setPlannedDate] = useState<Date>(new Date());
+  const [completedDate, setCompletedDate] = useState<Date>(new Date());
   // for displaying the changes not saved modal
   const [isSaved, setIsSaved] = useState<boolean>(true);
 
@@ -55,6 +55,8 @@ export default function SearchModal() {
       setIsComplete(activityDetails?.is_complete);
       setIsPublic(activityDetails?.is_public);
       setLocation(activityDetails?.location);
+      setPlannedDate(activityDetails?.planned_date ?? new Date());
+      setCompletedDate(activityDetails?.completed_date ?? new Date());
       setIsSaved(true);
     }
     retrieveData();
@@ -132,7 +134,8 @@ export default function SearchModal() {
           placeholder="location"></TextField>
 
         <View>
-          <DateDisplay></DateDisplay>
+          <DateDisplay label={'Planned'} data={plannedDate}></DateDisplay>
+          <DateDisplay label={'Completed'} data={completedDate}></DateDisplay>
         </View>
 
         <View className="flex items-center p-4">
