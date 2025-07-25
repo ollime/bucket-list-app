@@ -2,6 +2,7 @@ import { View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
 import { Image } from 'expo-image';
+import { StatusBar } from 'expo-status-bar';
 
 export const Container = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -9,7 +10,7 @@ export const Container = ({ children }: { children: React.ReactNode }) => {
       <View className={styles.root}>
         <SafeAreaProvider>
           <SafeAreaView className={styles.container}>
-            <View className="flex-1">{children}</View>
+            <View className="flex-1 p-2">{children}</View>
             <View className="absolute bottom-[-10px] z-[-1] ml-[20vw] h-[150px] w-full">
               <Image
                 source={require('assets/background/duck.png')}
@@ -32,6 +33,8 @@ export const Container = ({ children }: { children: React.ReactNode }) => {
           </SafeAreaView>
         </SafeAreaProvider>
       </View>
+      {/* style should be opposite to the app theme */}
+      <StatusBar style="dark"></StatusBar>
       <Toast />
     </>
   );
