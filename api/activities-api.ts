@@ -110,7 +110,7 @@ export async function updateActivityStatus(
   session?: Session
 ) {
   const { data: users, error } = await supabase
-    .from('friends')
+    .from('activities')
     .update({
       is_complete: is_complete,
     })
@@ -137,6 +137,6 @@ export async function deleteActivity(activity: string, session?: Session) {
     showAlert(error.message, 'error', false);
     return;
   }
-  showAlert('Friend deleted', 'success', true);
+  showAlert('Activity deleted', 'success', true);
   return users;
 }

@@ -1,23 +1,28 @@
 import { useEffect, useState } from 'react';
 import { View } from 'react-native';
-import { useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
+import Toast from 'react-native-toast-message';
 
-import Modal from 'components/Modal';
-import TextField from 'components/TextField';
 import {
   getActivityDetails,
   updateActivityDetails,
   updateActivityStatus,
+  deleteActivity,
 } from 'api/activities-api';
+
 import { useSession } from 'utils/AuthContext';
 import { Activity } from 'utils/activity.types';
+import { showAlert } from 'utils/alert';
+
+import Modal from 'components/Modal';
+import TextField from 'components/TextField';
 import StatusBadge from 'components/StatusBadge';
 import Toggle from 'components/Toggle';
-import { showAlert } from 'utils/alert';
-import Toast from 'react-native-toast-message';
+import { RoundButton } from 'components/Button';
 
 export default function SearchModal() {
   const session = useSession();
+  const router = useRouter();
   const params = useLocalSearchParams();
   const [activity, setActivity] = useState<string>();
   const [description, setDescription] = useState<string>();
@@ -27,7 +32,7 @@ export default function SearchModal() {
   const [plannedDate, setPlannedDate] = useState<Date>();
   const [completedDate, setCompletedDate] = useState<Date>();
   // for displaying the changes not saved modal
-  const [isSaved, setIsSaved] = useState<boolean>(false);
+  const [isSaved, setIsSaved] = useState<boolean>(true);
 
   useEffect(() => {
     if (!isSaved) {
@@ -104,7 +109,7 @@ export default function SearchModal() {
       <StatusBadge
         label={isComplete ? 'complete' : 'incomplete'}
         color={isComplete ? 'bg-primary' : 'bg-secondary'}></StatusBadge>
-      <View className="flex flex-1 items-center justify-evenly">
+      <View className="flex flex-1 items-center">
         <TextField
           label="Name"
           value={activity ?? ''}
@@ -134,6 +139,18 @@ export default function SearchModal() {
           label="Complete activity"
           icon={isComplete ? 'check-box' : 'check-box-outline-blank'}
           callback={handleToggleComplete}></Toggle>
+        <RoundButton
+          label="Delete activity?"
+          callback={() => {
+            if (activity) {
+              deleteActivity(activity, session ?? undefined);
+            } else {
+              showAlert('Something went wrong.', 'error', true);
+            }
+            router.back();
+          }}
+          disabled={false}
+          color="red"></RoundButton>
       </View>
     </Modal>
   );
