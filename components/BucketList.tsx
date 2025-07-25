@@ -41,7 +41,7 @@ export function BucketListItem({ data, user_id }: BucketListItemProps) {
       });
     } else {
       router.navigate({
-        pathname: '/home/details-view',
+        pathname: '/profile/details-view',
         params: { activity: data?.activity },
       });
     }
