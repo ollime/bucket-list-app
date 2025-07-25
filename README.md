@@ -11,8 +11,6 @@ An app to keep track of and share bucket list items with friends.
 
 Download the .apk or .ipa package from the latest release (TBD)
 
-To run the app in the web for development purposes, supply a .env file with the EXPO_PUBLIC_SUPABASE_URL and EXPO_PUBLIC_SUPABASE_ANON_KEY.
-
 ## Local development build
 
 Set up the `.env` file in the root directory with EXPO_PUBLIC_SUPABASE_URL and EXPO_PUBLIC_SUPABASE_ANON_KEY
