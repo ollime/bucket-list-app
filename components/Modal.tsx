@@ -1,6 +1,6 @@
 import { useRouter } from 'expo-router';
 import { ReactNode } from 'react';
-import { Pressable, StyleSheet, View } from 'react-native';
+import { Pressable, StyleSheet, View, ScrollView } from 'react-native';
 import Animated, { FadeIn, SlideInDown } from 'react-native-reanimated';
 import { RoundButton } from './Button';
 
@@ -38,7 +38,9 @@ export default function Modal({ children, onConfirm }: ModalProps) {
           borderRadius: '0.75rem',
           padding: 20,
         }}>
-        {children}
+        <ScrollView className="w-full" showsVerticalScrollIndicator={false}>
+          {children}
+        </ScrollView>
         <View className="m-2 flex flex-row">
           {onConfirm ? (
             <RoundButton
