@@ -102,7 +102,7 @@ export default function Account() {
 
         <TextField
           label="Email"
-          value={'placeholder@gmail.com' || ''}
+          value={session?.user?.email || ''}
           placeholder="email@domain.com"
           onChangeText={(value: string) => {}}
           disabled={true}
