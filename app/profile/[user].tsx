@@ -19,7 +19,6 @@ export default function Profile() {
     async function getData() {
       await getPublicActivities(user as string, session ?? undefined)
         .then((res): any => {
-          console.log(res);
           if (res) {
             // @ts-ignore
             delete res[0].profiles;
@@ -34,9 +33,8 @@ export default function Profile() {
           }
         });
     }
-
     getData();
-  }, [user, session, activities]);
+  }, [user, session]);
 
   function handleReturnToSearch() {
     router.navigate('search');
