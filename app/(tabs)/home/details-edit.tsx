@@ -9,6 +9,7 @@ import {
   updateActivityDetails,
   updateActivityStatus,
   deleteActivity,
+  updateActivityName,
 } from 'api/activities-api';
 
 import { useSession } from 'utils/AuthContext';
@@ -78,6 +79,9 @@ export default function SearchModal() {
         location: location,
         user_id: session?.user.id,
       });
+      if (params.activity !== activity) {
+        updateActivityName(params.activity as string, activity, session.user?.id ?? undefined);
+      }
     }
     setIsSaved(true);
   };

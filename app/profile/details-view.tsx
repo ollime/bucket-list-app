@@ -88,13 +88,15 @@ export default function SearchModal() {
           label="Name"
           value={activity ?? ''}
           onChangeText={() => {}}
-          placeholder="activity name"></TextField>
+          placeholder="activity name"
+          disabled></TextField>
         <TextField
           label="Description"
           value={description ?? ''}
           onChangeText={() => {}}
           placeholder="description"
-          multiline={true}></TextField>
+          multiline={true}
+          disabled></TextField>
         {/* <Text>{data?.created_at}</Text>
       <Text>{data?.planned_date}</Text>
       <Text>{data?.completed_date}</Text> */}
@@ -102,7 +104,8 @@ export default function SearchModal() {
           label="Location"
           value={location ?? ''}
           onChangeText={() => {}}
-          placeholder="location"></TextField>
+          placeholder="location"
+          disabled></TextField>
 
         <DateDisplay label="Planned" data={plannedDate} callback={() => {}}></DateDisplay>
         <DateDisplay label="Completed" data={completedDate} callback={() => {}}></DateDisplay>

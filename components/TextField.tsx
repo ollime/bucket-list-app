@@ -32,7 +32,7 @@ export default function TextField({
     <>
       <View className={`${styles.container} ${widthStyles}`}>
         <Text className={styles.label}>{label}</Text>
-        <View className={`${styles.containerRow} ${focusStyle} ${multilineStyle}`}>
+        <View className={`${styles.containerRow} ${!disabled ? focusStyle : ''} ${multilineStyle}`}>
           <TextInput
             value={value}
             placeholder={placeholder}
@@ -44,12 +44,16 @@ export default function TextField({
             secureTextEntry={obfuscateText}
             multiline={multiline}
             numberOfLines={multiline ? 3 : 1}></TextInput>
-          <MaterialIcons
-            name={icon ? icon : disabled ? 'edit-off' : 'edit'}
-            size={24}
-            color="gray"
-            className={`my-2 flex items-end ${multiline ? 'mx-2' : ''}`}
-          />
+          {!disabled ? (
+            <MaterialIcons
+              name={icon ? icon : 'edit'}
+              size={24}
+              color="gray"
+              className={`my-2 flex items-end ${multiline ? 'mx-2' : ''}`}
+            />
+          ) : (
+            ''
+          )}
         </View>
       </View>
     </>

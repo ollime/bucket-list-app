@@ -110,6 +110,24 @@ export async function updateActivityDetails({
   return users;
 }
 
+export async function updateActivityName(activity: string, newName: string, user_id: string) {
+  const { data: users, error } = await supabase
+    .from('activities')
+    .update({
+      activity: newName,
+    })
+    .eq('user_id', user_id)
+    .eq('activity', activity)
+    .select();
+
+  if (error) {
+    showAlert(error.message, 'error', false);
+    return;
+  }
+  showAlert('Activity updated', 'info', true);
+  return users;
+}
+
 export async function updateActivityStatus(
   is_complete: boolean,
   activity: string,
