@@ -17,7 +17,7 @@ Set up the `.env` file in the root directory with EXPO_PUBLIC_SUPABASE_URL and E
 
 If `expo-dev-client` is installed,
 
-- To run the prebuild: `expo run prebuild`
+- To run the prebuild: `npm run prebuild`
 - Make sure the sdk location is specified in android/local.properties
   - `sdk.dir=YOUR_FILE_DIRECTORY_HERE`
-- To run the app: `npx expo run:android`
+- To run the app: `npm run android`
