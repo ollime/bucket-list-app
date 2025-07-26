@@ -5,10 +5,9 @@ import { useRouter } from 'expo-router';
 
 import { ProfileData } from 'utils/profile.types';
 import { useSession } from 'utils/AuthContext';
-import { supabase } from 'utils/supabase';
 import { showAlert } from 'utils/alert';
 import { updateFriendStatus } from 'api/friends-api';
-import { getUsername } from 'api/profiles-api';
+import { downloadImage, getUsername } from 'api/profiles-api';
 
 import { RoundButton } from './Button';
 
@@ -34,25 +33,14 @@ function ProfileListItem({ item }: { item: ProfileData }) {
 
   useEffect(() => {
     let isMounted = true;
-    async function downloadImage(path: string) {
-      try {
-        const { data, error } = await supabase.storage.from('avatars').download(path);
-        if (error) {
-          throw error;
-        }
-        const fr = new FileReader();
-        fr.readAsDataURL(data);
-        fr.onload = () => {
-          if (isMounted) setAvatarUri(fr.result as string);
-        };
-      } catch (error) {
-        if (error instanceof Error) {
-          showAlert(`Error downloading image: ${error.message}`, 'error', false);
-        }
+    async function downloadData(path: string) {
+      if (path) {
+        const newUrl = (await downloadImage(path)) as unknown as string;
+        if (isMounted) setAvatarUri(newUrl);
       }
     }
     if (item.avatarUrl) {
-      downloadImage(item.avatarUrl);
+      downloadData(item.avatarUrl);
     }
     return () => {
       isMounted = false;

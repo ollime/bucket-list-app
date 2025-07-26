@@ -37,17 +37,20 @@ export async function getPublicActivities(user: string, session?: Session) {
   const { data, error } = await supabase
     .from('activities')
     .select(
-      `activity, created_at, description, is_complete, is_public, planned_date, completed_date, location,
-      profiles(
-        id, 
-        username
-      )`
+      `
+    user_id, activity, created_at, description, is_complete, is_public, planned_date, completed_date, location,
+    profiles!inner(id, username)
+  `
     )
     .eq('profiles.username', user)
     .eq('is_public', true);
 
   if (error) {
     showAlert(error.message, 'error', false);
+    return;
+  }
+  console.log(data);
+  if (!data || data.length === 0) {
     return;
   }
   return data;

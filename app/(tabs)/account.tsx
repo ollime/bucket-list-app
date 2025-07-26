@@ -14,7 +14,6 @@ import { showAlert } from 'utils/alert';
 export default function Account() {
   const [loading, setLoading] = useState(true);
   const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
   const [avatarUrl, setAvatarUrl] = useState('');
   const [fullName, setFullName] = useState('');
 
@@ -29,7 +28,7 @@ export default function Account() {
 
         const { data, error, status } = await supabase
           .from('profiles')
-          .select(`username, email, avatar_url, full_name`)
+          .select(`username, avatar_url, full_name`)
           .eq('id', session?.user.id)
           .single();
 
@@ -39,7 +38,6 @@ export default function Account() {
 
         if (data) {
           setUsername(data.username);
-          setEmail(data.email);
           setAvatarUrl(data.avatar_url);
           setFullName(data.full_name);
         }

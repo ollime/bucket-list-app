@@ -19,9 +19,14 @@ export default function Profile() {
     async function getData() {
       await getPublicActivities(user as string, session ?? undefined)
         .then((res): any => {
-          // @ts-ignore
-          delete res[0].profiles;
-          return res;
+          console.log(res);
+          if (res) {
+            // @ts-ignore
+            delete res[0].profiles;
+            return res;
+          } else {
+            return;
+          }
         })
         .then((res) => {
           if (res) {
@@ -31,7 +36,7 @@ export default function Profile() {
     }
 
     getData();
-  }, [user, session]);
+  }, [user, session, activities]);
 
   function handleReturnToSearch() {
     router.navigate('search');
@@ -46,7 +51,7 @@ export default function Profile() {
       </View>
       <FlashList
         data={activities}
-        renderItem={({ item }) => <BucketListItem data={item} user_id={user} />}
+        renderItem={({ item }) => <BucketListItem data={item} user_id={user as string} />}
         contentContainerStyle={{ padding: 2 }}
         estimatedItemSize={16}
         showsVerticalScrollIndicator={false}
