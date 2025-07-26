@@ -1,15 +1,9 @@
 import { useEffect, useState } from 'react';
-import { TouchableWithoutFeedback, View } from 'react-native';
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { View } from 'react-native';
+import { useLocalSearchParams } from 'expo-router';
 import Toast from 'react-native-toast-message';
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
-import {
-  getActivityDetails,
-  updateActivityDetails,
-  updateActivityStatus,
-  deleteActivity,
-} from 'api/activities-api';
+import { getActivityDetails, updateActivityDetails } from 'api/activities-api';
 
 import { useSession } from 'utils/AuthContext';
 import { Activity } from 'utils/activity.types';
@@ -23,7 +17,6 @@ import DateDisplay from 'components/DateDisplay';
 
 export default function SearchModal() {
   const session = useSession();
-  const router = useRouter();
   const params = useLocalSearchParams();
   const [activity, setActivity] = useState<string>();
   const [description, setDescription] = useState<string>();
@@ -82,66 +75,24 @@ export default function SearchModal() {
     setIsSaved(true);
   };
 
-  const handleTogglePublic = () => {
-    setIsPublic((previousState) => !previousState);
-    setIsSaved(false);
-  };
-  const handleToggleComplete = () => {
-    if (activity) {
-      updateActivityStatus(!isComplete, activity, session ?? undefined);
-    }
-    if (!isComplete) {
-      setCompletedDate(new Date());
-    }
-    setIsComplete((previousState) => !previousState);
-    setIsSaved(false);
-  };
-
-  const handleChangeLocation = (value: string) => {
-    setLocation(value);
-    setIsSaved(false);
-  };
-  const handleChangeActivity = (value: string) => {
-    setActivity(value);
-    setIsSaved(false);
-  };
-  const handleChangeDescription = (value: string) => {
-    setDescription(value);
-    setIsSaved(false);
-  };
-
-  function handleDeleteActivity() {
-    if (activity) {
-      deleteActivity(activity, session ?? undefined);
-    } else {
-      showAlert('Something went wrong.', 'error', true);
-    }
-    router.back();
-  }
-
   return (
     <Modal onConfirm={saveActivityData}>
       <View className="flex w-full flex-row items-center">
-        <TouchableWithoutFeedback onPress={handleToggleComplete}>
-          <StatusBadge
-            label={isComplete ? 'complete' : 'incomplete'}
-            color={isComplete ? 'bg-primary' : 'bg-secondary'}></StatusBadge>
-        </TouchableWithoutFeedback>
+        <StatusBadge
+          label={isComplete ? 'complete' : 'incomplete'}
+          color={isComplete ? 'bg-primary' : 'bg-secondary'}></StatusBadge>
         <View className="flex-1"></View>
-        <TouchableWithoutFeedback onPress={handleDeleteActivity}>
-          <MaterialIcons name="delete" size={28} color="#767577" />
-        </TouchableWithoutFeedback>
       </View>
       <View className="flex flex-1 items-center">
         <TextField
           label="Name"
           value={activity ?? ''}
-          onChangeText={handleChangeActivity}
+          onChangeText={() => {}}
           placeholder="activity name"></TextField>
         <TextField
           label="Description"
           value={description ?? ''}
-          onChangeText={handleChangeDescription}
+          onChangeText={() => {}}
           placeholder="description"
           multiline={true}></TextField>
         {/* <Text>{data?.created_at}</Text>
@@ -150,26 +101,23 @@ export default function SearchModal() {
         <TextField
           label="Location"
           value={location ?? ''}
-          onChangeText={handleChangeLocation}
+          onChangeText={() => {}}
           placeholder="location"></TextField>
 
-        <DateDisplay label="Planned" data={plannedDate} callback={setPlannedDate}></DateDisplay>
-        <DateDisplay
-          label="Completed"
-          data={completedDate}
-          callback={setCompletedDate}></DateDisplay>
+        <DateDisplay label="Planned" data={plannedDate} callback={() => {}}></DateDisplay>
+        <DateDisplay label="Completed" data={completedDate} callback={() => {}}></DateDisplay>
 
         <View className="flex items-center p-4">
           <Toggle
             value={isPublic}
             label="Public"
             icon={isPublic ? 'public' : 'public-off'}
-            callback={handleTogglePublic}></Toggle>
+            callback={() => {}}></Toggle>
           <Toggle
             value={isComplete}
             label="Complete activity"
             icon={isComplete ? 'check-box' : 'check-box-outline-blank'}
-            callback={handleToggleComplete}></Toggle>
+            callback={() => {}}></Toggle>
         </View>
       </View>
     </Modal>

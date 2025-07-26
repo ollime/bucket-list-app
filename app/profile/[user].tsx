@@ -8,12 +8,15 @@ import { useSession } from 'utils/AuthContext';
 import { MinimizedActivity } from 'utils/activity.types';
 import { BucketListItem } from 'components/BucketList';
 import { FlashList } from '@shopify/flash-list';
+import { getFriendStatus } from 'api/friends-api';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 export default function Profile() {
   const { user } = useLocalSearchParams();
   const router = useRouter();
   const session = useSession();
   const [activities, setActivities] = useState<MinimizedActivity[] | undefined>();
+  const [status, setStatus] = useState<string | undefined>('');
 
   useEffect(() => {
     async function getData() {
@@ -33,7 +36,11 @@ export default function Profile() {
           }
         });
     }
+    async function getStatus() {
+      setStatus(await getFriendStatus(user as string, session ?? undefined));
+    }
     getData();
+    getStatus();
   }, [user, session]);
 
   function handleReturnToSearch() {
@@ -44,6 +51,11 @@ export default function Profile() {
     <Container>
       <View className="flex-row">
         <Text className={styles.title}>{user}</Text>
+        {status === 'accepted' ? (
+          <MaterialIcons name="person" size={24} color="black" />
+        ) : (
+          <MaterialIcons name="person-add-alt" size={24} color="black" />
+        )}
         <View className="flex-1"></View>
         <Button label="Return" callback={handleReturnToSearch}></Button>
       </View>

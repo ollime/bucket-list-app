@@ -49,7 +49,6 @@ export async function getPublicActivities(user: string, session?: Session) {
     showAlert(error.message, 'error', false);
     return;
   }
-  console.log(data);
   if (!data || data.length === 0) {
     return;
   }

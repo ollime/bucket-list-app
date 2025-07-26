@@ -2,6 +2,7 @@ import { supabase } from 'utils/supabase';
 import { Session } from '@supabase/supabase-js';
 import { getUsername } from './profiles-api';
 import { showAlert } from 'utils/alert';
+import Friends from 'app/(tabs)/friends';
 
 /** Returns the profiles of the current user's friends,
  * including usernames and avatars. */
@@ -26,7 +27,7 @@ export async function getFriendsProfile(session?: Session) {
 /** Returns data stored in the friends table of the current user's
  * friends, including friend status.
  */
-export async function getFriendStatus(session?: Session) {
+export async function getAllFriendStatus(session?: Session) {
   const username = await getUsername(session);
   const { data, error } = await supabase
     .from('friends')
@@ -38,6 +39,21 @@ export async function getFriendStatus(session?: Session) {
     return;
   }
   return data;
+}
+
+export async function getFriendStatus(friend: string, session?: Session) {
+  const username = await getUsername(session);
+  const { data, error } = await supabase
+    .from('friends')
+    .select(`status`)
+    .or(`user.eq.${username},friend.eq.${username}`)
+    .or(`user.eq.${friend},friend.eq.${friend}`)
+    .limit(1);
+  if (error) {
+    showAlert(error.message, 'error', false);
+    return;
+  }
+  return data[0]?.status;
 }
 
 export async function updateFriendStatus(status: string, sender: string, receiver: string) {
@@ -52,7 +68,7 @@ export async function updateFriendStatus(status: string, sender: string, receive
     showAlert(error.message, 'error', false);
     return;
   }
-  showAlert('Friend deleted', 'success', true);
+  showAlert('Updated friend status', 'success', true);
   return users;
 }
 
@@ -69,6 +85,7 @@ export async function deleteFriend(currentUser: string, otherUser: string) {
     showAlert(error.message, 'error', false);
     return;
   }
+  showAlert('Friend deleted', 'success', true);
   return users;
 }
 

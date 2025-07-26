@@ -17,14 +17,6 @@ export default function Layout() {
           headerShown: false,
         }}
       />
-      <Stack.Screen
-        name="details-view"
-        options={{
-          presentation: 'transparentModal',
-          animation: 'fade',
-          headerShown: false,
-        }}
-      />
     </Stack>
   );
 }
