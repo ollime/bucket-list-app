@@ -20,4 +20,22 @@ If `expo-dev-client` is installed,
 - To run the prebuild: `npm run prebuild`
 - Make sure the sdk location is specified in android/local.properties
   - `sdk.dir=YOUR_FILE_DIRECTORY_HERE`
+- Add in the following config options in build.gradle:
+  ```
+  buildscript {
+    ext {
+          minSdkVersion = 24
+          compileSdkVersion = 35
+          targetSdkVersion = 35
+      }
+  }
+  android {
+    defaultConfig {
+      minSdkVersion = 24
+      compileSdkVersion = 35
+      targetSdkVersion = 35
+    },
+  ndkVersion = "25.1.8937393"
+  }
+  ```
 - To run the app: `npm run android`
