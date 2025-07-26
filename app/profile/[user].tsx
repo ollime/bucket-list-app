@@ -49,12 +49,15 @@ export default function Profile() {
 
   return (
     <Container>
-      <View className="flex-row">
+      <View className="flex-row items-center">
         <Text className={styles.title}>{user}</Text>
         {status === 'accepted' ? (
-          <MaterialIcons name="person" size={24} color="black" />
+          <View className="ml-2 flex flex-row items-center">
+            <MaterialIcons name="person" size={30} color="black" />
+            <Text>Friends</Text>
+          </View>
         ) : (
-          <MaterialIcons name="person-add-alt" size={24} color="black" />
+          ''
         )}
         <View className="flex-1"></View>
         <Button label="Return" callback={handleReturnToSearch}></Button>
@@ -71,5 +74,5 @@ export default function Profile() {
 }
 
 const styles = {
-  title: 'text-3xl font-bold text-primary',
+  title: 'text-3xl font-bold text-primary mr-2',
 };
