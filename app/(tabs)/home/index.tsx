@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Text, View } from 'react-native';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
@@ -12,6 +12,7 @@ import { useSession } from 'utils/AuthContext';
 export default function Home() {
   const session = useSession();
   const [data, setData] = useState<MinimizedActivity[]>();
+  const listRef = useRef<any>(null);
 
   useEffect(() => {
     async function getData() {
@@ -52,6 +53,7 @@ export default function Home() {
     }
     addNewActivity(emptyActivity, session ?? undefined);
     setData(data ? [...data, emptyMinimized] : [emptyMinimized]);
+    listRef.current.scrollToEnd({ animated: true });
   }
 
   return (
@@ -68,7 +70,7 @@ export default function Home() {
           }
           callback={handleAddItem}></Button>
       </View>
-      <BucketList data={data} user_id={session?.user.id ?? ''}></BucketList>
+      <BucketList data={data} user_id={session?.user.id ?? ''} ref={listRef}></BucketList>
     </Container>
   );
 }

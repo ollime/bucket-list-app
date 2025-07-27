@@ -10,6 +10,7 @@ import StatusBadge from './StatusBadge';
 interface BucketListProps {
   data?: MinimizedActivity[];
   user_id: string;
+  ref: any;
 }
 
 interface BucketListItemProps {
@@ -17,7 +18,7 @@ interface BucketListItemProps {
   user_id: string;
 }
 
-export default function BucketList({ data, user_id }: BucketListProps) {
+export default function BucketList({ data, user_id, ref }: BucketListProps) {
   return (
     <FlashList
       data={data}
@@ -25,6 +26,7 @@ export default function BucketList({ data, user_id }: BucketListProps) {
       contentContainerStyle={{ padding: 2 }}
       estimatedItemSize={16}
       showsVerticalScrollIndicator={false}
+      ref={ref}
     />
   );
 }
