@@ -25,14 +25,13 @@ export default function TextField({
   multiline = false,
 }: TextFieldProps) {
   let focusStyle = isValid ? 'focus-within:border-green-600' : 'focus-within:border-red-600';
-  let multilineStyle = multiline ? 'border-2 rounded-lg' : '';
-  let widthStyles = multiline ? 'w-80' : 'w-64';
+  let widthStyles = multiline ? 'm-2 w-64' : 'w-64';
 
   return (
     <>
       <View className={`${styles.container} ${widthStyles}`}>
         <Text className={styles.label}>{label}</Text>
-        <View className={`${styles.containerRow} ${!disabled ? focusStyle : ''} ${multilineStyle}`}>
+        <View className={`${styles.containerRow} ${!disabled ? focusStyle : ''}`}>
           <TextInput
             value={value}
             placeholder={placeholder}
@@ -43,13 +42,13 @@ export default function TextField({
             readOnly={disabled}
             secureTextEntry={obfuscateText}
             multiline={multiline}
-            numberOfLines={multiline ? 3 : 1}></TextInput>
-          {!disabled ? (
+            numberOfLines={multiline ? 4 : 1}></TextInput>
+          {!disabled && !multiline ? (
             <MaterialIcons
               name={icon ? icon : 'edit'}
               size={24}
               color="gray"
-              className={`my-2 flex items-end ${multiline ? 'mx-2' : ''}`}
+              className={`my-2 flex items-end`}
             />
           ) : (
             ''
