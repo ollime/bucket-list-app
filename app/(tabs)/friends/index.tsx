@@ -19,9 +19,11 @@ export default function Friends() {
   function onRefresh() {
     ref?.current.scrollToOffset({ animated: true });
     setRefreshing(true);
-    getData().then(() => {
-      setRefreshing(false);
-    });
+    getData()
+      .then(setData)
+      .then(() => {
+        setRefreshing(false);
+      });
   }
 
   const getData = useCallback(async () => {
