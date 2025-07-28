@@ -3,7 +3,6 @@ import { useLocalSearchParams } from 'expo-router';
 
 import { useSession } from 'utils/AuthContext';
 import { deleteFriend } from 'api/friends-api';
-import { getUsername } from 'api/profiles-api';
 
 import Modal from 'components/Modal';
 
@@ -14,7 +13,7 @@ export default function SearchModal() {
   const confirmUnfriendUser = async () => {
     const screenName =
       typeof params.screenName === 'string' ? params.screenName : params.screenName[0];
-    deleteFriend(await getUsername(session ?? undefined), screenName);
+    deleteFriend(screenName, session ?? undefined);
     return;
   };
 

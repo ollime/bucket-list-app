@@ -72,7 +72,8 @@ export async function updateFriendStatus(status: string, sender: string, receive
   return users;
 }
 
-export async function deleteFriend(currentUser: string, otherUser: string) {
+export async function deleteFriend(otherUser: string, session?: Session) {
+  const currentUser = await getUsername(session ?? undefined);
   const { data: users, error } = await supabase
     .from('friends')
     .delete()

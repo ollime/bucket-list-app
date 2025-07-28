@@ -3,7 +3,7 @@ import { Container } from 'components/Container';
 import ProfileList from 'components/ProfileList';
 import SearchBar from 'components/SearchBar';
 import { useSession } from 'utils/AuthContext';
-import { getFriendStatus } from 'api/friends-api';
+import { getAllFriendStatus } from 'api/friends-api';
 import { getUsername, getAllUsers } from 'api/profiles-api';
 import { FriendStatus, ProfileData } from 'utils/profile.types';
 
@@ -15,7 +15,7 @@ export default function Search() {
   useEffect(() => {
     async function getData() {
       const users = await getAllUsers();
-      const friends = await getFriendStatus(session ?? undefined);
+      const friends = await getAllFriendStatus(session ?? undefined);
       const currentUser = await getUsername(session ?? undefined);
 
       const formattedData: ProfileData[] = [];
@@ -41,7 +41,10 @@ export default function Search() {
       });
       return formattedData;
     }
-    getData().then(setData);
+
+    if (session) {
+      getData().then(setData);
+    }
   }, [session]);
 
   function onChangeText(value: string) {
