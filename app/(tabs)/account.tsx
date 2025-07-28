@@ -11,6 +11,7 @@ import { Container } from 'components/Container';
 import AppInfo from 'components/AppInfo';
 import { showAlert } from 'utils/alert';
 import Toggle from 'components/Toggle';
+import Toast from 'react-native-toast-message';
 
 export default function Account() {
   const [loading, setLoading] = useState(true);
@@ -19,9 +20,18 @@ export default function Account() {
   const [fullName, setFullName] = useState('');
   const [isPublic, setIsPublic] = useState(false);
   const [allowsFriends, setAllowsFriends] = useState(false);
+  const [isSaved, setIsSaved] = useState<boolean>(true);
 
   const session = useSession();
   const router = useRouter();
+
+  useEffect(() => {
+    if (!isSaved) {
+      showAlert('Changes not saved', 'info', false);
+    } else {
+      Toast.hide();
+    }
+  }, [isSaved]);
 
   useEffect(() => {
     async function getProfile() {
@@ -73,6 +83,7 @@ export default function Account() {
   }) {
     try {
       setLoading(true);
+      setIsSaved(true);
       if (!session?.user) throw new Error('No user on the session!');
       const updates = {
         id: session?.user.id,
@@ -96,32 +107,46 @@ export default function Account() {
     }
   }
 
+  const handleChangeUsername = (value: string) => {
+    setUsername(value);
+    setIsSaved(false);
+  };
+
+  const handleChangeAlias = (value: string) => {
+    setFullName(value);
+    setIsSaved(false);
+  };
+
   function handleTogglePublic() {
     setIsPublic(!isPublic);
+    setIsSaved(false);
   }
 
   function handleToggleFriends() {
     setAllowsFriends(!allowsFriends);
+    setIsSaved(false);
   }
 
   return (
     <>
       <Container>
         <Text className={styles.title}>Profile</Text>
-        <Avatar
-          size={200}
-          url={avatarUrl}
-          onUpload={(url: string) => {
-            setAvatarUrl(url);
-            updateProfile({
-              username,
-              avatar_url: url,
-              full_name: fullName,
-              is_public: isPublic,
-              allows_friends: allowsFriends,
-            });
-          }}
-          userId={session?.user.id ?? ''}></Avatar>
+        <View className="my-2">
+          <Avatar
+            size={200}
+            url={avatarUrl}
+            onUpload={(url: string) => {
+              setAvatarUrl(url);
+              updateProfile({
+                username,
+                avatar_url: url,
+                full_name: fullName,
+                is_public: isPublic,
+                allows_friends: allowsFriends,
+              });
+            }}
+            userId={session?.user.id ?? ''}></Avatar>
+        </View>
 
         <View className="my-2">
           <TextField
@@ -135,12 +160,12 @@ export default function Account() {
             label="Username"
             value={username || ''}
             placeholder="username"
-            onChangeText={(value: string) => setUsername(value)}></TextField>
+            onChangeText={handleChangeUsername}></TextField>
           <TextField
             label="Alias (visible to friends only)"
             value={fullName || ''}
             placeholder="name"
-            onChangeText={(value: string) => setFullName(value)}></TextField>
+            onChangeText={handleChangeAlias}></TextField>
 
           <Toggle
             value={isPublic}
