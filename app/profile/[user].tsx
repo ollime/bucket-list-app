@@ -39,8 +39,11 @@ export default function Profile() {
     async function getStatus() {
       setStatus(await getFriendStatus(user as string, session ?? undefined));
     }
-    getData();
-    getStatus();
+
+    if (session) {
+      getData();
+      getStatus();
+    }
   }, [user, session]);
 
   function handleReturnToSearch() {
@@ -62,6 +65,7 @@ export default function Profile() {
         <View className="flex-1"></View>
         <Button label="Return" callback={handleReturnToSearch}></Button>
       </View>
+      <Text className={styles.subtitle}>Public bucket list items</Text>
       <FlashList
         data={activities}
         renderItem={({ item }) => <BucketListItem data={item} user_id={user as string} />}
@@ -75,4 +79,5 @@ export default function Profile() {
 
 const styles = {
   title: 'text-3xl font-bold text-primary mr-2',
+  subtitle: 'text-2xl font-bold text-primary mr-2 mb-2',
 };
