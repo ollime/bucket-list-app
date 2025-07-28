@@ -2,7 +2,6 @@ import { supabase } from 'utils/supabase';
 import { Session } from '@supabase/supabase-js';
 import { getUsername } from './profiles-api';
 import { showAlert } from 'utils/alert';
-import Friends from 'app/(tabs)/friends';
 
 /** Returns the profiles of the current user's friends,
  * including usernames and avatars. */
@@ -15,7 +14,8 @@ export async function getFriendsProfile(session?: Session) {
       receiver:profiles!friends_friend_fkey(username, avatar_url),
       status`
     )
-    .or(`user.eq.${username},friend.eq.${username}`);
+    .or(`user.eq.${username},friend.eq.${username}`)
+    .order('status', { ascending: false });
 
   if (error) {
     showAlert(error.message, 'error', false);

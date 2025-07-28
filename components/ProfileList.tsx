@@ -13,15 +13,21 @@ import { RoundButton } from './Button';
 
 interface ProfileListProps {
   data: ProfileData[];
+  onRefresh: () => void;
+  refreshing: boolean;
+  ref: any;
 }
 
-export default function ProfileList({ data }: ProfileListProps) {
+export default function ProfileList({ data, onRefresh, refreshing, ref }: ProfileListProps) {
   return (
     <FlashList
       data={data}
       renderItem={({ item }) => <ProfileListItem item={item} />}
       contentContainerStyle={{ backgroundColor: 'white', padding: 2 }}
       estimatedItemSize={48}
+      onRefresh={onRefresh}
+      refreshing={refreshing}
+      ref={ref}
     />
   );
 }

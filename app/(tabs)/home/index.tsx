@@ -13,7 +13,6 @@ export default function Home() {
   const session = useSession();
   const [data, setData] = useState<MinimizedActivity[]>();
   const [refreshing, setRefreshing] = useState(false);
-
   const listRef = useRef<any>(null);
 
   const getData = useCallback(async () => {
