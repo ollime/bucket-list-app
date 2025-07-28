@@ -111,7 +111,7 @@ export default function Account() {
           placeholder="username"
           onChangeText={(value: string) => setUsername(value)}></TextField>
         <TextField
-          label="name (visible to friends only)"
+          label="Alias (visible to friends only)"
           value={fullName || ''}
           placeholder="name"
           onChangeText={(value: string) => setFullName(value)}></TextField>

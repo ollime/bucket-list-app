@@ -1,5 +1,5 @@
-import { useEffect, useState, useRef } from 'react';
-import { Text, View } from 'react-native';
+import { useEffect, useState, useRef, useCallback } from 'react';
+import { Text, TouchableWithoutFeedback, View } from 'react-native';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 import { MinimizedActivity, Activity } from 'utils/activity.types';
@@ -12,16 +12,27 @@ import { useSession } from 'utils/AuthContext';
 export default function Home() {
   const session = useSession();
   const [data, setData] = useState<MinimizedActivity[]>();
+  const [refreshing, setRefreshing] = useState(false);
+
   const listRef = useRef<any>(null);
 
-  useEffect(() => {
-    async function getData() {
-      if (session) {
-        setData(await getAllActivities(session));
-      }
+  const getData = useCallback(async () => {
+    if (session) {
+      setData(await getAllActivities(session));
     }
-    getData();
   }, [session]);
+
+  useEffect(() => {
+    getData();
+  }, [getData]);
+
+  function onRefresh() {
+    listRef.current.scrollToOffset({ animated: true });
+    setRefreshing(true);
+    getData().then(() => {
+      setRefreshing(false);
+    });
+  }
 
   const emptyMinimized: MinimizedActivity = {
     activity: 'New activity',
@@ -61,6 +72,9 @@ export default function Home() {
       <View className="flex w-full flex-row items-center">
         <Text className={styles.title}>Bucket List</Text>
         <View className="flex-1"></View>
+        <TouchableWithoutFeedback onPress={onRefresh}>
+          <MaterialIcons name="refresh" size={36} color="black" className="m-2" />
+        </TouchableWithoutFeedback>
         <Button
           label={
             <View className="flex flex-row items-center">
@@ -70,7 +84,12 @@ export default function Home() {
           }
           callback={handleAddItem}></Button>
       </View>
-      <BucketList data={data} user_id={session?.user.id ?? ''} ref={listRef}></BucketList>
+      <BucketList
+        data={data}
+        user_id={session?.user.id ?? ''}
+        ref={listRef}
+        onRefresh={onRefresh}
+        refreshing={refreshing}></BucketList>
     </Container>
   );
 }

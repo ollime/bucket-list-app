@@ -11,6 +11,8 @@ interface BucketListProps {
   data?: MinimizedActivity[];
   user_id: string;
   ref: any;
+  onRefresh: () => void;
+  refreshing: boolean;
 }
 
 interface BucketListItemProps {
@@ -18,7 +20,7 @@ interface BucketListItemProps {
   user_id: string;
 }
 
-export default function BucketList({ data, user_id, ref }: BucketListProps) {
+export default function BucketList({ data, user_id, ref, onRefresh, refreshing }: BucketListProps) {
   return (
     <FlashList
       data={data}
@@ -26,6 +28,8 @@ export default function BucketList({ data, user_id, ref }: BucketListProps) {
       contentContainerStyle={{ padding: 2 }}
       estimatedItemSize={16}
       showsVerticalScrollIndicator={false}
+      onRefresh={onRefresh}
+      refreshing={refreshing}
       ref={ref}
     />
   );
