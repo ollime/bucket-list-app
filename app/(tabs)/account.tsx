@@ -62,10 +62,14 @@ export default function Account() {
     username,
     avatar_url,
     full_name,
+    is_public,
+    allows_friends,
   }: {
     username: string;
     avatar_url: string;
     full_name: string;
+    is_public: boolean;
+    allows_friends: boolean;
   }) {
     try {
       setLoading(true);
@@ -76,6 +80,8 @@ export default function Account() {
         avatar_url,
         full_name,
         updated_at: new Date(),
+        is_public,
+        allows_friends,
       };
       const { error } = await supabase.from('profiles').upsert(updates);
       if (error) {
@@ -107,7 +113,13 @@ export default function Account() {
           url={avatarUrl}
           onUpload={(url: string) => {
             setAvatarUrl(url);
-            updateProfile({ username, avatar_url: url, full_name: fullName });
+            updateProfile({
+              username,
+              avatar_url: url,
+              full_name: fullName,
+              is_public: isPublic,
+              allows_friends: allowsFriends,
+            });
           }}
           userId={session?.user.id ?? ''}></Avatar>
 
@@ -146,7 +158,13 @@ export default function Account() {
           <Button
             label="Update Profile"
             callback={() => {
-              updateProfile({ username, avatar_url: avatarUrl, full_name: fullName });
+              updateProfile({
+                username,
+                avatar_url: avatarUrl,
+                full_name: fullName,
+                is_public: isPublic,
+                allows_friends: allowsFriends,
+              });
             }}></Button>
 
           <Button
