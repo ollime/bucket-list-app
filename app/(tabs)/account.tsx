@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../../utils/supabase';
-import { Text } from 'react-native';
+import { Text, View } from 'react-native';
 
 import Button from 'components/Button';
 import Avatar from 'components/Avatar';
@@ -10,12 +10,15 @@ import { useRouter } from 'expo-router';
 import { Container } from 'components/Container';
 import AppInfo from 'components/AppInfo';
 import { showAlert } from 'utils/alert';
+import Toggle from 'components/Toggle';
 
 export default function Account() {
   const [loading, setLoading] = useState(true);
   const [username, setUsername] = useState('');
   const [avatarUrl, setAvatarUrl] = useState('');
   const [fullName, setFullName] = useState('');
+  const [isPublic, setIsPublic] = useState(false);
+  const [allowsFriends, setAllowsFriends] = useState(false);
 
   const session = useSession();
   const router = useRouter();
@@ -28,7 +31,7 @@ export default function Account() {
 
         const { data, error, status } = await supabase
           .from('profiles')
-          .select(`username, avatar_url, full_name`)
+          .select(`username, avatar_url, full_name, is_public, allows_friends`)
           .eq('id', session?.user.id)
           .single();
 
@@ -40,6 +43,8 @@ export default function Account() {
           setUsername(data.username);
           setAvatarUrl(data.avatar_url);
           setFullName(data.full_name);
+          setIsPublic(data.is_public);
+          setAllowsFriends(data.allows_friends);
         }
       } catch (error) {
         if (error instanceof Error) {
@@ -85,6 +90,14 @@ export default function Account() {
     }
   }
 
+  function handleTogglePublic() {
+    setIsPublic(!isPublic);
+  }
+
+  function handleToggleFriends() {
+    setAllowsFriends(!allowsFriends);
+  }
+
   return (
     <>
       <Container>
@@ -98,36 +111,51 @@ export default function Account() {
           }}
           userId={session?.user.id ?? ''}></Avatar>
 
-        <TextField
-          label="Email"
-          value={session?.user?.email || ''}
-          placeholder="email@domain.com"
-          onChangeText={(value: string) => {}}
-          disabled={true}
-          icon="email"></TextField>
-        <TextField
-          label="Username"
-          value={username || ''}
-          placeholder="username"
-          onChangeText={(value: string) => setUsername(value)}></TextField>
-        <TextField
-          label="Alias (visible to friends only)"
-          value={fullName || ''}
-          placeholder="name"
-          onChangeText={(value: string) => setFullName(value)}></TextField>
+        <View className="my-2">
+          <TextField
+            label="Email"
+            value={session?.user?.email || ''}
+            placeholder="email@domain.com"
+            onChangeText={(value: string) => {}}
+            disabled={true}
+            icon="email"></TextField>
+          <TextField
+            label="Username"
+            value={username || ''}
+            placeholder="username"
+            onChangeText={(value: string) => setUsername(value)}></TextField>
+          <TextField
+            label="Alias (visible to friends only)"
+            value={fullName || ''}
+            placeholder="name"
+            onChangeText={(value: string) => setFullName(value)}></TextField>
 
-        <Button
-          label="Update Profile"
-          callback={() => {
-            updateProfile({ username, avatar_url: avatarUrl, full_name: fullName });
-          }}></Button>
+          <Toggle
+            value={isPublic}
+            label="Profile shows up in search"
+            icon={isPublic ? 'public' : 'public-off'}
+            callback={handleTogglePublic}></Toggle>
+          <Toggle
+            value={allowsFriends}
+            label="Allow others to friend you"
+            icon={allowsFriends ? 'person-add' : 'person-add-disabled'}
+            callback={handleToggleFriends}></Toggle>
+        </View>
 
-        <Button
-          label="Sign out"
-          callback={() => {
-            supabase.auth.signOut();
-            router.push('/');
-          }}></Button>
+        <View className="flex flex-row">
+          <Button
+            label="Update Profile"
+            callback={() => {
+              updateProfile({ username, avatar_url: avatarUrl, full_name: fullName });
+            }}></Button>
+
+          <Button
+            label="Sign out"
+            callback={() => {
+              supabase.auth.signOut();
+              router.push('/');
+            }}></Button>
+        </View>
         <AppInfo></AppInfo>
       </Container>
     </>
