@@ -30,7 +30,10 @@ export async function getUsername(session?: Session) {
 }
 
 export async function getAllUsers() {
-  const { data: users, error } = await supabase.from('profiles').select(`username, avatar_url`);
+  const { data: users, error } = await supabase
+    .from('profiles')
+    .select(`username, avatar_url`)
+    .eq('is_public', true);
 
   if (error) {
     showAlert(error.message, 'error', false);
