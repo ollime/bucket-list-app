@@ -11,7 +11,7 @@ export default function AppInfo() {
           href="https://github.com/ollime/bucket-list-app"
           className="flex flex-row items-center justify-center">
           <Image
-            source={require('assets/github-mark-white.png')}
+            source={require('assets/app-info/github-mark-white.png')}
             style={{ width: 20, height: 20 }}></Image>
           <Text className="ml-2 items-center text-white"> Source</Text>
         </Link>

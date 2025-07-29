@@ -7,7 +7,7 @@ export function ErrorBoundary({ error, retry }: ErrorBoundaryProps) {
   return (
     <View className={styles.container}>
       <Image
-        source={require('assets/front-page/otter.png')}
+        source={require('assets/error-page/otter-alarm.png')}
         // do not use > 180px for height. adjust the height value to change the size of the entire image
         style={{ height: 250, width: 200 }}
         contentFit="contain"></Image>
