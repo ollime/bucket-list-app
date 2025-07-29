@@ -169,7 +169,7 @@ export default function Account() {
 
           <Toggle
             value={isPublic}
-            label="Profile shows up in search"
+            label="Profile is public"
             icon={isPublic ? 'public' : 'public-off'}
             callback={handleTogglePublic}></Toggle>
           <Toggle

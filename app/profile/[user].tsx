@@ -101,7 +101,8 @@ export default function Profile() {
           error={Error('No user found')}
           retry={async () => {
             router.replace('/friends');
-          }}></ErrorBoundary>
+          }}
+          extraInfo={'User may not exist or be a private account'}></ErrorBoundary>
       )}
     </Container>
   );

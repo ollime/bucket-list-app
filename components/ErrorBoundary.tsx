@@ -1,9 +1,14 @@
 import { View, Text } from 'react-native';
-import { ErrorBoundaryProps } from 'expo-router';
 import { Image } from 'expo-image';
 import Button from './Button';
 
-export function ErrorBoundary({ error, retry }: ErrorBoundaryProps) {
+interface ErrorBoundaryProps {
+  error: Error;
+  retry: () => Promise<void>;
+  extraInfo?: string;
+}
+
+export function ErrorBoundary({ error, retry, extraInfo }: ErrorBoundaryProps) {
   return (
     <View className={styles.container}>
       <Image
@@ -13,6 +18,7 @@ export function ErrorBoundary({ error, retry }: ErrorBoundaryProps) {
         contentFit="contain"></Image>
 
       <Text className={styles.title}>{error.message}</Text>
+      <Text className="m-2">{extraInfo}</Text>
       <View className={styles.buttonContainer}>
         <Button label="Go back" callback={retry}></Button>
       </View>
