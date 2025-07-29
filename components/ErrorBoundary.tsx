@@ -6,8 +6,6 @@ import Button from './Button';
 export function ErrorBoundary({ error, retry }: ErrorBoundaryProps) {
   return (
     <View className={styles.container}>
-      <Text className={styles.title}>Something went wrong</Text>
-
       <Image
         source={require('assets/error-page/otter-alarm.png')}
         // do not use > 180px for height. adjust the height value to change the size of the entire image
@@ -16,7 +14,7 @@ export function ErrorBoundary({ error, retry }: ErrorBoundaryProps) {
 
       <Text className={styles.title}>{error.message}</Text>
       <View className={styles.buttonContainer}>
-        <Button label="Try again" callback={retry}></Button>
+        <Button label="Go back" callback={retry}></Button>
       </View>
     </View>
   );

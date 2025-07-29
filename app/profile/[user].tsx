@@ -11,6 +11,7 @@ import { FlashList } from '@shopify/flash-list';
 import { getFriendStatus } from 'api/friends-api';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { Image } from 'expo-image';
+import { ErrorBoundary } from 'components/ErrorBoundary';
 
 export default function Profile() {
   const { user } = useLocalSearchParams();
@@ -18,24 +19,35 @@ export default function Profile() {
   const session = useSession();
   const [activities, setActivities] = useState<MinimizedActivity[] | undefined>();
   const [status, setStatus] = useState<string | undefined>('');
+  const [isUserFound, setIsUserFound] = useState<boolean>();
 
   useEffect(() => {
     async function getData() {
-      await getPublicActivities(user as string, session ?? undefined)
-        .then((res): any => {
-          if (res) {
-            // @ts-ignore
-            delete res[0].profiles;
-            return res;
-          } else {
-            return;
-          }
-        })
-        .then((res) => {
-          if (res) {
-            setActivities(res ?? undefined);
-          }
-        });
+      try {
+        await getPublicActivities(user as string, session ?? undefined)
+          .then((res): any => {
+            if (!res || res.length === 0 || !res[0].profiles || res[0].profiles.length === 0) {
+              throw new Error('No user found');
+            }
+
+            if (res) {
+              // @ts-ignore
+              delete res[0].profiles;
+              return res;
+            } else {
+              return;
+            }
+          })
+          .then((res) => {
+            if (res) {
+              setActivities(res ?? undefined);
+            }
+          });
+
+        setIsUserFound(true);
+      } catch {
+        return setIsUserFound(false);
+      }
     }
     async function getStatus() {
       setStatus(await getFriendStatus(user as string, session ?? undefined));
@@ -45,7 +57,7 @@ export default function Profile() {
       getData();
       getStatus();
     }
-  }, [user, session]);
+  }, [user, session, router]);
 
   function handleReturnToSearch() {
     router.navigate('search');
@@ -53,34 +65,44 @@ export default function Profile() {
 
   return (
     <Container>
-      <View className="flex-row items-center">
-        <Text className={styles.title}>{user}</Text>
-        {status === 'accepted' ? (
-          <View className="ml-2 flex flex-row items-center">
-            <MaterialIcons name="person" size={30} color="black" />
-            <Text>Friends</Text>
+      {isUserFound ? (
+        <>
+          <View className="flex-row items-center">
+            <Text className={styles.title}>{user}</Text>
+            {status === 'accepted' ? (
+              <View className="ml-2 flex flex-row items-center">
+                <MaterialIcons name="person" size={30} color="black" />
+                <Text>Friends</Text>
+              </View>
+            ) : (
+              ''
+            )}
+            <View className="flex-1"></View>
+            <Button label="Return" callback={handleReturnToSearch}></Button>
           </View>
-        ) : (
-          ''
-        )}
-        <View className="flex-1"></View>
-        <Button label="Return" callback={handleReturnToSearch}></Button>
-      </View>
-      <Text className={styles.subtitle}>Public bucket list items</Text>
+          <Text className={styles.subtitle}>Public bucket list items</Text>
 
-      {activities === undefined || activities.length === 0 ? (
-        <ActivitiesNotFound></ActivitiesNotFound>
+          {activities === undefined || activities.length === 0 ? (
+            <ActivitiesNotFound></ActivitiesNotFound>
+          ) : (
+            ''
+          )}
+
+          <FlashList
+            data={activities}
+            renderItem={({ item }) => <BucketListItem data={item} user_id={user as string} />}
+            contentContainerStyle={{ padding: 2 }}
+            estimatedItemSize={16}
+            showsVerticalScrollIndicator={false}
+          />
+        </>
       ) : (
-        ''
+        <ErrorBoundary
+          error={Error('No user found')}
+          retry={async () => {
+            router.replace('/friends');
+          }}></ErrorBoundary>
       )}
-
-      <FlashList
-        data={activities}
-        renderItem={({ item }) => <BucketListItem data={item} user_id={user as string} />}
-        contentContainerStyle={{ padding: 2 }}
-        estimatedItemSize={16}
-        showsVerticalScrollIndicator={false}
-      />
     </Container>
   );
 }

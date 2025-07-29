@@ -6,7 +6,6 @@ import * as ImageManipulator from 'expo-image-manipulator';
 
 export async function getUsername(session?: Session) {
   try {
-    console.log(session?.user.id);
     if (!session?.user) throw new Error('No user on the session!');
 
     const { data, error, status } = await supabase

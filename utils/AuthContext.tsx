@@ -24,11 +24,9 @@ export function SessionProvider({ children }: PropsWithChildren) {
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(JSON.stringify(session));
-      console.log(session);
     });
     supabase.auth.onAuthStateChange((_event, session) => {
       setSession(JSON.stringify(session));
-      console.log(session);
     });
   }, [setSession]);
 
