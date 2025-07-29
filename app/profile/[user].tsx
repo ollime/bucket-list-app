@@ -10,6 +10,7 @@ import { BucketListItem } from 'components/BucketList';
 import { FlashList } from '@shopify/flash-list';
 import { getFriendStatus } from 'api/friends-api';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { Image } from 'expo-image';
 
 export default function Profile() {
   const { user } = useLocalSearchParams();
@@ -66,6 +67,13 @@ export default function Profile() {
         <Button label="Return" callback={handleReturnToSearch}></Button>
       </View>
       <Text className={styles.subtitle}>Public bucket list items</Text>
+
+      {activities === undefined || activities.length === 0 ? (
+        <ActivitiesNotFound></ActivitiesNotFound>
+      ) : (
+        ''
+      )}
+
       <FlashList
         data={activities}
         renderItem={({ item }) => <BucketListItem data={item} user_id={user as string} />}
@@ -80,4 +88,18 @@ export default function Profile() {
 const styles = {
   title: 'text-3xl font-bold text-primary mr-2',
   subtitle: 'text-2xl font-bold text-primary mr-2 mb-2',
+  container: 'flex flex-1 items-center justify-center m-6',
 };
+
+function ActivitiesNotFound() {
+  return (
+    <View className={styles.container}>
+      <Image
+        source={require('assets/error-page/otter-cool.png')}
+        // do not use > 180px for height. adjust the height value to change the size of the entire image
+        style={{ height: 250, width: 200 }}
+        contentFit="contain"></Image>
+      <Text className={`${styles.title} m-2`}>No public activities</Text>
+    </View>
+  );
+}
