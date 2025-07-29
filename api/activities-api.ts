@@ -33,36 +33,18 @@ export async function getActivityDetails(activity: string, session?: Session) {
   return data[0];
 }
 
-export async function getPublicActivities(user: string, friendStatus: string, session?: Session) {
-  let promiseObj;
-
-  if (friendStatus === 'accepted') {
-    console.log(friendStatus);
-    promiseObj = await supabase
-      .from('activities')
-      .select(
-        `
+export async function getPublicActivities(user: string, session?: Session) {
+  const { data, error } = await supabase
+    .from('activities')
+    .select(
+      `
           user_id, activity, created_at, description, is_complete, is_public, planned_date, completed_date, location,
           profiles!inner(id, username)
         `
-      )
-      .eq('profiles.username', user)
-      .eq('is_public', true);
-  } else {
-    promiseObj = await supabase
-      .from('activities')
-      .select(
-        `
-          user_id, activity, created_at, description, is_complete, is_public, planned_date, completed_date, location,
-          profiles!inner(id, username)
-        `
-      )
-      .eq('profiles.username', user)
-      .eq('profiles.is_public', true)
-      .eq('is_public', true);
-  }
-
-  const { data, error } = promiseObj;
+    )
+    .eq('profiles.username', user)
+    .eq('profiles.is_public', true)
+    .eq('is_public', true);
 
   if (error) {
     showAlert(error.message, 'error', false);

@@ -22,11 +22,10 @@ export default function Profile() {
   const [isUserFound, setIsUserFound] = useState<boolean>();
 
   useEffect(() => {
-    async function getData(friendStatus: string) {
+    async function getData() {
       try {
-        await getPublicActivities(user as string, friendStatus, session ?? undefined)
+        await getPublicActivities(user as string, session ?? undefined)
           .then((res): any => {
-            console.log(res);
             if (!res || res.length === 0) {
               throw new Error('No user found');
             }
@@ -50,14 +49,13 @@ export default function Profile() {
         return setIsUserFound(false);
       }
     }
-    async function getStatus(): Promise<string> {
-      let newStatus = await getFriendStatus(user as string, session ?? undefined);
-      setStatus(newStatus);
-      return newStatus;
+    async function getStatus() {
+      setStatus(await getFriendStatus(user as string, session ?? undefined));
     }
 
     if (session) {
-      getStatus().then(getData);
+      getStatus();
+      getData();
     }
   }, [user, session, router]);
 
