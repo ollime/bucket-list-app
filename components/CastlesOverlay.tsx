@@ -5,26 +5,20 @@ export default function CastlesOverlay() {
   const screenWidth = Dimensions.get('window').width;
   const imagesPerRow = Math.floor(screenWidth / 50);
 
-  const numOfCastles = 15;
-  const maxNumOfCastles = imagesPerRow;
+  const numOfCastles = 3;
 
   let images = [];
+  let castlesShown = 0;
 
-  let topVariants = [0, 2, 3];
-  let bottomVariants = [2, 1, 1];
-
-  for (let i = 0; i < numOfCastles; i++) {
-    if (i < maxNumOfCastles) {
-      images.push(
-        <View>
-          <>
-            {/* top castle */}
-            <CastleImage variant={topVariants[i % 3]}></CastleImage>
-            {/* bottom castle */}
-            <CastleImage variant={bottomVariants[i % 3]}></CastleImage>
-          </>
-        </View>
-      );
+  for (let i = 0; i < imagesPerRow; i++) {
+    let variant = Math.floor(Math.random() * 6);
+    if (castlesShown < numOfCastles) {
+      images.push(<CastleImage variant={variant}></CastleImage>);
+    }
+    if (variant > 1) {
+      castlesShown += 2;
+    } else {
+      castlesShown++;
     }
   }
 
@@ -50,10 +44,6 @@ function CastleImage({ variant }: { variant: number }) {
         return (
           <>
             <Image
-              source={require('assets/castles/empty-trim.png')}
-              style={styles.trim}
-              contentFit="cover"></Image>
-            <Image
               source={require('assets/castles/empty.png')}
               style={styles.castle}
               contentFit="cover"></Image>
@@ -63,11 +53,7 @@ function CastleImage({ variant }: { variant: number }) {
         return (
           <>
             <Image
-              source={require('assets/castles/castle-full.png')}
-              style={styles.trim}
-              contentFit="cover"></Image>
-            <Image
-              source={require('assets/castles/castle.png')}
+              source={require('assets/castles/toothed-1.png')}
               style={styles.castle}
               contentFit="cover"></Image>
           </>
@@ -76,11 +62,7 @@ function CastleImage({ variant }: { variant: number }) {
         return (
           <>
             <Image
-              source={require('assets/castles/castle-trim.png')}
-              style={styles.trim}
-              contentFit="cover"></Image>
-            <Image
-              source={require('assets/castles/castle.png')}
+              source={require('assets/castles/toothed-2.png')}
               style={styles.castle}
               contentFit="cover"></Image>
           </>
@@ -89,11 +71,25 @@ function CastleImage({ variant }: { variant: number }) {
         return (
           <>
             <Image
-              source={require('assets/castles/castle-top-trim.png')}
-              style={styles.trim}
+              source={require('assets/castles/round-2.png')}
+              style={styles.castle}
               contentFit="cover"></Image>
+          </>
+        );
+      case 4:
+        return (
+          <>
             <Image
-              source={require('assets/castles/castle-top.png')}
+              source={require('assets/castles/round-toothed-2.png')}
+              style={styles.castle}
+              contentFit="cover"></Image>
+          </>
+        );
+      case 5:
+        return (
+          <>
+            <Image
+              source={require('assets/castles/pointed-2.png')}
               style={styles.castle}
               contentFit="cover"></Image>
           </>
@@ -107,12 +103,7 @@ function CastleImage({ variant }: { variant: number }) {
 const styles = {
   castle: {
     width: 50,
-    height: 40,
-    aspectRatio: 1,
-  },
-  trim: {
-    width: 50,
-    height: 10,
+    height: 100,
     aspectRatio: 1,
   },
 };
