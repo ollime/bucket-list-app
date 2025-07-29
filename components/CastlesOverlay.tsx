@@ -14,14 +14,10 @@ export default function CastlesOverlay() {
   for (let i = 0; i < numOfCastles; i++) {
     if (i < maxNumOfCastles) {
       images.push(
-        <Image
-          source={require('assets/castles/castle.png')}
-          style={{
-            width: 50,
-            height: 50,
-            aspectRatio: 1,
-          }}
-          contentFit="cover"></Image>
+        <View>
+          <CastleTrim variant={i}></CastleTrim>
+          <CastleImage variant={i}></CastleImage>
+        </View>
       );
     }
   }
@@ -30,5 +26,57 @@ export default function CastlesOverlay() {
     <View className="absolute bottom-[0px] left-[-1px] z-[2] flex w-full flex-1">
       <View className={`flex flex-row flex-wrap-reverse justify-center`}>{images}</View>
     </View>
+  );
+}
+
+function CastleTrim({ variant }: { variant: number }) {
+  return (
+    <>
+      {variant === 1 ? (
+        <Image
+          source={require('assets/castles/empty-trim.png')}
+          style={{
+            width: 50,
+            height: 10,
+            aspectRatio: 1,
+          }}
+          contentFit="cover"></Image>
+      ) : (
+        <Image
+          source={require('assets/castles/castle-trim.png')}
+          style={{
+            width: 50,
+            height: 10,
+            aspectRatio: 1,
+          }}
+          contentFit="cover"></Image>
+      )}
+    </>
+  );
+}
+
+function CastleImage({ variant }: { variant: number }) {
+  return (
+    <>
+      {variant === 1 ? (
+        <Image
+          source={require('assets/castles/empty.png')}
+          style={{
+            width: 50,
+            height: 40,
+            aspectRatio: 1,
+          }}
+          contentFit="cover"></Image>
+      ) : (
+        <Image
+          source={require('assets/castles/castle.png')}
+          style={{
+            width: 50,
+            height: 40,
+            aspectRatio: 1,
+          }}
+          contentFit="cover"></Image>
+      )}
+    </>
   );
 }
