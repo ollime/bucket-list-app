@@ -8,6 +8,7 @@ import BucketList from 'components/BucketList';
 import Button from 'components/Button';
 import { addNewActivity, getAllActivities } from 'api/activities-api';
 import { useSession } from 'utils/AuthContext';
+import CastlesOverlay from 'components/CastlesOverlay';
 
 export default function Home() {
   const session = useSession();
@@ -68,6 +69,7 @@ export default function Home() {
 
   return (
     <Container>
+      <CastlesOverlay></CastlesOverlay>
       <View className="flex w-full flex-row items-center">
         <Text className={styles.title}>Bucket List</Text>
         <View className="flex-1"></View>
