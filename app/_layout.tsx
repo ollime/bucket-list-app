@@ -15,6 +15,7 @@ export default function Layout() {
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="profile" options={{ headerShown: false }} />
+        <Stack.Screen name="+not-found" options={{ headerShown: false }} />
       </Stack>
     </SessionProvider>
   );
