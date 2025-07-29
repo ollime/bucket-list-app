@@ -8,7 +8,7 @@ export default function NotFoundPage() {
       <ErrorBoundary
         error={Error('Page not found')}
         retry={async () => {
-          router.replace('/');
+          router.replace('/home');
         }}></ErrorBoundary>
     </Container>
   );
