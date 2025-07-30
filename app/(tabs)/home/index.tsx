@@ -15,10 +15,15 @@ export default function Home() {
   const [data, setData] = useState<MinimizedActivity[]>();
   const [refreshing, setRefreshing] = useState(false);
   const listRef = useRef<any>(null);
+  const [numOfCompleted, setNumOfCompleted] = useState<number>(0);
 
   const getData = useCallback(async () => {
     if (session) {
-      setData(await getAllActivities(session));
+      const activities = await getAllActivities(session);
+      setData(activities);
+      if (activities) {
+        setNumOfCompleted(activities.filter((item) => item.is_complete === true).length);
+      }
     }
   }, [session]);
 
@@ -69,7 +74,7 @@ export default function Home() {
 
   return (
     <Container>
-      <CastlesOverlay></CastlesOverlay>
+      <CastlesOverlay numOfCastles={numOfCompleted}></CastlesOverlay>
       <View className="flex w-full flex-row items-center">
         <Text className={styles.title}>Bucket List</Text>
         <View className="flex-1"></View>

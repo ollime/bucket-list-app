@@ -1,12 +1,9 @@
 import { View, Dimensions } from 'react-native';
 import { Image } from 'expo-image';
 
-export default function CastlesOverlay() {
+export default function CastlesOverlay({ numOfCastles }: { numOfCastles: number }) {
   const screenWidth = Dimensions.get('window').width;
   const imagesPerRow = Math.floor(screenWidth / 50);
-
-  const numOfCastles = 10;
-
   let images = [];
   let castlesShown = 0;
 
