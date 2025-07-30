@@ -5,20 +5,33 @@ export default function CastlesOverlay() {
   const screenWidth = Dimensions.get('window').width;
   const imagesPerRow = Math.floor(screenWidth / 50);
 
-  const numOfCastles = 3;
+  const numOfCastles = 10;
 
   let images = [];
   let castlesShown = 0;
 
   for (let i = 0; i < imagesPerRow; i++) {
-    let variant = Math.floor(Math.random() * 6);
-    if (castlesShown < numOfCastles) {
-      images.push(<CastleImage variant={variant}></CastleImage>);
+    if (numOfCastles - castlesShown === 1) {
+      castlesShown++;
+      images.push(<CastleImage variant={1}></CastleImage>);
+      break;
+    }
+
+    let variant = Math.floor(Math.random() * 7);
+    if (variant === 2) {
+      if (i % 2 === 0) {
+        variant = 7;
+      }
     }
     if (variant > 1) {
       castlesShown += 2;
-    } else {
+    } else if (variant === 6) {
+      castlesShown += 3;
+    } else if (variant !== 0) {
       castlesShown++;
+    }
+    if (castlesShown <= numOfCastles) {
+      images.push(<CastleImage variant={variant}></CastleImage>);
     }
   }
 
@@ -32,9 +45,11 @@ export default function CastlesOverlay() {
 /**
  *
  * @param variant variant style
- *    1: empty
- *    2: filled
- *    3: castle
+ *    0: empty
+ *    1: single tower
+ *    >2: double tower
+ *    6: triple tower
+ *    7: flag variant
  * @returns
  */
 function CastleImage({ variant }: { variant: number }) {
@@ -94,6 +109,24 @@ function CastleImage({ variant }: { variant: number }) {
               contentFit="cover"></Image>
           </>
         );
+      case 6:
+        return (
+          <>
+            <Image
+              source={require('assets/castles/pointed-3.png')}
+              style={styles.castle}
+              contentFit="cover"></Image>
+          </>
+        );
+      case 7:
+        return (
+          <>
+            <Image
+              source={require('assets/castles/round-toothed-flag-2.png')}
+              style={styles.castle}
+              contentFit="cover"></Image>
+          </>
+        );
     }
   }
 
@@ -103,7 +136,7 @@ function CastleImage({ variant }: { variant: number }) {
 const styles = {
   castle: {
     width: 50,
-    height: 100,
+    height: 150,
     aspectRatio: 1,
   },
 };
