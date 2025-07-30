@@ -1,11 +1,17 @@
 # Bucket List App
 
+[![React Native](https://img.shields.io/badge/React_Native-%2320232a.svg?logo=react&logoColor=%2361DAFB)](#)
+![Release](https://img.shields.io/badge/platforms-android%2C_ios-blue)
+![Release](https://img.shields.io/github/v/release/ollime/bucket-list-app)
+![Last Commit](https://img.shields.io/github/last-commit/ollime/bucket-list-app)
+
 An app to keep track of and share bucket list items with friends.
 
 - Mobile app built with React Native + Expo, backend with Supabase
 - Create an account by signing up with email
 - Add your friends to track you activities together
 - Add bucket list activities and check them off as you complete them
+- Generates sandcastle images with 7 variants based on how many activities the user completes
 
 ## Downloads
 
