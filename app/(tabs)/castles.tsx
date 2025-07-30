@@ -14,14 +14,21 @@ export default function Castles() {
     <>
       <View className="absolute bottom-0 z-[-2] h-[150px] w-full">
         <Image
-          source={require('assets/castles/sand-bg.png')}
+          source={require('assets/background/waves-long.png')}
+          // do not use > 180px for height. adjust the height value to change the size of the entire image
+          style={{ flex: 1, height: 150 }}
+          contentFit="cover"></Image>
+      </View>
+      <View className="absolute bottom-0 z-[-2] h-[150px] w-full">
+        <Image
+          source={require('assets/background/sand-bg.png')}
           // do not use > 180px for height. adjust the height value to change the size of the entire image
           style={{ flex: 1, height: 150 }}
           contentFit="cover"></Image>
       </View>
       <View className="absolute z-[-1] ml-[75vw] w-full" style={{ height: 100, bottom: 10 }}>
         <Image
-          source={require('assets/castles/sandman.png')}
+          source={require('assets/background/sandman.png')}
           style={{ flex: 1, height: 100, width: 100 }}
           contentFit="contain"></Image>
       </View>
@@ -40,9 +47,11 @@ export default function Castles() {
 
   return (
     <Container images={image}>
+      <Text className={'m-2 text-center text-3xl font-bold text-primary'}>
+        {numOfCastles} activities completed
+      </Text>
       <View style={styles.castles}>
         <CastlesOverlay numOfCastles={numOfCastles}></CastlesOverlay>
-        <Text>Test</Text>
       </View>
     </Container>
   );
