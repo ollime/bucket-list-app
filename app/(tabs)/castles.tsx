@@ -26,7 +26,7 @@ export default function Castles() {
           style={{ flex: 1, height: 150 }}
           contentFit="cover"></Image>
       </View>
-      <View className="absolute z-[-1] ml-[75vw] w-full" style={{ height: 100, bottom: 10 }}>
+      <View className="absolute z-[1] ml-[75vw] w-full" style={{ height: 100, bottom: 10 }}>
         <Image
           source={require('assets/background/sandman.png')}
           style={{ flex: 1, height: 100, width: 100 }}

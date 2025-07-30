@@ -2,7 +2,6 @@ import { View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { Image } from 'expo-image';
 import { StatusBar } from 'expo-status-bar';
-import Toast from 'react-native-toast-message';
 import { Try } from 'expo-router/build/views/Try';
 
 import { ErrorBoundary } from 'components/ErrorBoundary';
@@ -53,7 +52,6 @@ export default function Container({
       </View>
       {/* style should be opposite to the app theme */}
       <StatusBar style="dark"></StatusBar>
-      <Toast />
     </>
   );
 }

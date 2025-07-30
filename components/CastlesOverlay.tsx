@@ -1,40 +1,48 @@
-import { View, Dimensions } from 'react-native';
+import { useState } from 'react';
+import { View } from 'react-native';
 import { Image } from 'expo-image';
 
 export default function CastlesOverlay({ numOfCastles }: { numOfCastles: number }) {
-  const screenWidth = Dimensions.get('window').width;
-  const imagesPerRow = Math.floor(screenWidth / 50);
+  let [containerWidth, setContainerWidth] = useState<number>();
+  const screenWidth = containerWidth ?? 100;
+  const imagesPerRow = Math.floor(screenWidth / 60);
   let images = [];
   let castlesShown = 0;
 
   for (let i = 0; i < imagesPerRow; i++) {
-    if (numOfCastles - castlesShown === 1) {
-      castlesShown++;
-      images.push(<CastleImage variant={1}></CastleImage>);
-      break;
-    }
-
     let variant = Math.floor(Math.random() * 7);
-    if (variant === 2) {
-      if (i % 2 === 0) {
-        variant = 7;
+    if (castlesShown < numOfCastles) {
+      if (variant === 2) {
+        if (i % 2 === 0) {
+          variant = 7;
+        }
       }
-    }
-    if (variant > 1) {
-      castlesShown += 2;
-    } else if (variant === 6) {
-      castlesShown += 3;
-    } else if (variant !== 0) {
-      castlesShown++;
-    }
-    if (castlesShown <= numOfCastles) {
-      images.push(<CastleImage variant={variant} key={`castle-${i}`}></CastleImage>);
+      if (variant > 1) {
+        castlesShown += 2;
+      } else if (variant === 6) {
+        castlesShown += 3;
+      } else if (variant !== 0) {
+        castlesShown++;
+      }
+      images.push(
+        <View className="h-[150px] w-[50px]">
+          <CastleImage variant={variant} key={`castle-${i}-${castlesShown}`}></CastleImage>
+        </View>
+      );
+    } else {
+      break;
     }
   }
 
   return (
     <View className="absolute bottom-[0px] left-[-1px] z-[2] flex w-full flex-1">
-      <View className={`flex flex-row flex-wrap-reverse items-end justify-center`}>{images}</View>
+      <View
+        className={`flex w-full flex-row flex-wrap-reverse items-end justify-center`}
+        onLayout={(e) => {
+          setContainerWidth(e.nativeEvent.layout.width);
+        }}>
+        {images}
+      </View>
     </View>
   );
 }
@@ -58,7 +66,7 @@ function CastleImage({ variant }: { variant: number }) {
             <Image
               source={require('assets/castles/empty.png')}
               style={styles.castle}
-              contentFit="cover"></Image>
+              contentFit="contain"></Image>
           </>
         );
       case 1:
@@ -67,7 +75,7 @@ function CastleImage({ variant }: { variant: number }) {
             <Image
               source={require('assets/castles/toothed-1.png')}
               style={styles.castle}
-              contentFit="cover"></Image>
+              contentFit="contain"></Image>
           </>
         );
       case 2:
@@ -76,7 +84,7 @@ function CastleImage({ variant }: { variant: number }) {
             <Image
               source={require('assets/castles/toothed-2.png')}
               style={styles.castle}
-              contentFit="cover"></Image>
+              contentFit="contain"></Image>
           </>
         );
       case 3:
@@ -85,7 +93,7 @@ function CastleImage({ variant }: { variant: number }) {
             <Image
               source={require('assets/castles/round-2.png')}
               style={styles.castle}
-              contentFit="cover"></Image>
+              contentFit="contain"></Image>
           </>
         );
       case 4:
@@ -94,7 +102,7 @@ function CastleImage({ variant }: { variant: number }) {
             <Image
               source={require('assets/castles/round-toothed-2.png')}
               style={styles.castle}
-              contentFit="cover"></Image>
+              contentFit="contain"></Image>
           </>
         );
       case 5:
@@ -103,7 +111,7 @@ function CastleImage({ variant }: { variant: number }) {
             <Image
               source={require('assets/castles/pointed-2.png')}
               style={styles.castle}
-              contentFit="cover"></Image>
+              contentFit="contain"></Image>
           </>
         );
       case 6:
@@ -112,7 +120,7 @@ function CastleImage({ variant }: { variant: number }) {
             <Image
               source={require('assets/castles/pointed-3.png')}
               style={styles.castle}
-              contentFit="cover"></Image>
+              contentFit="contain"></Image>
           </>
         );
       case 7:
@@ -121,7 +129,7 @@ function CastleImage({ variant }: { variant: number }) {
             <Image
               source={require('assets/castles/round-toothed-flag-2.png')}
               style={styles.castle}
-              contentFit="cover"></Image>
+              contentFit="contain"></Image>
           </>
         );
     }
