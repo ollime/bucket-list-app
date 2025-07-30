@@ -21,7 +21,9 @@ export default function Account() {
   const [allowsFriends, setAllowsFriends] = useState(false);
   const [isSaved, setIsSaved] = useState<boolean>(true);
 
-  const [theme, setTheme] = useState<'Sand' | 'Snow' | 'Dark'>(true);
+  /** if theme is true, theme is snow -- otherwise,  */
+  const [isSnow, setIsSnow] = useState<boolean>(true);
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(true);
   const [overlayAllowed, setOverlayAllowed] = useState<boolean>(true);
 
   const session = useSession();
@@ -180,14 +182,19 @@ export default function Account() {
         <View className={'my-2'}>
           <Text className={`${styles.subtitle}`}>Local settings</Text>
           <Toggle
-            value={isPublic}
+            value={overlayAllowed}
             label="Show sandcastle overlay"
-            icon={isPublic ? 'public' : 'public-off'}
+            icon={overlayAllowed ? 'castle' : 'close'}
             callback={handleTogglePublic}></Toggle>
           <Toggle
-            value={isPublic}
+            value={isDarkMode}
+            label={isDarkMode ? 'Dark mode' : 'Light mode'}
+            icon={isDarkMode ? 'light-mode' : 'dark-mode'}
+            callback={handleTogglePublic}></Toggle>
+          <Toggle
+            value={isSnow}
             label={'Theme: ' + 'Sand'}
-            icon={isPublic ? 'public' : 'public-off'}
+            icon={isSnow ? 'cloudy-snowing' : 'tsunami'}
             callback={handleTogglePublic}></Toggle>
         </View>
 

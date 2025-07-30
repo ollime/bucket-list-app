@@ -25,7 +25,7 @@ export default function CastlesOverlay({ numOfCastles }: { numOfCastles: number 
         castlesShown++;
       }
       images.push(
-        <View className="h-[150px] w-[50px]">
+        <View className="h-[150px] w-[50px]" key={`container-${i}-${castlesShown}`}>
           <CastleImage variant={variant} key={`castle-${i}-${castlesShown}`}></CastleImage>
         </View>
       );
