@@ -21,6 +21,9 @@ export default function Account() {
   const [allowsFriends, setAllowsFriends] = useState(false);
   const [isSaved, setIsSaved] = useState<boolean>(true);
 
+  const [theme, setTheme] = useState<'Sand' | 'Snow' | 'Dark'>(true);
+  const [overlayAllowed, setOverlayAllowed] = useState<boolean>(true);
+
   const session = useSession();
   const router = useRouter();
 
@@ -174,7 +177,21 @@ export default function Account() {
             callback={handleToggleFriends}></Toggle>
         </View>
 
-        <View className="flex flex-row">
+        <View className={'my-2'}>
+          <Text className={`${styles.subtitle}`}>Local settings</Text>
+          <Toggle
+            value={isPublic}
+            label="Show sandcastle overlay"
+            icon={isPublic ? 'public' : 'public-off'}
+            callback={handleTogglePublic}></Toggle>
+          <Toggle
+            value={isPublic}
+            label={'Theme: ' + 'Sand'}
+            icon={isPublic ? 'public' : 'public-off'}
+            callback={handleTogglePublic}></Toggle>
+        </View>
+
+        <View className="mt-2 flex flex-row">
           <Button
             label="Update Profile"
             callback={() => {
@@ -202,4 +219,5 @@ export default function Account() {
 
 const styles = {
   title: 'text-3xl font-bold text-primary',
+  subtitle: 'text-xl font-bold text-primary my-2',
 };
