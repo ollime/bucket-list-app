@@ -5,6 +5,7 @@ import * as ImageManipulator from 'expo-image-manipulator';
 import { supabase } from 'utils/supabase';
 import { showAlert } from 'utils/alert';
 
+/** Gets the username of the current user */
 export async function getUsername(session?: Session) {
   try {
     if (!session?.user) throw new Error('No user on the session!');
@@ -29,6 +30,7 @@ export async function getUsername(session?: Session) {
   }
 }
 
+/** Gets the username and avatar of all public users. */
 export async function getAllUsers() {
   const { data: users, error } = await supabase
     .from('profiles')
@@ -42,6 +44,11 @@ export async function getAllUsers() {
   return users;
 }
 
+/** Downloads an image from the 'avatars' bucket to display an avatar
+ *
+ * @param path A path located in 'avatars' bucket. This can be generated
+ * from the user ID and avatar_url.
+ */
 export async function downloadImage(path: string) {
   try {
     const { data, error } = await supabase.storage.from('avatars').download(path);
@@ -62,6 +69,7 @@ export async function downloadImage(path: string) {
   }
 }
 
+/** Uploads a new avatar to the supabase bucket */
 export async function uploadAvatar(
   userId: string,
   url: string,
@@ -118,6 +126,7 @@ export async function uploadAvatar(
   }
 }
 
+/** Removes an avatar from the supabase bucket */
 export async function removeAvatar(path: string) {
   const { data, error } = await supabase.storage.from('avatars').remove([path]);
   if (error) {

@@ -42,6 +42,7 @@ export async function getAllFriendStatus(session?: Session) {
   return data;
 }
 
+/** Gets the friend status between a specified user and the current user */
 export async function getFriendStatus(friend: string, session?: Session) {
   const username = await getUsername(session);
   const { data, error } = await supabase
@@ -57,6 +58,10 @@ export async function getFriendStatus(friend: string, session?: Session) {
   return data[0]?.status;
 }
 
+/** Updates the friend status between two users.
+ *
+ * Sender and receiver must be the same as they are recorded
+ * in the database. */
 export async function updateFriendStatus(status: string, sender: string, receiver: string) {
   const { data: users, error } = await supabase
     .from('friends')
@@ -73,6 +78,7 @@ export async function updateFriendStatus(status: string, sender: string, receive
   return users;
 }
 
+/** Delete a row frmo the friends table. */
 export async function deleteFriend(otherUser: string, session?: Session) {
   const currentUser = await getUsername(session ?? undefined);
   const { data: users, error } = await supabase
@@ -91,6 +97,7 @@ export async function deleteFriend(otherUser: string, session?: Session) {
   return users;
 }
 
+/** Sends a request to a new friend */
 export async function addFriend(screenName: string, session?: Session) {
   // does the row already exist?
   const { data: row } = await supabase

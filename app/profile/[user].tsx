@@ -26,7 +26,7 @@ export default function Profile() {
   useEffect(() => {
     async function getData() {
       try {
-        await getPublicActivities(user as string, session ?? undefined)
+        await getPublicActivities(user as string)
           .then((res): any => {
             if (!res || res.length === 0) {
               throw new Error('No user found');

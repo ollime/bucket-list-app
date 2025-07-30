@@ -4,6 +4,11 @@ import { supabase } from 'utils/supabase';
 import { Activity } from 'utils/activity.types';
 import { showAlert } from 'utils/alert';
 
+/** Gets basic info from all activities for current user
+ *
+ * @param session
+ * @returns Data including activity, creation date, description, and is_complete
+ */
 export async function getAllActivities(session?: Session) {
   const { data, error } = await supabase
     .from('activities')
@@ -17,6 +22,13 @@ export async function getAllActivities(session?: Session) {
   return data;
 }
 
+/** Gets all data for a single activity for current user
+ *
+ * @param activity
+ * @param session
+ *
+ * @return The first entry matching the specified params
+ */
 export async function getActivityDetails(activity: string, session?: Session) {
   const { data, error } = await supabase
     .from('activities')
@@ -34,7 +46,12 @@ export async function getActivityDetails(activity: string, session?: Session) {
   return data[0];
 }
 
-export async function getPublicActivities(user: string, session?: Session) {
+/** Returns all public activities for a specific user
+ *
+ * @param user
+ * @returns Public data matching the public profile
+ */
+export async function getPublicActivities(user: string) {
   const { data, error } = await supabase
     .from('activities')
     .select(
@@ -57,6 +74,7 @@ export async function getPublicActivities(user: string, session?: Session) {
   return data;
 }
 
+/** Adds a new activity for current user. */
 export async function addNewActivity(activityData: Activity, session?: Session) {
   // ensures activityData id is correct
   if (session?.user.id) {
@@ -74,6 +92,7 @@ export async function addNewActivity(activityData: Activity, session?: Session) 
   return activityData;
 }
 
+/** Updates activity details for current user. Updating activity status & name uses a separate function */
 export async function updateActivityDetails({
   activity,
   description,
@@ -112,6 +131,11 @@ export async function updateActivityDetails({
   return users;
 }
 
+/** Updates activity name for current user.
+ *
+ * This is kept separate from the rest of the activity data so that
+ * activity name can be changed safely.
+ */
 export async function updateActivityName(activity: string, newName: string, user_id: string) {
   const { data: users, error } = await supabase
     .from('activities')
@@ -130,6 +154,7 @@ export async function updateActivityName(activity: string, newName: string, user
   return users;
 }
 
+/** Updates activity status (is_complete) */
 export async function updateActivityStatus(
   is_complete: boolean,
   activity: string,
@@ -151,6 +176,7 @@ export async function updateActivityStatus(
   return users;
 }
 
+/** Deletes an activity for the current user */
 export async function deleteActivity(activity: string, session?: Session) {
   const { data: users, error } = await supabase
     .from('activities')
