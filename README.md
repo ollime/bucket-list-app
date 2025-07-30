@@ -11,6 +11,7 @@ An app to keep track of and share bucket list items with friends.
 - Create an account by signing up with email
 - Add your friends to track you activities together
 - Add bucket list activities and check them off as you complete them
+- Stores some settings locally using Async Storage
 - Generates sandcastle images with 7 variants based on how many activities the user completes
 
 ## Downloads
