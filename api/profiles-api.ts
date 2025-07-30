@@ -120,8 +120,8 @@ export async function uploadAvatar(
 
 export async function removeAvatar(path: string) {
   const { data, error } = await supabase.storage.from('avatars').remove([path]);
-
   if (error) {
     throw error;
   }
+  return data;
 }

@@ -19,7 +19,6 @@ AppState.addEventListener('change', (state) => {
 export default function Auth() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false);
   const [isEmailValid, setIsEmailValid] = useState(false);
   const [isPasswordValid, setIsPasswordValid] = useState(false);
 
@@ -32,13 +31,11 @@ export default function Auth() {
       return;
     }
 
-    setLoading(true);
     const { error } = await supabase.auth.signInWithPassword({
       email: email,
       password: password,
     });
     if (error) showAlert(error.message, 'error', false);
-    setLoading(false);
     router.push('/account');
   }
 
@@ -49,7 +46,6 @@ export default function Auth() {
       return;
     }
 
-    setLoading(true);
     const {
       data: { session },
       error,
@@ -66,7 +62,6 @@ export default function Auth() {
         false,
         'It may take a few minutes to arrive'
       );
-    setLoading(false);
     router.push('/account');
   }
 
