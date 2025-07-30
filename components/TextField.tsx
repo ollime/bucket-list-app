@@ -35,6 +35,7 @@ export default function TextField({
           <TextInput
             value={value}
             placeholder={placeholder}
+            style={{ color: 'black' }}
             onChangeText={(value: string) => {
               disabled ?? onChangeText(value);
             }}
