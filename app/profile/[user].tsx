@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { View, Text } from 'react-native';
-import { Container } from 'components/Container';
 import { FlashList } from '@shopify/flash-list';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { Image } from 'expo-image';
@@ -12,6 +11,7 @@ import { useSession } from 'utils/AuthContext';
 import { MinimizedActivity } from 'utils/activity.types';
 
 import Button from 'components/Button';
+import Container from 'components/Container';
 import { BucketListItem } from 'components/BucketList';
 import { ErrorBoundary } from 'components/ErrorBoundary';
 

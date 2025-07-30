@@ -7,7 +7,38 @@ import { Try } from 'expo-router/build/views/Try';
 
 import { ErrorBoundary } from 'components/ErrorBoundary';
 
-export const Container = ({ children }: { children: React.ReactNode }) => {
+export default function Container({
+  children,
+  images,
+}: {
+  children: React.ReactNode;
+  images?: React.ReactNode;
+}) {
+  const background = images ? (
+    images
+  ) : (
+    <>
+      <View className="absolute bottom-[-10px] z-[-1] ml-[20vw] h-[150px] w-full">
+        <Image
+          source={require('assets/background/duck.png')}
+          style={{ flex: 1, height: 100, width: 100 }}
+          contentFit="contain"></Image>
+      </View>
+      <View className="absolute bottom-[20px] z-[-1] ml-[75vw] h-[150px] w-full">
+        <Image
+          source={require('assets/background/ring.png')}
+          style={{ flex: 1, height: 100, width: 100 }}
+          contentFit="contain"></Image>
+      </View>
+      <View className="absolute bottom-0 z-[-2] h-[150px] w-full">
+        <Image
+          source={require('assets/background/waves-long.png')}
+          // do not use > 180px for height. adjust the height value to change the size of the entire image
+          style={{ flex: 1, height: 150 }}
+          contentFit="cover"></Image>
+      </View>
+    </>
+  );
   return (
     <>
       <View className={styles.root}>
@@ -15,25 +46,7 @@ export const Container = ({ children }: { children: React.ReactNode }) => {
           <SafeAreaView className={styles.container}>
             <Try catch={ErrorBoundary}>
               <View className="flex-1 p-2">{children}</View>
-              <View className="absolute bottom-[-10px] z-[-1] ml-[20vw] h-[150px] w-full">
-                <Image
-                  source={require('assets/background/duck.png')}
-                  style={{ flex: 1, height: 100, width: 100 }}
-                  contentFit="contain"></Image>
-              </View>
-              <View className="absolute bottom-[20px] z-[-1] ml-[75vw] h-[150px] w-full">
-                <Image
-                  source={require('assets/background/ring.png')}
-                  style={{ flex: 1, height: 100, width: 100 }}
-                  contentFit="contain"></Image>
-              </View>
-              <View className="absolute bottom-0 z-[-2] h-[150px] w-full">
-                <Image
-                  source={require('assets/background/waves-long.png')}
-                  // do not use > 180px for height. adjust the height value to change the size of the entire image
-                  style={{ flex: 1, height: 150 }}
-                  contentFit="cover"></Image>
-              </View>
+              {background}
             </Try>
           </SafeAreaView>
         </SafeAreaProvider>
@@ -43,7 +56,7 @@ export const Container = ({ children }: { children: React.ReactNode }) => {
       <Toast />
     </>
   );
-};
+}
 
 const styles = {
   container: 'flex flex-1 relative',

@@ -7,7 +7,7 @@ import { useSession } from 'utils/AuthContext';
 import { getFriendsProfile } from 'api/friends-api';
 import { getUsername } from 'api/profiles-api';
 
-import { Container } from 'components/Container';
+import Container from 'components/Container';
 import ProfileList from 'components/ProfileList';
 
 export default function Friends() {

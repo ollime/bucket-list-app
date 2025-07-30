@@ -5,7 +5,7 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { addNewActivity, getAllActivities } from 'api/activities-api';
 import { MinimizedActivity, Activity } from 'utils/activity.types';
 import { useSession } from 'utils/AuthContext';
-import { Container } from 'components/Container';
+import Container from 'components/Container';
 import BucketList from 'components/BucketList';
 import Button from 'components/Button';
 import CastlesOverlay from 'components/CastlesOverlay';

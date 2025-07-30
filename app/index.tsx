@@ -1,5 +1,5 @@
 import { Text } from 'react-native';
-import { Container } from 'components/Container';
+import Container from 'components/Container';
 import Auth from 'components/Auth';
 
 import './../global.css';

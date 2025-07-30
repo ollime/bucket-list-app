@@ -192,3 +192,21 @@ export async function deleteActivity(activity: string, session?: Session) {
   showAlert('Activity deleted', 'success', true);
   return users;
 }
+
+/** Get count of activities for current user
+ *
+ * @param session
+ * @returns Number of activities
+ */
+export async function getActivitiesCount(session?: Session) {
+  const { data, error } = await supabase
+    .from('activities')
+    .select('activity')
+    .eq('user_id', session?.user.id);
+
+  if (error) {
+    showAlert(error.message, 'error', false);
+    return;
+  }
+  return data.length;
+}

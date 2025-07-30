@@ -6,7 +6,7 @@ import Toast from 'react-native-toast-message';
 
 import { useSession } from 'utils/AuthContext';
 import { showAlert } from 'utils/alert';
-import { Container } from 'components/Container';
+import Container from 'components/Container';
 import AppInfo from 'components/AppInfo';
 import Button from 'components/Button';
 import Avatar from 'components/Avatar';

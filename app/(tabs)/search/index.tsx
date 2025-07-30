@@ -5,7 +5,7 @@ import { getUsername, getAllUsers } from 'api/profiles-api';
 import { FriendStatus, ProfileData } from 'utils/profile.types';
 import { useSession } from 'utils/AuthContext';
 
-import { Container } from 'components/Container';
+import Container from 'components/Container';
 import ProfileList from 'components/ProfileList';
 import SearchBar from 'components/SearchBar';
 
