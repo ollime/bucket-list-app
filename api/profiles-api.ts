@@ -1,8 +1,9 @@
-import { supabase } from 'utils/supabase';
 import { Session } from '@supabase/supabase-js';
-import { showAlert } from 'utils/alert';
 import * as ImagePicker from 'expo-image-picker';
 import * as ImageManipulator from 'expo-image-manipulator';
+
+import { supabase } from 'utils/supabase';
+import { showAlert } from 'utils/alert';
 
 export async function getUsername(session?: Session) {
   try {

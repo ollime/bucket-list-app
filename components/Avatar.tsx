@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { View, Image } from 'react-native';
-import Button from './Button';
 
 import { downloadImage, uploadAvatar, removeAvatar } from 'api/profiles-api';
+import Button from './Button';
 
 interface Props {
   size: number;

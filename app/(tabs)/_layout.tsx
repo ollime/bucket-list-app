@@ -1,5 +1,6 @@
-import { Tabs, Redirect, Stack } from 'expo-router';
+import { Tabs, Redirect } from 'expo-router';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 import { useSession } from './../../utils/AuthContext';
 
@@ -47,6 +48,16 @@ export default function TabLayout() {
           title: 'Account',
           tabBarIcon: ({ color }) => (
             <MaterialIcons name="account-circle" size={24} color={color} />
+          ),
+          headerShown: false,
+        }}
+      />
+      <Tabs.Screen
+        name="castles"
+        options={{
+          title: 'Castles',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="castle" size={24} color={color} />
           ),
           headerShown: false,
         }}

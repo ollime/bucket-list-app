@@ -1,9 +1,9 @@
 import { Text, TouchableWithoutFeedback, View } from 'react-native';
 import { Image } from 'expo-image';
 import { FlashList } from '@shopify/flash-list';
+import { useRouter } from 'expo-router';
 
 import { MinimizedActivity } from 'utils/activity.types';
-import { useRouter } from 'expo-router';
 import { useSession } from 'utils/AuthContext';
 import StatusBadge from './StatusBadge';
 

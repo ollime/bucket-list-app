@@ -1,20 +1,19 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../../utils/supabase';
 import { Text, View } from 'react-native';
+import { useRouter } from 'expo-router';
+import Toast from 'react-native-toast-message';
 
+import { useSession } from 'utils/AuthContext';
+import { showAlert } from 'utils/alert';
+import { Container } from 'components/Container';
+import AppInfo from 'components/AppInfo';
 import Button from 'components/Button';
 import Avatar from 'components/Avatar';
 import TextField from 'components/TextField';
-import { useSession } from 'utils/AuthContext';
-import { useRouter } from 'expo-router';
-import { Container } from 'components/Container';
-import AppInfo from 'components/AppInfo';
-import { showAlert } from 'utils/alert';
 import Toggle from 'components/Toggle';
-import Toast from 'react-native-toast-message';
 
 export default function Account() {
-  const [loading, setLoading] = useState(true);
   const [username, setUsername] = useState('');
   const [avatarUrl, setAvatarUrl] = useState('');
   const [fullName, setFullName] = useState('');
@@ -36,7 +35,6 @@ export default function Account() {
   useEffect(() => {
     async function getProfile() {
       try {
-        setLoading(true);
         if (!session?.user) throw new Error('No user on the session!');
 
         const { data, error, status } = await supabase
@@ -60,8 +58,6 @@ export default function Account() {
         if (error instanceof Error) {
           showAlert(error.message, 'error', false);
         }
-      } finally {
-        setLoading(false);
       }
     }
 
@@ -82,7 +78,6 @@ export default function Account() {
     allows_friends: boolean;
   }) {
     try {
-      setLoading(true);
       setIsSaved(true);
       if (!session?.user) throw new Error('No user on the session!');
       const updates = {

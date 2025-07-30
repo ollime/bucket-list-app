@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
-import { supabase } from '../utils/supabase';
+import { useState } from 'react';
 import { View, AppState } from 'react-native';
-import Button from 'components/Button';
 import { useRouter } from 'expo-router';
 
-import TextField from 'components/TextField';
 import { showAlert } from 'utils/alert';
+import { supabase } from 'utils/supabase';
+
+import TextField from 'components/TextField';
+import Button from 'components/Button';
 
 AppState.addEventListener('change', (state) => {
   if (state === 'active') {

@@ -1,9 +1,10 @@
 import { View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import Toast from 'react-native-toast-message';
 import { Image } from 'expo-image';
 import { StatusBar } from 'expo-status-bar';
+import Toast from 'react-native-toast-message';
 import { Try } from 'expo-router/build/views/Try';
+
 import { ErrorBoundary } from 'components/ErrorBoundary';
 
 export const Container = ({ children }: { children: React.ReactNode }) => {

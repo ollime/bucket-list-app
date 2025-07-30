@@ -148,9 +148,6 @@ export default function SearchModal() {
           onChangeText={handleChangeDescription}
           placeholder="description"
           multiline={true}></TextField>
-        {/* <Text>{data?.created_at}</Text>
-      <Text>{data?.planned_date}</Text>
-      <Text>{data?.completed_date}</Text> */}
         <TextField
           label="Location"
           value={location ?? ''}

@@ -2,15 +2,17 @@ import { useEffect, useState } from 'react';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { View, Text } from 'react-native';
 import { Container } from 'components/Container';
-import Button from 'components/Button';
-import { getPublicActivities } from 'api/activities-api';
-import { useSession } from 'utils/AuthContext';
-import { MinimizedActivity } from 'utils/activity.types';
-import { BucketListItem } from 'components/BucketList';
 import { FlashList } from '@shopify/flash-list';
-import { getFriendStatus } from 'api/friends-api';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { Image } from 'expo-image';
+
+import { getPublicActivities } from 'api/activities-api';
+import { getFriendStatus } from 'api/friends-api';
+import { useSession } from 'utils/AuthContext';
+import { MinimizedActivity } from 'utils/activity.types';
+
+import Button from 'components/Button';
+import { BucketListItem } from 'components/BucketList';
 import { ErrorBoundary } from 'components/ErrorBoundary';
 
 export default function Profile() {

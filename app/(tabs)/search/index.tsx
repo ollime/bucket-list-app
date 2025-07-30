@@ -1,11 +1,13 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Container } from 'components/Container';
-import ProfileList from 'components/ProfileList';
-import SearchBar from 'components/SearchBar';
-import { useSession } from 'utils/AuthContext';
+
 import { getAllFriendStatus } from 'api/friends-api';
 import { getUsername, getAllUsers } from 'api/profiles-api';
 import { FriendStatus, ProfileData } from 'utils/profile.types';
+import { useSession } from 'utils/AuthContext';
+
+import { Container } from 'components/Container';
+import ProfileList from 'components/ProfileList';
+import SearchBar from 'components/SearchBar';
 
 export default function Search() {
   const [data, setData] = useState<ProfileData[]>([]);

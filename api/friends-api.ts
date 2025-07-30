@@ -1,6 +1,7 @@
-import { supabase } from 'utils/supabase';
 import { Session } from '@supabase/supabase-js';
+
 import { getUsername } from './profiles-api';
+import { supabase } from 'utils/supabase';
 import { showAlert } from 'utils/alert';
 
 /** Returns the profiles of the current user's friends,

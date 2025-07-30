@@ -1,6 +1,7 @@
+import { router } from 'expo-router';
+
 import { ErrorBoundary } from 'components/ErrorBoundary';
 import { Container } from 'components/Container';
-import { router } from 'expo-router';
 
 export default function NotFoundPage() {
   return (

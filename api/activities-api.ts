@@ -1,5 +1,6 @@
-import { supabase } from 'utils/supabase';
 import { Session } from '@supabase/supabase-js';
+
+import { supabase } from 'utils/supabase';
 import { Activity } from 'utils/activity.types';
 import { showAlert } from 'utils/alert';
 
