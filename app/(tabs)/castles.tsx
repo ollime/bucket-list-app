@@ -47,8 +47,8 @@ export default function Castles() {
 
   return (
     <Container images={image}>
-      <Text className={'m-2 text-center text-3xl font-bold text-primary'}>
-        {numOfCastles} activities completed
+      <Text className={'text-center text-3xl font-bold text-primary'} style={{ margin: 25 }}>
+        {numOfCastles} activities completed!
       </Text>
       <View style={styles.castles}>
         <CastlesOverlay numOfCastles={numOfCastles}></CastlesOverlay>
