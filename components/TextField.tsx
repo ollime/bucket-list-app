@@ -35,12 +35,13 @@ export default function TextField({
           <TextInput
             value={value}
             placeholder={placeholder}
-            style={{ color: 'black' }}
+            style={{ color: disabled ? 'gray' : 'black' }}
             onChangeText={(value: string) => {
               disabled ?? onChangeText(value);
             }}
             className={`${styles.textInput} ${disabled ? styles.disabled : ''}`}
             readOnly={disabled}
+            scrollEnabled={true}
             secureTextEntry={obfuscateText}
             multiline={multiline}
             numberOfLines={multiline ? 4 : 1}></TextInput>

@@ -28,7 +28,7 @@ export default function CastlesOverlay({ numOfCastles }: { numOfCastles: number 
       castlesShown++;
     }
     if (castlesShown <= numOfCastles) {
-      images.push(<CastleImage variant={variant}></CastleImage>);
+      images.push(<CastleImage variant={variant} key={`castle-${i}`}></CastleImage>);
     }
   }
 
