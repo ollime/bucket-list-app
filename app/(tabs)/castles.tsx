@@ -32,6 +32,12 @@ export default function Castles() {
           style={{ flex: 1, height: 100, width: 100 }}
           contentFit="contain"></Image>
       </View>
+      <View className="absolute z-[2] ml-[25vw] w-full" style={{ height: 100, bottom: 0 }}>
+        <Image
+          source={require('assets/background/dog.png')}
+          style={{ flex: 1, height: 100, width: 150 }}
+          contentFit="contain"></Image>
+      </View>
     </>
   );
 
