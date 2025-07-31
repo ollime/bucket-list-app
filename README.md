@@ -1,7 +1,7 @@
 # Bucket List App
 
 [![React Native](https://img.shields.io/badge/React_Native-%2320232a.svg?logo=react&logoColor=%2361DAFB)](#)
-![Platforms](https://img.shields.io/badge/platforms-android%2C_ios-blue)
+![Platforms](https://img.shields.io/badge/platforms-android%2C_web-blue)
 [![Release](https://img.shields.io/github/v/release/ollime/bucket-list-app)](https://github.com/ollime/bucket-list-app/releases)
 
 An app to keep track of and share bucket list items with friends.

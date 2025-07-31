@@ -2,6 +2,7 @@
   "expo": {
     "name": "bucket-list-app",
     "slug": "bucket-list-app",
+    "platforms": ["ios", "android", "web"],
     "version": "1.0.0",
     "web": {
       "favicon": "./assets/favicon.png",
@@ -21,7 +22,8 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.ollime.bucketlistapp"
     },
     "android": {
       "adaptiveIcon": {
@@ -29,6 +31,12 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.ollime.bucketlistapp"
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "05d73181-af4a-4f32-bbd6-dd9ceb122cb7"
+      }
     }
   }
 }
