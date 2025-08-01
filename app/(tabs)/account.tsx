@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { supabase } from '../../utils/supabase';
-import { Text, View } from 'react-native';
+import { Text, View, ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
 import Toast from 'react-native-toast-message';
 
+import { supabase } from '../../utils/supabase';
 import { useSession } from 'utils/AuthContext';
 import { useTheme, storeData } from 'utils/ThemeContext';
 import { showAlert } from 'utils/alert';
@@ -152,95 +152,99 @@ export default function Account() {
   return (
     <>
       <Container>
-        <Text className={styles.title}>Profile</Text>
-        <View className="my-2">
-          <Avatar
-            size={200}
-            url={avatarUrl}
-            onUpload={(url: string) => {
-              setAvatarUrl(url);
-              updateProfile({
-                username,
-                avatar_url: url,
-                full_name: fullName,
-                is_public: isPublic,
-                allows_friends: allowsFriends,
-              });
-            }}
-            userId={session?.user.id ?? ''}></Avatar>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <Text className={styles.title}>Profile</Text>
+          <View className="my-2">
+            <Avatar
+              size={200}
+              url={avatarUrl}
+              onUpload={(url: string) => {
+                setAvatarUrl(url);
+                updateProfile({
+                  username,
+                  avatar_url: url,
+                  full_name: fullName,
+                  is_public: isPublic,
+                  allows_friends: allowsFriends,
+                });
+              }}
+              userId={session?.user.id ?? ''}></Avatar>
+          </View>
+
+          <View className="my-2">
+            <TextField
+              label="Email"
+              value={session?.user?.email || ''}
+              placeholder="email@domain.com"
+              onChangeText={(value: string) => {}}
+              disabled={true}
+              icon="email"></TextField>
+            <TextField
+              label="Username"
+              value={username || ''}
+              placeholder="username"
+              onChangeText={handleChangeUsername}></TextField>
+            <TextField
+              label="Alias (visible to friends only)"
+              value={fullName || ''}
+              placeholder="name"
+              onChangeText={handleChangeAlias}></TextField>
+
+            <Toggle
+              value={isPublic}
+              label="Profile is public"
+              icon={isPublic ? 'public' : 'public-off'}
+              callback={handleTogglePublic}></Toggle>
+            <Toggle
+              value={allowsFriends}
+              label="Allow others to friend you"
+              icon={allowsFriends ? 'person-add' : 'person-add-disabled'}
+              callback={handleToggleFriends}></Toggle>
+          </View>
+
+          <View className={'my-2'}>
+            <Text className={`${styles.subtitle}`}>Local settings</Text>
+            <Toggle
+              value={overlayAllowed}
+              label="Show sandcastle overlay"
+              icon={overlayAllowed ? 'castle' : 'close'}
+              callback={handleToggleOverlay}></Toggle>
+            <Toggle
+              value={isDarkMode}
+              label={isDarkMode ? 'Dark mode' : 'Light mode'}
+              icon={isDarkMode ? 'light-mode' : 'dark-mode'}
+              callback={handleToggleDark}></Toggle>
+            <Toggle
+              value={isSnow}
+              label={'Theme: ' + 'Sand'}
+              icon={isSnow ? 'cloudy-snowing' : 'tsunami'}
+              callback={handleToggleSnow}></Toggle>
+          </View>
+
+          <View className="mt-2 flex flex-row">
+            <Button
+              label="Update Profile"
+              callback={() => {
+                updateProfile({
+                  username,
+                  avatar_url: avatarUrl,
+                  full_name: fullName,
+                  is_public: isPublic,
+                  allows_friends: allowsFriends,
+                });
+              }}></Button>
+
+            <Button
+              label="Sign out"
+              callback={() => {
+                supabase.auth.signOut();
+                router.push('/');
+              }}></Button>
+          </View>
+        </ScrollView>
+        <View className="z-[-1]">
+          <AppInfo></AppInfo>
         </View>
-
-        <View className="my-2">
-          <TextField
-            label="Email"
-            value={session?.user?.email || ''}
-            placeholder="email@domain.com"
-            onChangeText={(value: string) => {}}
-            disabled={true}
-            icon="email"></TextField>
-          <TextField
-            label="Username"
-            value={username || ''}
-            placeholder="username"
-            onChangeText={handleChangeUsername}></TextField>
-          <TextField
-            label="Alias (visible to friends only)"
-            value={fullName || ''}
-            placeholder="name"
-            onChangeText={handleChangeAlias}></TextField>
-
-          <Toggle
-            value={isPublic}
-            label="Profile is public"
-            icon={isPublic ? 'public' : 'public-off'}
-            callback={handleTogglePublic}></Toggle>
-          <Toggle
-            value={allowsFriends}
-            label="Allow others to friend you"
-            icon={allowsFriends ? 'person-add' : 'person-add-disabled'}
-            callback={handleToggleFriends}></Toggle>
-        </View>
-
-        <View className={'my-2'}>
-          <Text className={`${styles.subtitle}`}>Local settings</Text>
-          <Toggle
-            value={overlayAllowed}
-            label="Show sandcastle overlay"
-            icon={overlayAllowed ? 'castle' : 'close'}
-            callback={handleToggleOverlay}></Toggle>
-          <Toggle
-            value={isDarkMode}
-            label={isDarkMode ? 'Dark mode' : 'Light mode'}
-            icon={isDarkMode ? 'light-mode' : 'dark-mode'}
-            callback={handleToggleDark}></Toggle>
-          <Toggle
-            value={isSnow}
-            label={'Theme: ' + 'Sand'}
-            icon={isSnow ? 'cloudy-snowing' : 'tsunami'}
-            callback={handleToggleSnow}></Toggle>
-        </View>
-
-        <View className="mt-2 flex flex-row">
-          <Button
-            label="Update Profile"
-            callback={() => {
-              updateProfile({
-                username,
-                avatar_url: avatarUrl,
-                full_name: fullName,
-                is_public: isPublic,
-                allows_friends: allowsFriends,
-              });
-            }}></Button>
-
-          <Button
-            label="Sign out"
-            callback={() => {
-              supabase.auth.signOut();
-              router.push('/');
-            }}></Button>
-        </View>
-        <AppInfo></AppInfo>
       </Container>
     </>
   );

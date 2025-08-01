@@ -5,6 +5,8 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { addNewActivity, getAllActivities } from 'api/activities-api';
 import { MinimizedActivity, Activity } from 'utils/activity.types';
 import { useSession } from 'utils/AuthContext';
+import { useTheme } from 'utils/ThemeContext';
+
 import Container from 'components/Container';
 import BucketList from 'components/BucketList';
 import Button from 'components/Button';
@@ -12,10 +14,12 @@ import CastlesOverlay from 'components/CastlesOverlay';
 
 export default function Home() {
   const session = useSession();
+  const theme = useTheme();
   const [data, setData] = useState<MinimizedActivity[]>();
   const [refreshing, setRefreshing] = useState(false);
   const listRef = useRef<any>(null);
   const [numOfCompleted, setNumOfCompleted] = useState<number>(0);
+  const [overlayAllowed, setOverlayAllowed] = useState(true);
 
   const getData = useCallback(async () => {
     if (session) {
@@ -25,7 +29,10 @@ export default function Home() {
         setNumOfCompleted(activities.filter((item) => item.is_complete === true).length);
       }
     }
-  }, [session]);
+    if (theme) {
+      setOverlayAllowed(theme.overlayAllowed ?? true);
+    }
+  }, [session, theme]);
 
   useEffect(() => {
     getData();
@@ -74,7 +81,7 @@ export default function Home() {
 
   return (
     <Container>
-      <CastlesOverlay numOfCastles={numOfCompleted}></CastlesOverlay>
+      {overlayAllowed ? <CastlesOverlay numOfCastles={numOfCompleted}></CastlesOverlay> : ''}
       <View className="flex w-full flex-row items-center">
         <Text className={styles.title}>Bucket List</Text>
         <View className="flex-1"></View>
