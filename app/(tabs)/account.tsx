@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Text, View, ScrollView, TouchableWithoutFeedback } from 'react-native';
+import { Text, View, ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
 import Toast from 'react-native-toast-message';
 import Collapsible from 'react-native-collapsible';
@@ -8,6 +8,7 @@ import { supabase } from '../../utils/supabase';
 import { useSession } from 'utils/AuthContext';
 import { useTheme, storeData } from 'utils/ThemeContext';
 import { showAlert } from 'utils/alert';
+
 import Container from 'components/Container';
 import AppInfo from 'components/AppInfo';
 import Button, { RoundButton } from 'components/Button';

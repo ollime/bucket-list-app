@@ -89,6 +89,7 @@ export default function SearchModal() {
     setIsPublic((previousState) => !previousState);
     setIsSaved(false);
   };
+
   const handleToggleComplete = () => {
     if (activity) {
       updateActivityStatus(!isComplete, activity, session ?? undefined);

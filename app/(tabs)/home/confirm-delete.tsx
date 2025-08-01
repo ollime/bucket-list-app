@@ -1,9 +1,10 @@
-import { Text, View } from 'react-native';
+import { Text } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import Modal from 'components/Modal';
+
 import { deleteActivity } from 'api/activities-api';
 import { showAlert } from 'utils/alert';
 import { useSession } from 'utils/AuthContext';
+import Modal from 'components/Modal';
 
 export default function ConfirmDelete() {
   const params = useLocalSearchParams();
