@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef, useCallback } from 'react';
 import { Text, TouchableWithoutFeedback, View } from 'react-native';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { useFocusEffect } from '@react-navigation/native';
 
 import { addNewActivity, getAllActivities } from 'api/activities-api';
 import { MinimizedActivity, Activity } from 'utils/activity.types';
@@ -37,6 +38,12 @@ export default function Home() {
   useEffect(() => {
     getData();
   }, [getData]);
+
+  useFocusEffect(
+    useCallback(() => {
+      getData();
+    }, [getData])
+  );
 
   function onRefresh() {
     listRef.current.scrollToOffset({ animated: true });
