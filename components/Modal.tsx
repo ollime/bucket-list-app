@@ -39,7 +39,10 @@ export default function Modal({ children, onConfirm }: ModalProps) {
           borderRadius: '0.75rem',
           padding: 20,
         }}>
-        <ScrollView className="w-full" showsVerticalScrollIndicator={false}>
+        <ScrollView
+          className="flex w-full"
+          contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}
+          showsVerticalScrollIndicator={false}>
           {children}
         </ScrollView>
         <View className="m-2 flex flex-row">

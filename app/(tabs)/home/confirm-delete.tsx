@@ -21,9 +21,10 @@ export default function ConfirmDelete() {
 
   return (
     <Modal onConfirm={confirmDeleteActivity}>
-      <Text className="flex h-screen flex-1 items-center justify-center">
+      <Text className="flex flex-1 items-center justify-center">
         Delete
-        <Text className="font-bold"> {params.screenName}</Text>
+        <Text className="font-bold"> {params.activity} </Text>
+        from your activities?
       </Text>
     </Modal>
   );
