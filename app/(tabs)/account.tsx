@@ -25,8 +25,6 @@ export default function Account() {
   const [isSaved, setIsSaved] = useState<boolean>(true);
   const [isCollapsed, setIsCollapsed] = useState<boolean>(true);
 
-  /** if theme is true, theme is snow -- otherwise,  */
-  const [isSnow, setIsSnow] = useState<boolean>(true);
   const [isDarkMode, setIsDarkMode] = useState<boolean>(true);
   const [overlayAllowed, setOverlayAllowed] = useState<boolean>(true);
 
@@ -73,7 +71,6 @@ export default function Account() {
 
     if (session) getProfile();
     if (theme) {
-      setIsSnow(theme.isSnow ?? false);
       setIsDarkMode(theme.isDarkMode ?? false);
       setOverlayAllowed(theme.overlayAllowed ?? true);
     }
@@ -140,11 +137,6 @@ export default function Account() {
   function handleToggleDark() {
     storeData('isDarkMode', !isDarkMode);
     setIsDarkMode(!isDarkMode);
-  }
-
-  function handleToggleSnow() {
-    storeData('isSnow', !isSnow);
-    setIsSnow(!isSnow);
   }
 
   function handleToggleOverlay() {
@@ -224,11 +216,6 @@ export default function Account() {
                   label={isDarkMode ? 'Dark mode' : 'Light mode'}
                   icon={isDarkMode ? 'light-mode' : 'dark-mode'}
                   callback={handleToggleDark}></Toggle>
-                <Toggle
-                  value={isSnow}
-                  label={`Theme: ${isSnow ? 'Snow' : 'Sand'}`}
-                  icon={isSnow ? 'cloudy-snowing' : 'tsunami'}
-                  callback={handleToggleSnow}></Toggle>
                 <View className="flex-row">
                   <RoundButton label="Reload app to see changes" callback={() => {}}></RoundButton>
                 </View>

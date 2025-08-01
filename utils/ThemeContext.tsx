@@ -2,15 +2,13 @@ import { use, useEffect, createContext, type PropsWithChildren, useState } from 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { showAlert } from './alert';
 
-type LocalDataKeys = 'isSnow' | 'isDarkMode' | 'overlayAllowed';
+type LocalDataKeys = 'isDarkMode' | 'overlayAllowed';
 interface ThemeData {
-  isSnow?: boolean;
   isDarkMode?: boolean;
   overlayAllowed?: boolean;
 }
 
 export const ThemeContext = createContext<ThemeData>({
-  isSnow: false,
   isDarkMode: false,
   overlayAllowed: true,
 });
@@ -26,19 +24,16 @@ export function useTheme() {
 export function ThemeProvider({ children }: PropsWithChildren) {
   const [data, setData] = useState<ThemeData>({
     isDarkMode: false,
-    isSnow: false,
     overlayAllowed: true,
   });
 
   useEffect(() => {
     async function getAllData() {
-      const isSnow = (await getData('isSnow')) ?? false;
       const isDark = (await getData('isDarkMode')) ?? false;
       const overlayAllowed = (await getData('overlayAllowed')) ?? false;
 
       setData({
         isDarkMode: isDark,
-        isSnow: isSnow,
         overlayAllowed: overlayAllowed,
       });
     }
