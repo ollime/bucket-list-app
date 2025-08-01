@@ -1,5 +1,6 @@
 import { View, TextInput, Text } from 'react-native';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { useTheme } from 'utils/ThemeContext';
 
 type TextFieldProps = {
   label: string;
@@ -24,18 +25,22 @@ export default function TextField({
   obfuscateText = false,
   multiline = false,
 }: TextFieldProps) {
+  const theme = useTheme();
   let focusStyle = isValid ? 'focus-within:border-green-600' : 'focus-within:border-red-600';
   let widthStyles = multiline ? 'm-2 w-64' : 'w-64';
 
   return (
     <>
-      <View className={`${styles.container} ${widthStyles}`}>
-        <Text className={styles.label}>{label}</Text>
+      <View
+        className={`${styles.container} ${widthStyles} ${theme?.isDarkMode ? 'bg-darkinput' : 'bg-white'}`}>
+        <Text className={styles.label} style={{ color: theme?.isDarkMode ? '#a8a8a8' : 'black' }}>
+          {label}
+        </Text>
         <View className={`${styles.containerRow} ${!disabled ? focusStyle : ''}`}>
           <TextInput
             value={value}
             placeholder={placeholder}
-            style={{ color: disabled ? 'gray' : 'black' }}
+            style={{ color: theme?.isDarkMode ? 'white' : disabled ? 'gray' : 'black' }}
             onChangeText={(value: string) => {
               disabled ?? onChangeText(value);
             }}
@@ -62,7 +67,7 @@ export default function TextField({
 }
 
 const styles = {
-  container: 'm-1 px-1 pt-1 flex flex-col bg-white',
+  container: 'm-1 px-1 pt-1 flex flex-col',
   containerRow: 'flex flex-row border-b-2 border-gray-400',
   textInput: 'flex-1 p-2 w-full placeholder:text-gray-400 focus:outline-none',
   label: 'flex mr-1',

@@ -163,12 +163,14 @@ export default function SearchModal() {
             value={isPublic}
             label="Public"
             icon={isPublic ? 'public' : 'public-off'}
-            callback={handleTogglePublic}></Toggle>
+            callback={handleTogglePublic}
+            darkMode={true}></Toggle>
           <Toggle
             value={isComplete}
             label="Complete activity"
             icon={isComplete ? 'check-box' : 'check-box-outline-blank'}
-            callback={handleToggleComplete}></Toggle>
+            callback={handleToggleComplete}
+            darkMode={true}></Toggle>
         </View>
       </View>
     </Modal>

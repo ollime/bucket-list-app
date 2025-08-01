@@ -6,14 +6,15 @@ interface ToggleProps {
   label: string;
   icon?: keyof typeof MaterialIcons.glyphMap;
   callback: () => void;
+  darkMode?: boolean;
 }
 
-export default function Toggle({ value, label, icon, callback }: ToggleProps) {
+export default function Toggle({ value, label, icon, callback, darkMode }: ToggleProps) {
   return (
     <TouchableWithoutFeedback onPress={callback}>
       <View className="m-2 flex flex-row items-center">
         {icon ? <MaterialIcons name={icon} size={24} color="#808080" className="mr-1" /> : ''}
-        <Text>{label}</Text>
+        <Text style={{ color: darkMode ? 'white' : 'black' }}>{label}</Text>
         <Switch
           trackColor={{ false: '#767577', true: '#81b0ff' }}
           thumbColor={value ? '#2d70b9' : '#f4f3f4'}

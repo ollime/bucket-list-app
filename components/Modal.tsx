@@ -4,6 +4,7 @@ import { Pressable, StyleSheet, View, ScrollView } from 'react-native';
 import Animated, { FadeIn, SlideInDown } from 'react-native-reanimated';
 
 import { RoundButton } from './Button';
+import { useTheme } from 'utils/ThemeContext';
 
 type ModalProps = {
   children: ReactNode;
@@ -12,6 +13,7 @@ type ModalProps = {
 
 export default function Modal({ children, onConfirm }: ModalProps) {
   const router = useRouter();
+  const theme = useTheme();
   return (
     <Animated.View
       entering={FadeIn}
@@ -35,7 +37,7 @@ export default function Modal({ children, onConfirm }: ModalProps) {
           height: '80%',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: 'white',
+          backgroundColor: theme?.isDarkMode ? '#4a5565' : 'white',
           borderRadius: '0.75rem',
           padding: 20,
         }}>
