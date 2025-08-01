@@ -15,6 +15,7 @@ import Button, { RoundButton } from 'components/Button';
 import Avatar from 'components/Avatar';
 import TextField from 'components/TextField';
 import Toggle from 'components/Toggle';
+import { deleteUser } from 'api/profiles-api';
 
 export default function Account() {
   const [username, setUsername] = useState('');
@@ -241,6 +242,12 @@ export default function Account() {
               callback={() => {
                 supabase.auth.signOut();
                 router.push('/');
+              }}></Button>
+
+            <Button
+              label="Delete user"
+              callback={() => {
+                deleteUser(session ?? undefined);
               }}></Button>
           </View>
         </ScrollView>

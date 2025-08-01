@@ -134,3 +134,21 @@ export async function removeAvatar(path: string) {
   }
   return data;
 }
+
+export async function deleteUser(session?: Session) {
+  const token = session?.access_token;
+  const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_ID;
+
+  if (session) {
+    try {
+      await fetch(`https://${supabaseUrl}.functions.supabase.co/delete-user`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    } catch (error) {
+      showAlert(error as string, 'error', false);
+    }
+  }
+}
