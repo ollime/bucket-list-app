@@ -56,9 +56,15 @@ export function BucketListItem({ data, user_id }: BucketListItemProps) {
   return (
     <TouchableWithoutFeedback onPress={handleOpenEdit}>
       <View className={styles.listItem}>
-        <Image
-          source={require('assets/front-page/bucket.png')}
-          style={{ width: 100, height: 100 }}></Image>
+        {data?.is_complete ? (
+          <Image
+            source={require('assets/front-page/bucket-filled.png')}
+            style={{ width: 100, height: 100 }}></Image>
+        ) : (
+          <Image
+            source={require('assets/front-page/bucket.png')}
+            style={{ width: 100, height: 100 }}></Image>
+        )}
         <View>
           <View className="flex-row">
             <Text className={styles.itemTitle}>{data?.activity}</Text>

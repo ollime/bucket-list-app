@@ -9,7 +9,7 @@ import { useTheme, storeData } from 'utils/ThemeContext';
 import { showAlert } from 'utils/alert';
 import Container from 'components/Container';
 import AppInfo from 'components/AppInfo';
-import Button from 'components/Button';
+import Button, { RoundButton } from 'components/Button';
 import Avatar from 'components/Avatar';
 import TextField from 'components/TextField';
 import Toggle from 'components/Toggle';
@@ -202,8 +202,8 @@ export default function Account() {
               callback={handleToggleFriends}></Toggle>
           </View>
 
-          <View className={'my-2'}>
-            <Text className={`${styles.subtitle}`}>Local settings</Text>
+          <View className="my-2">
+            <Text className={`${styles.subtitle} mr-2`}>Local settings</Text>
             <Toggle
               value={overlayAllowed}
               label="Show sandcastle overlay"
@@ -219,6 +219,9 @@ export default function Account() {
               label={'Theme: ' + 'Sand'}
               icon={isSnow ? 'cloudy-snowing' : 'tsunami'}
               callback={handleToggleSnow}></Toggle>
+            <View className="flex-row">
+              <RoundButton label="Reload app to see changes" callback={() => {}}></RoundButton>
+            </View>
           </View>
 
           <View className="mt-2 flex flex-row">

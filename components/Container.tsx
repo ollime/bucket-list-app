@@ -14,10 +14,7 @@ export default function Container({
   children: React.ReactNode;
   images?: React.ReactNode;
 }) {
-  const themeData = useTheme();
-
-  console.log(themeData);
-
+  const theme = useTheme();
   const background = images ? (
     images
   ) : (
@@ -56,7 +53,7 @@ export default function Container({
         </SafeAreaProvider>
       </View>
       {/* style should be opposite to the app theme */}
-      <StatusBar style="dark"></StatusBar>
+      <StatusBar style={theme?.isDarkMode ? 'dark' : 'light'}></StatusBar>
     </>
   );
 }
