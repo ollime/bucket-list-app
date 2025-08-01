@@ -50,6 +50,8 @@ export default function Home() {
     activity: 'New activity',
     description: '',
     is_complete: false,
+    completed_date: new Date(Date.now()),
+    planned_date: new Date(Date.now()),
   };
 
   const emptyActivity: Activity = {

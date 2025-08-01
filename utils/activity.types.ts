@@ -14,4 +14,6 @@ export interface MinimizedActivity {
   activity: string;
   description: string;
   is_complete: boolean;
+  completed_date: Date;
+  planned_date: Date;
 }

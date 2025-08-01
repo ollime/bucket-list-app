@@ -12,7 +12,7 @@ import { showAlert } from 'utils/alert';
 export async function getAllActivities(session?: Session) {
   const { data, error } = await supabase
     .from('activities')
-    .select(`activity, created_at, description, is_complete`)
+    .select(`activity, created_at, description, is_complete, completed_date, planned_date`)
     .eq('user_id', session?.user.id);
 
   if (error) {

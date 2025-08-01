@@ -39,6 +39,19 @@ export function BucketListItem({ data, user_id }: BucketListItemProps) {
   const router = useRouter();
   const session = useSession();
 
+  const options: Intl.DateTimeFormatOptions = {
+    year: '2-digit',
+    month: 'numeric',
+    day: 'numeric',
+  };
+  const dateFormatter = new Intl.DateTimeFormat('en-US', options);
+  const formattedComplete = data?.completed_date
+    ? dateFormatter.format(new Date(data?.completed_date))
+    : '';
+  const formattedPlanned = data?.completed_date
+    ? dateFormatter.format(new Date(data?.completed_date))
+    : '';
+
   function handleOpenEdit() {
     if (user_id === session?.user.id) {
       router.navigate({
@@ -69,7 +82,13 @@ export function BucketListItem({ data, user_id }: BucketListItemProps) {
           <View className="flex-row">
             <Text className={styles.itemTitle}>{data?.activity}</Text>
             <StatusBadge
-              label={data?.is_complete ? 'complete' : 'incomplete'}
+              label={
+                data?.is_complete
+                  ? `completed ${formattedComplete}`
+                  : data?.planned_date
+                    ? 'incomplete'
+                    : `planned ${formattedPlanned}`
+              }
               color={data?.is_complete ? 'bg-primary' : 'bg-secondary'}></StatusBadge>
           </View>
           <Text className={styles.itemDescription}>{data?.description}</Text>
