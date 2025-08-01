@@ -37,7 +37,7 @@ export default function Modal({ children, onConfirm }: ModalProps) {
           height: '80%',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: theme?.isDarkMode ? '#4a5565' : 'white',
+          backgroundColor: theme?.isDarkMode ? '#4a515d' : 'white',
           borderRadius: '0.75rem',
           padding: 20,
         }}>

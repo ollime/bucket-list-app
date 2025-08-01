@@ -11,7 +11,7 @@ module.exports = {
         secondary: '#93d0dd',
         salmon: '#fac5c6',
         darksalmon: '#ea7579',
-        darkinput: '#4a5565',
+        darkinput: '#4a515d',
       },
     },
   },
