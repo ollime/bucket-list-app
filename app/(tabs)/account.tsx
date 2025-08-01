@@ -241,10 +241,10 @@ export default function Account() {
                 router.push('/');
               }}></Button>
           </View>
+          <View className="z-[-1]">
+            <AppInfo></AppInfo>
+          </View>
         </ScrollView>
-        <View className="z-[-1]">
-          <AppInfo></AppInfo>
-        </View>
       </Container>
     </>
   );
