@@ -5,6 +5,7 @@ import { useRouter } from 'expo-router';
 import Toast from 'react-native-toast-message';
 
 import { useSession } from 'utils/AuthContext';
+import { useTheme, storeData } from 'utils/ThemeContext';
 import { showAlert } from 'utils/alert';
 import Container from 'components/Container';
 import AppInfo from 'components/AppInfo';
@@ -28,6 +29,7 @@ export default function Account() {
 
   const session = useSession();
   const router = useRouter();
+  const theme = useTheme();
 
   useEffect(() => {
     if (!isSaved) {
@@ -67,7 +69,12 @@ export default function Account() {
     }
 
     if (session) getProfile();
-  }, [session]);
+    if (theme) {
+      setIsSnow(theme.isSnow ?? false);
+      setIsDarkMode(theme.isDarkMode ?? false);
+      setOverlayAllowed(theme.overlayAllowed ?? true);
+    }
+  }, [session, theme]);
 
   async function updateProfile({
     username,
@@ -125,6 +132,21 @@ export default function Account() {
   function handleToggleFriends() {
     setAllowsFriends(!allowsFriends);
     setIsSaved(false);
+  }
+
+  function handleToggleDark() {
+    storeData('isDarkMode', !isDarkMode);
+    setIsDarkMode(!isDarkMode);
+  }
+
+  function handleToggleSnow() {
+    storeData('isSnow', !isSnow);
+    setIsSnow(!isSnow);
+  }
+
+  function handleToggleOverlay() {
+    storeData('overlayAllowed', !overlayAllowed);
+    setOverlayAllowed(!overlayAllowed);
   }
 
   return (
@@ -185,17 +207,17 @@ export default function Account() {
             value={overlayAllowed}
             label="Show sandcastle overlay"
             icon={overlayAllowed ? 'castle' : 'close'}
-            callback={handleTogglePublic}></Toggle>
+            callback={handleToggleOverlay}></Toggle>
           <Toggle
             value={isDarkMode}
             label={isDarkMode ? 'Dark mode' : 'Light mode'}
             icon={isDarkMode ? 'light-mode' : 'dark-mode'}
-            callback={handleTogglePublic}></Toggle>
+            callback={handleToggleDark}></Toggle>
           <Toggle
             value={isSnow}
             label={'Theme: ' + 'Sand'}
             icon={isSnow ? 'cloudy-snowing' : 'tsunami'}
-            callback={handleTogglePublic}></Toggle>
+            callback={handleToggleSnow}></Toggle>
         </View>
 
         <View className="mt-2 flex flex-row">

@@ -48,9 +48,9 @@ export function ThemeProvider({ children }: PropsWithChildren) {
   return <ThemeContext.Provider value={data}>{children}</ThemeContext.Provider>;
 }
 
-export const storeData = async (key: LocalDataKeys, value: string) => {
+export const storeData = async (key: LocalDataKeys, value: boolean) => {
   try {
-    await AsyncStorage.setItem(key, value);
+    await AsyncStorage.setItem(key, JSON.stringify(value));
   } catch (e: any) {
     showAlert(e, 'error', false);
   }
@@ -60,7 +60,7 @@ export const getData = async (key: LocalDataKeys) => {
   try {
     const value = await AsyncStorage.getItem(key);
     if (value !== null) {
-      return value === 'true';
+      return JSON.parse(value);
     }
   } catch (e: any) {
     showAlert(e, 'error', false);

@@ -5,6 +5,7 @@ import { StatusBar } from 'expo-status-bar';
 import { Try } from 'expo-router/build/views/Try';
 
 import { ErrorBoundary } from 'components/ErrorBoundary';
+import { useTheme } from 'utils/ThemeContext';
 
 export default function Container({
   children,
@@ -13,6 +14,10 @@ export default function Container({
   children: React.ReactNode;
   images?: React.ReactNode;
 }) {
+  const themeData = useTheme();
+
+  console.log(themeData);
+
   const background = images ? (
     images
   ) : (
