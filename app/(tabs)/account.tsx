@@ -226,7 +226,7 @@ export default function Account() {
                   callback={handleToggleDark}></Toggle>
                 <Toggle
                   value={isSnow}
-                  label={'Theme: ' + 'Sand'}
+                  label={`Theme: ${isSnow ? 'Snow' : 'Sand'}`}
                   icon={isSnow ? 'cloudy-snowing' : 'tsunami'}
                   callback={handleToggleSnow}></Toggle>
                 <View className="flex-row">
