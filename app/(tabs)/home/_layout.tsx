@@ -17,6 +17,14 @@ export default function Layout() {
           headerShown: false,
         }}
       />
+      <Stack.Screen
+        name="confirm-delete"
+        options={{
+          presentation: 'transparentModal',
+          animation: 'fade',
+          headerShown: false,
+        }}
+      />
     </Stack>
   );
 }

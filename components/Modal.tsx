@@ -53,7 +53,7 @@ export default function Modal({ children, onConfirm }: ModalProps) {
           ) : (
             ''
           )}
-          <RoundButton label="Cancel" callback={() => router.back()}></RoundButton>
+          <RoundButton label="Cancel" callback={() => router.navigate('../')}></RoundButton>
         </View>
       </Animated.View>
     </Animated.View>

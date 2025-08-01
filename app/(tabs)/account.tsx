@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
-import { Text, View, ScrollView } from 'react-native';
+import { Text, View, ScrollView, TouchableWithoutFeedback } from 'react-native';
 import { useRouter } from 'expo-router';
 import Toast from 'react-native-toast-message';
+import Collapsible from 'react-native-collapsible';
 
 import { supabase } from '../../utils/supabase';
 import { useSession } from 'utils/AuthContext';
@@ -21,6 +22,7 @@ export default function Account() {
   const [isPublic, setIsPublic] = useState(false);
   const [allowsFriends, setAllowsFriends] = useState(false);
   const [isSaved, setIsSaved] = useState<boolean>(true);
+  const [isCollapsed, setIsCollapsed] = useState<boolean>(true);
 
   /** if theme is true, theme is snow -- otherwise,  */
   const [isSnow, setIsSnow] = useState<boolean>(true);
@@ -202,29 +204,38 @@ export default function Account() {
               callback={handleToggleFriends}></Toggle>
           </View>
 
-          <View className="my-2">
-            <Text className={`${styles.subtitle} mr-2`}>Local settings</Text>
-            <Toggle
-              value={overlayAllowed}
-              label="Show sandcastle overlay"
-              icon={overlayAllowed ? 'castle' : 'close'}
-              callback={handleToggleOverlay}></Toggle>
-            <Toggle
-              value={isDarkMode}
-              label={isDarkMode ? 'Dark mode' : 'Light mode'}
-              icon={isDarkMode ? 'light-mode' : 'dark-mode'}
-              callback={handleToggleDark}></Toggle>
-            <Toggle
-              value={isSnow}
-              label={'Theme: ' + 'Sand'}
-              icon={isSnow ? 'cloudy-snowing' : 'tsunami'}
-              callback={handleToggleSnow}></Toggle>
+          <View style={{ marginBottom: 20 }}>
             <View className="flex-row">
-              <RoundButton label="Reload app to see changes" callback={() => {}}></RoundButton>
+              <RoundButton
+                label={`${isCollapsed ? 'Show' : 'Hide'} Local Settings`}
+                callback={() => setIsCollapsed(!isCollapsed)}></RoundButton>
             </View>
+            <Collapsible collapsed={isCollapsed}>
+              <View className="my-2">
+                <Text className={`${styles.subtitle} mr-2`}>Local settings</Text>
+                <Toggle
+                  value={overlayAllowed}
+                  label="Show sandcastle overlay"
+                  icon={overlayAllowed ? 'castle' : 'close'}
+                  callback={handleToggleOverlay}></Toggle>
+                <Toggle
+                  value={isDarkMode}
+                  label={isDarkMode ? 'Dark mode' : 'Light mode'}
+                  icon={isDarkMode ? 'light-mode' : 'dark-mode'}
+                  callback={handleToggleDark}></Toggle>
+                <Toggle
+                  value={isSnow}
+                  label={'Theme: ' + 'Sand'}
+                  icon={isSnow ? 'cloudy-snowing' : 'tsunami'}
+                  callback={handleToggleSnow}></Toggle>
+                <View className="flex-row">
+                  <RoundButton label="Reload app to see changes" callback={() => {}}></RoundButton>
+                </View>
+              </View>
+            </Collapsible>
           </View>
 
-          <View className="mt-2 flex flex-row">
+          <View className="flex flex-row">
             <Button
               label="Update Profile"
               callback={() => {
@@ -244,10 +255,10 @@ export default function Account() {
                 router.push('/');
               }}></Button>
           </View>
-          <View className="z-[-1]">
-            <AppInfo></AppInfo>
-          </View>
         </ScrollView>
+        <View className="z-[-1]">
+          <AppInfo></AppInfo>
+        </View>
       </Container>
     </>
   );

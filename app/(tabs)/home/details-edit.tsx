@@ -8,7 +8,6 @@ import {
   getActivityDetails,
   updateActivityDetails,
   updateActivityStatus,
-  deleteActivity,
   updateActivityName,
 } from 'api/activities-api';
 
@@ -115,12 +114,10 @@ export default function SearchModal() {
   };
 
   function handleDeleteActivity() {
-    if (activity) {
-      deleteActivity(activity, session ?? undefined);
-    } else {
-      showAlert('Something went wrong.', 'error', true);
-    }
-    router.back();
+    router.navigate({
+      pathname: '/home/confirm-delete',
+      params: { activity: activity },
+    });
   }
 
   return (
