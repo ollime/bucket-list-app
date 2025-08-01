@@ -86,7 +86,7 @@ export default function SearchModal() {
   };
 
   const handleTogglePublic = () => {
-    setIsPublic((previousState) => !previousState);
+    setIsPublic(!isPublic);
     setIsSaved(false);
   };
 
@@ -97,7 +97,7 @@ export default function SearchModal() {
     if (!isComplete) {
       setCompletedDate(new Date());
     }
-    setIsComplete((previousState) => !previousState);
+    setIsComplete(!isComplete);
     setIsSaved(false);
   };
 
