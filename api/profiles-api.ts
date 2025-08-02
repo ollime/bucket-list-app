@@ -141,12 +141,20 @@ export async function deleteUser(session?: Session) {
 
   if (session) {
     try {
-      await fetch(`https://${supabaseUrl}.functions.supabase.co/delete-user`, {
+      const response = await fetch(`https://${supabaseUrl}.functions.supabase.co/delete-user`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
         },
+        body: JSON.stringify({ name: 'Functions' }),
       });
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        showAlert('Deleted user', 'info', true);
+        supabase.auth.signOut();
+      }
     } catch (error) {
       showAlert(error as string, 'error', false);
     }
