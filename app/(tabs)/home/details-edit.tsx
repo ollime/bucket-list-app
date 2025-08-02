@@ -48,7 +48,7 @@ export default function SearchModal() {
       // rename to data later
       const activityDetails = (await getActivityDetails(
         params.activity as string,
-        session ?? undefined
+        session?.user.id
       )) as Activity;
       setActivity(activityDetails?.activity);
       setDescription(activityDetails?.description);

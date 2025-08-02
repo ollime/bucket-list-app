@@ -10,7 +10,8 @@
     "format": "eslint \"**/*.{js,jsx,ts,tsx}\" --fix && prettier \"**/*.{js,jsx,ts,tsx,json}\" --write",
     "web": "expo start --web",
     "clear": "npx expo start --clear",
-    "build": "cd android && gradlew.bat clean && gradlew.bat assembleRelease"
+    "build": "expo export:web",
+    "android-build": "cd android && gradlew.bat clean && gradlew.bat assembleRelease"
   },
   "dependencies": {
     "@expo/metro-runtime": "~5.0.4",

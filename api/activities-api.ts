@@ -29,13 +29,13 @@ export async function getAllActivities(session?: Session) {
  *
  * @return The first entry matching the specified params
  */
-export async function getActivityDetails(activity: string, user: string, session?: Session) {
+export async function getActivityDetails(activity: string, user?: string) {
   const { data, error } = await supabase
     .from('activities')
     .select(
       `user_id, activity, created_at, description, is_complete, is_public, planned_date, completed_date, location`
     )
-    .eq('user_id', user ?? session?.user.id)
+    .eq('user_id', user)
     .eq('activity', activity)
     .limit(1);
 
