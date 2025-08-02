@@ -44,6 +44,17 @@ export async function getAllUsers() {
   return users;
 }
 
+export async function getUserId(username: string) {
+  const { data, error } = await supabase
+    .from('profiles')
+    .select('id')
+    .eq('username', username)
+    .single();
+
+  if (error) return;
+  return data;
+}
+
 /** Downloads an image from the 'avatars' bucket to display an avatar
  *
  * @param path A path located in 'avatars' bucket. This can be generated

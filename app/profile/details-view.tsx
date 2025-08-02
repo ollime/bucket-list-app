@@ -41,7 +41,7 @@ export default function SearchModal() {
       // rename to data later
       const activityDetails = (await getActivityDetails(
         params.activity as string,
-        session ?? undefined
+        params.user as string
       )) as Activity;
       setActivity(activityDetails?.activity);
       setDescription(activityDetails?.description);
@@ -53,7 +53,7 @@ export default function SearchModal() {
       setIsSaved(true);
     }
     retrieveData();
-  }, [session, params.activity]);
+  }, [session, params.activity, params.user]);
 
   const saveActivityData = () => {
     if (

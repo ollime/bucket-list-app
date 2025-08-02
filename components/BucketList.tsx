@@ -6,6 +6,7 @@ import { useRouter } from 'expo-router';
 import { MinimizedActivity } from 'utils/activity.types';
 import { useSession } from 'utils/AuthContext';
 import StatusBadge from './StatusBadge';
+import { getUserId } from 'api/profiles-api';
 
 interface BucketListProps {
   data?: MinimizedActivity[];
@@ -39,17 +40,20 @@ export function BucketListItem({ data, user_id }: BucketListItemProps) {
   const router = useRouter();
   const session = useSession();
 
-  function handleOpenEdit() {
+  async function handleOpenEdit() {
     if (user_id === session?.user.id) {
       router.navigate({
         pathname: '/home/details-edit',
         params: { activity: data?.activity },
       });
     } else {
-      router.navigate({
-        pathname: '/profile/details-view',
-        params: { activity: data?.activity },
-      });
+      const userId = await getUserId(user_id);
+      if (userId) {
+        router.navigate({
+          pathname: '/profile/details-view',
+          params: { activity: data?.activity, user: userId.id },
+        });
+      }
     }
   }
 

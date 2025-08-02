@@ -28,10 +28,6 @@ export default function Profile() {
       try {
         await getPublicActivities(user as string)
           .then((res): any => {
-            if (!res || res.length === 0) {
-              throw new Error('No user found');
-            }
-
             if (res) {
               // @ts-ignore
               delete res[0].profiles;
@@ -82,12 +78,11 @@ export default function Profile() {
             <View className="flex-1"></View>
             <Button label="Return" callback={handleReturnToSearch}></Button>
           </View>
-          <Text className={styles.subtitle}>Public bucket list items</Text>
 
           {activities === undefined || activities.length === 0 ? (
             <ActivitiesNotFound></ActivitiesNotFound>
           ) : (
-            ''
+            <Text className={styles.subtitle}>Public bucket list items</Text>
           )}
 
           <FlashList
