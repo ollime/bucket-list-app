@@ -3,6 +3,7 @@ import { Text, View, ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
 import Toast from 'react-native-toast-message';
 import Collapsible from 'react-native-collapsible';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 import { supabase } from '../../utils/supabase';
 import { useSession } from 'utils/AuthContext';
@@ -24,7 +25,8 @@ export default function Account() {
   const [isPublic, setIsPublic] = useState(false);
   const [allowsFriends, setAllowsFriends] = useState(false);
   const [isSaved, setIsSaved] = useState<boolean>(true);
-  const [isCollapsed, setIsCollapsed] = useState<boolean>(true);
+  const [collapsedLocal, setCollapsedLocal] = useState<boolean>(true);
+  const [collapsedAccount, setCollapsedAccount] = useState<boolean>(true);
 
   const [isDarkMode, setIsDarkMode] = useState<boolean>(true);
   const [overlayAllowed, setOverlayAllowed] = useState<boolean>(true);
@@ -198,13 +200,13 @@ export default function Account() {
               callback={handleToggleFriends}></Toggle>
           </View>
 
-          <View style={{ marginBottom: 20 }}>
+          <View style={{ marginBottom: 10 }}>
             <View className="flex-row">
               <RoundButton
-                label={`${isCollapsed ? 'Show' : 'Hide'} Local Settings`}
-                callback={() => setIsCollapsed(!isCollapsed)}></RoundButton>
+                label={`${collapsedLocal ? 'Show' : 'Hide'} Local Settings`}
+                callback={() => setCollapsedLocal(!collapsedLocal)}></RoundButton>
             </View>
-            <Collapsible collapsed={isCollapsed}>
+            <Collapsible collapsed={collapsedLocal}>
               <View className="my-2">
                 <Text className={`${styles.subtitle} mr-2`}>Local settings</Text>
                 <Toggle
@@ -221,6 +223,26 @@ export default function Account() {
                   <RoundButton label="Reload app to see changes" callback={() => {}}></RoundButton>
                 </View>
               </View>
+            </Collapsible>
+          </View>
+
+          <View style={{ marginBottom: 20 }}>
+            <View className="flex-row">
+              <RoundButton
+                label={`${collapsedAccount ? 'Show' : 'Hide'} Account Settings`}
+                callback={() => setCollapsedAccount(!collapsedAccount)}></RoundButton>
+            </View>
+            <Collapsible collapsed={collapsedAccount}>
+              <Button
+                label={
+                  <View className="flex flex-row items-center">
+                    <MaterialIcons name="delete" size={24} color="black" />
+                    <Text className="ml-2">Delete user</Text>
+                  </View>
+                }
+                callback={() => {
+                  deleteUser(session ?? undefined);
+                }}></Button>
             </Collapsible>
           </View>
 
@@ -243,17 +265,9 @@ export default function Account() {
                 supabase.auth.signOut();
                 router.push('/');
               }}></Button>
-
-            <Button
-              label="Delete user"
-              callback={() => {
-                deleteUser(session ?? undefined);
-              }}></Button>
           </View>
         </ScrollView>
-        <View className="z-[-1]">
-          <AppInfo></AppInfo>
-        </View>
+        <AppInfo></AppInfo>
       </Container>
     </>
   );

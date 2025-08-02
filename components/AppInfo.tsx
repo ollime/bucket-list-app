@@ -5,7 +5,7 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 export default function AppInfo() {
   return (
-    <View className="flex w-full flex-1 flex-row items-end">
+    <View className="z-[-1] flex w-full flex-1 flex-row items-end">
       <View className="flex flex-1 flex-row items-center justify-end p-2">
         <Link
           href="https://github.com/ollime/bucket-list-app"
