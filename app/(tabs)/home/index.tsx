@@ -84,9 +84,6 @@ export default function Home() {
     }
     addNewActivity(emptyActivity, session ?? undefined);
     setData(data ? [...data, emptyMinimized] : [emptyMinimized]);
-    setTimeout(() => {
-      listRef.current.scrollToEnd({ animated: true });
-    }, 0);
   }
 
   return (
