@@ -58,6 +58,24 @@ export async function getFriendStatus(friend: string, session?: Session) {
   return data[0]?.status;
 }
 
+/** Get full name of friend */
+export async function getFriendFullName(friend: string) {
+  if (!friend) return '';
+
+  const { data, error } = await supabase
+    .from('profiles')
+    .select('full_name')
+    .eq('username', friend)
+    .single();
+
+  if (error) {
+    console.error('Error fetching full name:', error.message);
+    return '';
+  }
+
+  return data?.full_name ?? '';
+}
+
 /** Updates the friend status between two users.
  *
  * Sender and receiver must be the same as they are recorded

@@ -6,7 +6,7 @@ import { useRouter } from 'expo-router';
 import { ProfileData } from 'utils/profile.types';
 import { useSession } from 'utils/AuthContext';
 import { showAlert } from 'utils/alert';
-import { updateFriendStatus } from 'api/friends-api';
+import { getFriendFullName, updateFriendStatus } from 'api/friends-api';
 import { downloadImage, getUsername } from 'api/profiles-api';
 
 import { RoundButton } from './Button';
@@ -34,6 +34,7 @@ export default function ProfileList({ data, onRefresh, refreshing, ref }: Profil
 
 function ProfileListItem({ item }: { item: ProfileData }) {
   const [avatarUri, setAvatarUri] = useState<string | undefined>(undefined);
+  const [fullName, setFullName] = useState<string | undefined>(undefined);
   const router = useRouter();
   const session = useSession();
 
@@ -43,6 +44,10 @@ function ProfileListItem({ item }: { item: ProfileData }) {
       if (path) {
         const newUrl = (await downloadImage(path)) as unknown as string;
         if (isMounted) setAvatarUri(newUrl);
+
+        if (item.friendStatus === 'accepted') {
+          setFullName(await getFriendFullName(item.username));
+        }
       }
     }
     if (item.avatarUrl) {
@@ -51,7 +56,7 @@ function ProfileListItem({ item }: { item: ProfileData }) {
     return () => {
       isMounted = false;
     };
-  }, [item.avatarUrl]);
+  }, [item.avatarUrl, session, item.username, item.friendStatus]);
 
   function handleOpenProfile() {
     router.push(`profile/${item.username}`);
@@ -106,7 +111,9 @@ function ProfileListItem({ item }: { item: ProfileData }) {
         ) : (
           <View className={`${styles.itemImage} ${styles.blankImage}`}></View>
         )}
-        <Text className={styles.itemLabel}>{item.username}</Text>
+        <Text className={styles.itemLabel}>
+          {item.username} <Text className="ml-2">{fullName ? `(${fullName})` : ''}</Text>
+        </Text>
         <View className={styles.button}>
           <RoundButton {...renderButtonProps()} />
         </View>
