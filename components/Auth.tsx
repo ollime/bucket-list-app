@@ -54,6 +54,17 @@ export default function Auth() {
       password: password,
     });
 
+    if (session) {
+      const new_user = session.user.email?.split('@')[0];
+      const { error: profileError } = await supabase
+        .from('profiles')
+        .update([{ id: session.user.id, username: new_user }]);
+
+      if (profileError) {
+        showAlert(String(profileError), 'error', false);
+      }
+    }
+
     if (error) showAlert(error.message, 'error', false);
     if (!session)
       showAlert(
