@@ -2,6 +2,7 @@ import { useEffect, useState, useRef, useCallback } from 'react';
 import { Text, TouchableWithoutFeedback, View } from 'react-native';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { useFocusEffect } from '@react-navigation/native';
+import { Image } from 'expo-image';
 
 import { addNewActivity, getAllActivities } from 'api/activities-api';
 import { MinimizedActivity, Activity } from 'utils/activity.types';
@@ -83,7 +84,9 @@ export default function Home() {
     }
     addNewActivity(emptyActivity, session ?? undefined);
     setData(data ? [...data, emptyMinimized] : [emptyMinimized]);
-    listRef.current.scrollToEnd({ animated: true });
+    setTimeout(() => {
+      listRef.current.scrollToEnd({ animated: true });
+    }, 0);
   }
 
   return (
@@ -104,6 +107,7 @@ export default function Home() {
           }
           callback={handleAddItem}></Button>
       </View>
+
       <BucketList
         data={data}
         user_id={session?.user.id ?? ''}
@@ -114,6 +118,19 @@ export default function Home() {
   );
 }
 
+function ActivitiesNotFound() {
+  return (
+    <View className={styles.container}>
+      <Image
+        source={require('assets/error-page/otter-alarm.png')}
+        style={{ height: 250, width: 200 }}
+        contentFit="contain"></Image>
+      <View className={`m-2 ${styles.title}`}>Add your first bucket list item!</View>
+    </View>
+  );
+}
+
 const styles = {
   title: 'text-3xl font-bold text-primary',
+  container: 'flex flex-1 items-center justify-center m-6',
 };

@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { TouchableWithoutFeedback, View, Text } from 'react-native';
+import { Image } from 'expo-image';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 import { ProfileData, ProfileWithoutFriend } from 'utils/profile.types';
@@ -70,16 +71,36 @@ export default function Friends() {
             <MaterialIcons name="refresh" size={30} color="black" className="m-2" />
           </TouchableWithoutFeedback>
         </View>
-        <ProfileList
-          data={data}
-          onRefresh={onRefresh}
-          refreshing={refreshing}
-          ref={ref}></ProfileList>
+        {data.length === 0 ? (
+          <FriendsNotFound />
+        ) : (
+          <ProfileList
+            data={data}
+            onRefresh={onRefresh}
+            refreshing={refreshing}
+            ref={ref}></ProfileList>
+        )}
       </Container>
     </>
   );
 }
 
+function FriendsNotFound() {
+  return (
+    <View className={styles.container}>
+      <Image
+        source={require('assets/error-page/otter-cool.png')}
+        style={{ height: 250, width: 200 }}
+        contentFit="contain"></Image>
+      <View className={`m-2 items-center`}>
+        <Text className={styles.title}>No friends yet</Text>
+        <Text>Add new friends in the search tab!</Text>
+      </View>
+    </View>
+  );
+}
+
 const styles = {
-  title: 'text-3xl font-bold text-primary',
+  title: 'text-3xl font-bold text-primary m-2',
+  container: 'flex flex-1 items-center justify-center m-6',
 };
