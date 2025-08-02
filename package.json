@@ -10,7 +10,7 @@
     "format": "eslint \"**/*.{js,jsx,ts,tsx}\" --fix && prettier \"**/*.{js,jsx,ts,tsx,json}\" --write",
     "web": "expo start --web",
     "clear": "npx expo start --clear",
-    "build": "expo export:web",
+    "build": "expo build:web",
     "android-build": "cd android && gradlew.bat clean && gradlew.bat assembleRelease"
   },
   "dependencies": {
