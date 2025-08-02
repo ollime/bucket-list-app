@@ -9,16 +9,12 @@ export function showAlert(
   autoHide: boolean,
   additionalInfo?: string
 ) {
-  if (Platform.OS === 'android' || Platform.OS === 'ios') {
-    Toast.show({
-      type: type,
-      text1: content,
-      text2: additionalInfo,
-      position: 'top',
-      autoHide: autoHide,
-      swipeable: true,
-    });
-  } else if (Platform.OS === 'web') {
-    alert(content);
-  }
+  Toast.show({
+    type: type,
+    text1: content,
+    text2: additionalInfo,
+    position: 'top',
+    autoHide: autoHide,
+    swipeable: true,
+  });
 }
