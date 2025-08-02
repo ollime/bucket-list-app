@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { View, AppState } from 'react-native';
+import { View, Text, AppState } from 'react-native';
 import { useRouter } from 'expo-router';
 
 import { showAlert } from 'utils/alert';
@@ -86,6 +86,29 @@ export default function Auth() {
     return value.length > 7 && value.length < 101;
   }
 
+  async function handleResetPassword() {
+    const getURL = () => {
+      let url =
+        process?.env?.NEXT_PUBLIC_SITE_URL ?? // Set this to your site URL in production env.
+        process?.env?.NEXT_PUBLIC_VERCEL_URL ?? // Automatically set by Vercel.
+        'http://localhost:3000/';
+      // Make sure to include `https://` when not localhost.
+      url = url.startsWith('http') ? url : `https://${url}`;
+      // Make sure to include a trailing `/`.
+      url = url.endsWith('/') ? url : `${url}/update-password`;
+      return url;
+    };
+
+    if (email) {
+      await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: getURL(),
+      });
+      showAlert('Check your email for a link to reset password', 'info', true);
+    } else {
+      showAlert('Enter your email in the first field first', 'info', true);
+    }
+  }
+
   return (
     <>
       <View>
@@ -114,6 +137,9 @@ export default function Auth() {
           <Button label="Sign in with email" callback={() => signInWithEmail()}></Button>
           <Button label="Sign up with email" callback={() => signUpWithEmail()}></Button>
         </View>
+        <Text onPress={handleResetPassword} className="m-2 my-4 py-2">
+          Forgot password?
+        </Text>
       </View>
     </>
   );
