@@ -4,6 +4,7 @@ import { useRouter } from 'expo-router';
 import Toast from 'react-native-toast-message';
 import Collapsible from 'react-native-collapsible';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import * as Updates from 'expo-updates';
 
 import { supabase } from '../../utils/supabase';
 import { useSession } from 'utils/AuthContext';
@@ -220,7 +221,11 @@ export default function Account() {
                   icon={isDarkMode ? 'light-mode' : 'dark-mode'}
                   callback={handleToggleDark}></Toggle>
                 <View className="flex-row">
-                  <RoundButton label="Reload app to see changes" callback={() => {}}></RoundButton>
+                  <RoundButton
+                    label="Reload app to see changes"
+                    callback={async () => {
+                      await Updates.reloadAsync();
+                    }}></RoundButton>
                 </View>
               </View>
             </Collapsible>

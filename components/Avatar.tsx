@@ -41,7 +41,7 @@ export default function Avatar({ url, onUpload, userId }: Props) {
           <Button
             label={uploading ? 'Uploading...' : 'Upload avatar'}
             callback={() => {
-              if (avatarUrl) uploadAvatar(userId, avatarUrl, onUpload, setUploading);
+              uploadAvatar(userId, avatarUrl ?? null, onUpload, setUploading);
             }}
             disabled={uploading}></Button>
           <Button

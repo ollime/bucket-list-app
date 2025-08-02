@@ -72,7 +72,7 @@ export async function downloadImage(path: string) {
 /** Uploads a new avatar to the supabase bucket */
 export async function uploadAvatar(
   userId: string,
-  url: string,
+  url: string | null | undefined,
   onUpload: (filepath: string) => void,
   setUploading: (isLoading: boolean) => void
 ) {
