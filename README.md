@@ -6,7 +6,7 @@
 ![Platforms](https://img.shields.io/badge/platforms-android%2C_web-blue)
 [![Release](https://img.shields.io/github/v/release/ollime/bucket-list-app)](https://github.com/ollime/bucket-list-app/releases)
 
-<img src="assets/readme/home.png" alt="Login page" style="height:300px;" /><img src="assets/readme/castles.png" alt="Login page" style="height:300px;" /><img src="assets/readme/accounts.png" alt="Login page" style="height:300px;" />
+<img src="assets/readme/home.png" alt="Page displaying bucket list activities" style="height:300px;" /><img src="assets/readme/castles.png" alt="Page with castles and completed activities" style="height:300px;" /><img src="assets/readme/dark-mode.png" alt="Accounts & settings page" style="height:300px;" />
 
 An app to keep track of and share bucket list items with friends.
 
@@ -19,7 +19,7 @@ An app to keep track of and share bucket list items with friends.
 
 ## Downloads
 
-Download the .apk or .ipa package from the latest release (TBD)
+Download the .apk package or visit the web deployment from the [latest release](https://github.com/ollime/bucket-list-app/releases)
 
 ## Local development build
 
