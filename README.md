@@ -6,13 +6,11 @@
 ![Platforms](https://img.shields.io/badge/platforms-android%2C_web-blue)
 [![Release](https://img.shields.io/github/v/release/ollime/bucket-list-app)](https://github.com/ollime/bucket-list-app/releases)
 
-<img src="assets/readme/home.png" alt="Login page" style="height:300px;" />
-<img src="assets/readme/castles.png" alt="Login page" style="height:300px;" /><img src="assets/readme/accounts.png" alt="Login page" style="height:300px;" />
+<img src="assets/readme/home.png" alt="Login page" style="height:300px;" /><img src="assets/readme/castles.png" alt="Login page" style="height:300px;" /><img src="assets/readme/accounts.png" alt="Login page" style="height:300px;" />
 
 An app to keep track of and share bucket list items with friends.
 
 - Mobile app built with React Native + Expo, backend with Supabase
-
 - Create an account by signing up with email
 - Add your friends to track you activities together
 - Add bucket list activities and check them off as you complete them
@@ -25,7 +23,9 @@ Download the .apk or .ipa package from the latest release (TBD)
 
 ## Local development build
 
-Set up the `.env` file in the root directory with EXPO_PUBLIC_SUPABASE_URL and EXPO_PUBLIC_SUPABASE_ANON_KEY
+Set up the `.env` file in the root directory with EXPO_PUBLIC_SUPABASE_URL, EXPO_PUBLIC_SUPABASE_ANON_KEY, EXPO_PUBLIC_SUPABASE_ID, and NODE_ENV
+
+To run the app in web: `npm run web`
 
 If `expo-dev-client` is installed,
 
