@@ -8,7 +8,7 @@ export default function App() {
   return (
     <>
       <Container>
-        <Text className={styles.title}>App</Text>
+        <Text className={styles.title}>Bucket List App</Text>
         <Auth></Auth>
       </Container>
     </>
