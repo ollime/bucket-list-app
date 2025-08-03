@@ -6,8 +6,6 @@
 ![Platforms](https://img.shields.io/badge/platforms-android%2C_web-blue)
 [![Release](https://img.shields.io/github/v/release/ollime/bucket-list-app)](https://github.com/ollime/bucket-list-app/releases)
 
-<img src="assets/readme/home.png" alt="Page displaying bucket list activities" style="height:300px;" /><img src="assets/readme/castles.png" alt="Page with castles and completed activities" style="height:300px;" /><img src="assets/readme/dark-mode.png" alt="Accounts & settings page" style="height:300px;" />
-
 An app to keep track of and share bucket list items with friends.
 
 - Mobile app built with React Native + Expo, backend with Supabase
@@ -16,6 +14,9 @@ An app to keep track of and share bucket list items with friends.
 - Add bucket list activities and check them off as you complete them
 - Generates sandcastle images with 7 variants based on how many activities the user completes
 - Stores app settings locally using Async Storage
+
+
+<img src="assets/readme/home.png" alt="Page displaying bucket list activities" style="height:300px;" /><img src="assets/readme/castles.png" alt="Page with castles and completed activities" style="height:300px;" /><img src="assets/readme/dark-mode.png" alt="Accounts & settings page" style="height:300px;" />
 
 ## Downloads
 
