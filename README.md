@@ -23,10 +23,16 @@ Download the .apk package or visit the web deployment from the [latest release](
 
 ## Local development build
 
+To download the source code: ```git clone https://github.com/ollime/bucket-list-app.git```
+
+To install packages required by the project: ```npm install```
+
 Set up the `.env` file in the root directory with EXPO_PUBLIC_SUPABASE_URL, EXPO_PUBLIC_SUPABASE_ANON_KEY, EXPO_PUBLIC_SUPABASE_ID
 
+### Web
 To run the app in web: `npm run web`
 
+### Android
 If `expo-dev-client` is installed,
 
 - To run the prebuild: `npm run prebuild`
