@@ -95,7 +95,7 @@ export default function Auth() {
       // Make sure to include `https://` when not localhost.
       url = url.startsWith('http') ? url : `https://${url}`;
       // Make sure to include a trailing `/`.
-      url = url.endsWith('/') ? url : `${url}/update-password`;
+      url = url.endsWith('/update-password') ? url : `${url}/update-password`;
       return url;
     };
 
