@@ -111,36 +111,34 @@ export default function Auth() {
 
   return (
     <>
-      <View>
-        <TextField
-          label="email"
-          value={email}
-          onChangeText={(text) => {
-            setEmail(text);
-            setIsEmailValid(validateEmail(text));
-          }}
-          placeholder="email@domain.com"
-          isValid={isEmailValid}
-          icon="email"></TextField>
-        <TextField
-          label="password"
-          value={password}
-          onChangeText={(text) => {
-            setPassword(text);
-            setIsPasswordValid(validatePassword(text));
-          }}
-          placeholder="password"
-          isValid={isPasswordValid}
-          icon="numbers"
-          obfuscateText={true}></TextField>
-        <View className={styles.buttonContainer}>
-          <Button label="Sign in with email" callback={() => signInWithEmail()}></Button>
-          <Button label="Sign up with email" callback={() => signUpWithEmail()}></Button>
-        </View>
-        <Text onPress={handleResetPassword} className="m-2 my-4 py-2">
-          Forgot password?
-        </Text>
+      <TextField
+        label="email"
+        value={email}
+        onChangeText={(text) => {
+          setEmail(text);
+          setIsEmailValid(validateEmail(text));
+        }}
+        placeholder="email@domain.com"
+        isValid={isEmailValid}
+        icon="email"></TextField>
+      <TextField
+        label="password"
+        value={password}
+        onChangeText={(text) => {
+          setPassword(text);
+          setIsPasswordValid(validatePassword(text));
+        }}
+        placeholder="password"
+        isValid={isPasswordValid}
+        icon="numbers"
+        obfuscateText={true}></TextField>
+      <View className={styles.buttonContainer}>
+        <Button label="Sign in with email" callback={() => signInWithEmail()}></Button>
+        <Button label="Sign up with email" callback={() => signUpWithEmail()}></Button>
       </View>
+      <Text onPress={handleResetPassword} className="m-2 my-4 py-2">
+        Forgot password?
+      </Text>
     </>
   );
 }

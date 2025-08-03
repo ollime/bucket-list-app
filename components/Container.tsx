@@ -59,7 +59,7 @@ export default function Container({
 }
 
 const styles = {
-  container: 'flex flex-1 relative',
+  container: 'flex flex-1 relative overflow-hidden',
   root: 'flex flex-1 bg-background',
   background: 'flex-shrink justify-end',
 };

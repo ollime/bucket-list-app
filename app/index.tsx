@@ -6,12 +6,10 @@ import './../global.css';
 
 export default function App() {
   return (
-    <>
-      <Container>
-        <Text className={styles.title}>Bucket List App</Text>
-        <Auth></Auth>
-      </Container>
-    </>
+    <Container>
+      <Text className={styles.title}>Bucket List App</Text>
+      <Auth></Auth>
+    </Container>
   );
 }
 
