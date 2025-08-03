@@ -127,7 +127,7 @@ export async function updateActivityDetails({
     showAlert(error.message, 'error', false);
     return;
   }
-  showAlert('Activity updated', 'info', true);
+  showAlert('Activity updated', 'success', true);
   return users;
 }
 
@@ -150,7 +150,7 @@ export async function updateActivityName(activity: string, newName: string, user
     showAlert(error.message, 'error', false);
     return;
   }
-  showAlert('Activity updated', 'info', true);
+  showAlert('Activity updated', 'success', true);
   return users;
 }
 

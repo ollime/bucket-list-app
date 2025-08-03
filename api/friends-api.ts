@@ -141,5 +141,5 @@ export async function addFriend(screenName: string, session?: Session) {
     showAlert(error.message, 'error', false);
     return;
   }
-  showAlert('Friend request sent', 'info', true);
+  showAlert('Friend request sent', 'success', true);
 }

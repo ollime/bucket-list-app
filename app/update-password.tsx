@@ -19,7 +19,7 @@ export default function UpdatePassword() {
       showAlert('Password updated', 'success', true);
       router.replace('/home');
     } else {
-      showAlert('Password must be between 8 and 100 characters', 'error', true);
+      showAlert('Password must be between 8 and 100 characters', 'info', true);
     }
   }
 
