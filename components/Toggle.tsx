@@ -10,6 +10,7 @@ interface ToggleProps {
 }
 
 export default function Toggle({ value, label, icon, callback, darkMode }: ToggleProps) {
+  console.log(darkMode);
   return (
     <TouchableWithoutFeedback onPress={callback}>
       <View className="m-2 flex flex-row items-center">

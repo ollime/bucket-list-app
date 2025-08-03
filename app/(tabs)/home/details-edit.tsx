@@ -20,10 +20,12 @@ import TextField from 'components/TextField';
 import StatusBadge from 'components/StatusBadge';
 import Toggle from 'components/Toggle';
 import DateDisplay from 'components/DateDisplay';
+import { useTheme } from 'utils/ThemeContext';
 
 export default function SearchModal() {
   const session = useSession();
   const router = useRouter();
+  const theme = useTheme();
   const params = useLocalSearchParams();
   const [activity, setActivity] = useState<string>();
   const [description, setDescription] = useState<string>();
@@ -164,13 +166,13 @@ export default function SearchModal() {
             label="Public"
             icon={isPublic ? 'public' : 'public-off'}
             callback={handleTogglePublic}
-            darkMode={true}></Toggle>
+            darkMode={theme?.isDarkMode}></Toggle>
           <Toggle
             value={isComplete}
             label="Complete activity"
             icon={isComplete ? 'check-box' : 'check-box-outline-blank'}
             callback={handleToggleComplete}
-            darkMode={true}></Toggle>
+            darkMode={theme?.isDarkMode}></Toggle>
         </View>
       </View>
     </Modal>

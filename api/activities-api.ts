@@ -202,11 +202,13 @@ export async function getActivitiesCount(session?: Session) {
   const { data, error } = await supabase
     .from('activities')
     .select('activity')
+    .eq('is_complete', 'TRUE')
     .eq('user_id', session?.user.id);
 
   if (error) {
     showAlert(error.message, 'error', false);
     return;
   }
+  console.log(data);
   return data.length;
 }

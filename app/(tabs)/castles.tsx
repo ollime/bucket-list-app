@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { useState, useEffect, useCallback } from 'react';
+import { View, Text, StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { Image } from 'expo-image';
 
 import { getActivitiesCount } from 'api/activities-api';
@@ -41,21 +42,32 @@ export default function Castles() {
     </>
   );
 
-  useEffect(() => {
-    async function getData() {
+  const getData = useCallback(async () => {
+    if (session) {
       const count = await getActivitiesCount(session ?? undefined);
       setNumOfCastles(count ?? 0);
     }
-    if (session) {
-      getData();
-    }
   }, [session]);
+
+  useEffect(() => {
+    getData();
+  }, [getData]);
 
   return (
     <Container images={image}>
-      <Text className={'text-center text-3xl font-bold text-primary'} style={{ margin: 25 }}>
-        {numOfCastles} activities completed!
-      </Text>
+      <View className="items-center">
+        <Text
+          className={'flex-1 text-center text-3xl font-bold text-primary'}
+          style={{ marginTop: 25 }}>
+          {numOfCastles} activities completed!
+        </Text>
+        <TouchableWithoutFeedback onPress={getData}>
+          <View className="flex-row items-center">
+            <Text>Refresh activities</Text>
+            <MaterialIcons name="refresh" size={30} color="black" className="m-2" />
+          </View>
+        </TouchableWithoutFeedback>
+      </View>
       <View style={styles.castles}>
         <CastlesOverlay numOfCastles={numOfCastles}></CastlesOverlay>
       </View>
