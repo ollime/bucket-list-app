@@ -24,7 +24,7 @@ Download the .apk package or visit the web deployment from the [latest release](
 
 ## Local development build
 
-Set up the `.env` file in the root directory with EXPO_PUBLIC_SUPABASE_URL, EXPO_PUBLIC_SUPABASE_ANON_KEY, EXPO_PUBLIC_SUPABASE_ID, and NODE_ENV
+Set up the `.env` file in the root directory with EXPO_PUBLIC_SUPABASE_URL, EXPO_PUBLIC_SUPABASE_ANON_KEY, EXPO_PUBLIC_SUPABASE_ID
 
 To run the app in web: `npm run web`
 
@@ -52,3 +52,12 @@ If `expo-dev-client` is installed,
   }
   ```
 - To run the app: `npm run android`
+- For more details, look up the Expo docs for wired debugging with Android
+
+## Production build
+
+If the local build is set up:
+
+Set `NODE_ENV=production` in the `.env` file
+
+Check `package.json` for the Android and web build commands
